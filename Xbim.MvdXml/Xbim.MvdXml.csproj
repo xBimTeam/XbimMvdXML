@@ -115,6 +115,7 @@
     <Compile Include="MvdXml\ITemplateRule.cs" />
     <Compile Include="MvdXml\ModelView.cs" />
     <Compile Include="MvdXml\RequirementsRequirement.cs" />
+    <Compile Include="Validation\ConceptExtensions.cs" />
     <Compile Include="Validation\Indicator.cs" />
     <Compile Include="Validation\IndicatorLookup.cs" />
     <Compile Include="Validation\MvdPropertyRuleValue.cs" />
@@ -139,8 +140,6 @@
     <None Include="Schema\mvdXML_V1.1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Templates\ClassifyModelToNRM.bql" />
-    <None Include="Templates\EmbeddedNRM.bql" />
     <None Include="XbimOpenSourceKeyFile.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -28,11 +28,10 @@ namespace Xbim.MvdXml.DataManagement
         internal static List<T[]> GetCombinations<T>(params IEnumerable<T>[] enumerables)
         {
             var combinations = new List<T[]>(enumerables.Length);
-            if (enumerables.Length > 0)
-            {
-                var chain = new T[enumerables.Length];
-                GetCombinationsRec(sources: enumerables, chain: chain, index: 0, combinations: combinations);
-            }
+            if (enumerables.Length <= 0)
+                return combinations;
+            var chain = new T[enumerables.Length];
+            GetCombinationsRec(sources: enumerables, chain: chain, index: 0, combinations: combinations);
             return combinations;
         }
 

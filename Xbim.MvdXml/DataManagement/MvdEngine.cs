@@ -7,6 +7,8 @@ using Xbim.Common;
 using Xbim.Common.Metadata;
 using Xbim.MvdXml.Validation;
 
+// todo: we need to decide if the namespace Xbim.MvdXml.DataManagement makes sense
+// todo: and how it does relate to Xbim.MvdXml.Validation
 namespace Xbim.MvdXml.DataManagement
 {
     internal delegate void ClearCacheHandler();
@@ -208,9 +210,9 @@ namespace Xbim.MvdXml.DataManagement
 #endif
 
             // prepare the list of subTemplates that match only once
-            var tSub = subTemplates != null
-                ? subTemplates.Where(subTemplate => subTemplate.Rules != null && subTemplate.AppliesTo(entity)).ToList()
-                : new List<ConceptTemplate>();
+            var tSub = 
+                subTemplates?.Where(subTemplate => subTemplate.Rules != null && subTemplate.AppliesTo(entity)).ToList() 
+                ?? new List<ConceptTemplate>();
 
             var addedVectorItems = new List<string>();
 
