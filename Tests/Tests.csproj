@@ -147,9 +147,6 @@
     <None Include="FromNN\mvdXML test.ifc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="FromNN\mvdXML test.xBIM">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="FromNN\mvdXMLsimpleexample.mvdxml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -158,8 +155,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="FromMW\mvdXML_ifc4_unit-test _type.ifc" />
-    <None Include="FromMW\mvdXML_ifc4_unit-test.ifc" />
-    <None Include="FromMW\mvdXML_ifc4_unit-test.xBIM">
+    <None Include="FromMW\mvdXML_ifc4_unit-test.ifc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="FromMW\mvdXML_ifc4_unit-test_not-empty-fireRating.ifc" />

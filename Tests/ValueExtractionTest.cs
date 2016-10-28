@@ -18,7 +18,7 @@ namespace Tests
             const string fileName = @"FromNN\Measurement requirements-1-1RCa.mvdxml";
             var mvd = mvdXML.LoadFromFile(fileName);
             
-            var m = IfcStore.Open(@"FromNN\mvdXML test.xBIM");
+            var m = IfcStore.Open(@"FromNN\mvdXML test.ifc");
             // m.Open(@"C:\Users\Bonghi\Desktop\str\FILE2015.xBIM");
             // var walls = m.Instances.OfType<IfcWallStandardCase>();
             // var wall = m.Instances[1973];

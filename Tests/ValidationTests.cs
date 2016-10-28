@@ -13,7 +13,7 @@ namespace Tests
         [TestMethod]
         public void ExpectedValidationResults()
         {
-            var model = IfcStore.Open(@"FromMW\mvdXML_ifc4_unit-test.xBIM");
+            var model = IfcStore.Open(@"FromMW\mvdXML_ifc4_unit-test.ifc");
 
             // syncpoint
             
