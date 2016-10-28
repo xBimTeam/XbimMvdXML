@@ -1,0 +1,1112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Template for strict export -->
+<mvdXML xmlns="http://buildingsmart-tech.org/mvdXML/mvdXML1-1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://buildingsmart-tech.org/mvdXML/mvdXML1-1 ../xsd/mvdXML_V1-1.xsd" uuid="00000013-0000-0000-0000-000000000013" name="AEC3 Requirements Database Manager">
+  <Templates>
+    <ConceptTemplate uuid="00000000-0000-0000-0001-000000000001" name="ProductConceptTemplate" applicableSchema="IFC4" applicableEntity="IfcProduct">
+      <Definitions>
+        <Definition>
+          <Body lang="en"><![CDATA[Concept Template for any Product]]></Body>
+        </Definition>
+      </Definitions>
+      <Rules>
+        <AttributeRule RuleID="Name" AttributeName="Name"/>
+        <AttributeRule RuleID="Description" AttributeName="Description"/>
+        <AttributeRule RuleID="PredefinedType" AttributeName="PredefinedType"/>
+        <AttributeRule AttributeName="IsDefinedBy">
+          <EntityRules>
+            <EntityRule EntityName="IfcRelDefinesByProperties">
+              <References>
+                <Template ref="10000000-0000-0000-0001-000000000001"/>
+              </References>
+            </EntityRule>
+            <EntityRule EntityName="IfcRelDefinesByType">
+              <References IdPrefix="T_">
+                <Template ref="10000000-0000-0000-0001-000000000002"/>
+              </References>
+            </EntityRule>
+          </EntityRules>
+        </AttributeRule>
+        <AttributeRule AttributeName="HasAssociations">
+          <EntityRules>
+            <EntityRule EntityName="IfcRelAssociatesClassification">
+              <References>
+                <Template ref="10000000-0000-0000-0001-000000000004"/>
+              </References>
+            </EntityRule>
+          </EntityRules>
+        </AttributeRule>
+      </Rules>
+    </ConceptTemplate>
+    <ConceptTemplate uuid="a322fdd7-cd28-4ea7-8797-f6cf124ab3d6" name="Partial Templates" applicableSchema="IFC4">
+      <Definitions>
+        <Definition>
+          <Body lang="en"><![CDATA[Partial concept templates are described herein to indicate usage of common data types, which are then incorporated into other templates.]]></Body>
+        </Definition>
+      </Definitions>
+      <SubTemplates>
+        <ConceptTemplate uuid="88b4aaa9-0925-447c-b009-fe357b7c754e" name="Properties" code="" applicableSchema="IFC4" applicableEntity="IfcSimpleProperty">
+          <Definitions>
+            <Definition>
+              <Body lang="en"><![CDATA[Properties may contain user-defined data, where data types are open-ended.]]></Body>
+            </Definition>
+          </Definitions>
+          <Rules>
+            <AttributeRule RuleID="Property" AttributeName="Name">
+              <EntityRules>
+                <EntityRule EntityName="IfcIdentifier"/>
+              </EntityRules>
+            </AttributeRule>
+            <AttributeRule AttributeName="Description">
+              <EntityRules>
+                <EntityRule EntityName="IfcText"/>
+              </EntityRules>
+            </AttributeRule>
+          </Rules>
+          <SubTemplates>
+            <ConceptTemplate uuid="6655f6d0-29a8-47b8-8f3d-c9fce9c9a620" name="Single Value" applicableSchema="IFC4" applicableEntity="IfcPropertySingleValue">
+              <Rules>
+                <AttributeRule RuleID="Property" AttributeName="Name">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcIdentifier"/>
+                  </EntityRules>
+                </AttributeRule>
+                <AttributeRule AttributeName="Description">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcText"/>
+                  </EntityRules>
+                </AttributeRule>
+                <AttributeRule RuleID="Value" AttributeName="NominalValue">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcValue"/>
+                  </EntityRules>
+                </AttributeRule>
+              </Rules>
+            </ConceptTemplate>
+            <ConceptTemplate uuid="c148a099-c351-43a8-9266-5f3de0b45a95" name="Enumerated Value" applicableSchema="IFC4" applicableEntity="IfcPropertyEnumeratedValue">
+              <Rules>
+                <AttributeRule RuleID="Property" AttributeName="Name">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcIdentifier"/>
+                  </EntityRules>
+                </AttributeRule>
+                <AttributeRule AttributeName="Description">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcText"/>
+                  </EntityRules>
+                </AttributeRule>
+                <AttributeRule RuleID="Value" AttributeName="EnumerationValues">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcValue"/>
+                  </EntityRules>
+                </AttributeRule>
+                <AttributeRule AttributeName="EnumerationReference">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcPropertyEnumeration">
+                      <AttributeRules>
+                        <AttributeRule RuleID="Property" AttributeName="Name">
+                          <EntityRules>
+                            <EntityRule EntityName="IfcLabel"/>
+                          </EntityRules>
+                        </AttributeRule>
+                      </AttributeRules>
+                    </EntityRule>
+                  </EntityRules>
+                </AttributeRule>
+              </Rules>
+            </ConceptTemplate>
+          </SubTemplates>
+        </ConceptTemplate>
+        <ConceptTemplate uuid="10000000-0000-0000-0001-000000000001" name="IfcRelDefinesByProperties" applicableSchema="" applicableEntity="IfcRelDefinesByProperties">
+          <Rules>
+            <AttributeRule AttributeName="RelatingPropertyDefinition">
+              <EntityRules>
+                <EntityRule EntityName="IfcPropertySet">
+                  <References>
+                    <Template ref="10000000-0000-0000-0001-000000000007"/>
+                  </References>
+                </EntityRule>
+                <EntityRule EntityName="IfcElementQuantity">
+                  <References>
+                    <Template ref="10000000-0000-0000-0001-000000000008"/>
+                  </References>
+                </EntityRule>
+              </EntityRules>
+            </AttributeRule>
+          </Rules>
+        </ConceptTemplate>
+        <ConceptTemplate uuid="10000000-0000-0000-0001-000000000008" name="IfcElementQuantity" applicableSchema="IFC4" applicableEntity="IfcElementQuantity">
+          <Rules>
+            <AttributeRule RuleID="Set" AttributeName="Name">
+              <EntityRules>
+                <EntityRule EntityName="IfcLabel"/>
+              </EntityRules>
+            </AttributeRule>
+            <AttributeRule AttributeName="Description">
+              <EntityRules>
+                <EntityRule EntityName="IfcText"/>
+              </EntityRules>
+            </AttributeRule>
+            <AttributeRule AttributeName="Quantities">
+              <EntityRules>
+                <EntityRule EntityName="IfcPhysicalSimpleQuantity">
+                  <AttributeRules>
+                    <AttributeRule RuleID="Property" AttributeName="Name">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcLabel"/>
+                      </EntityRules>
+                    </AttributeRule>
+                    <AttributeRule RuleID="Value" AttributeName="CountValue"/>
+                    <AttributeRule RuleID="Value" AttributeName="LengthValue"/>
+                    <AttributeRule RuleID="Value" AttributeName="AreaValue"/>
+                    <AttributeRule RuleID="Value" AttributeName="VolumeValue"/>
+                    <AttributeRule RuleID="Value" AttributeName="WeightValue"/>
+                    <AttributeRule RuleID="Value" AttributeName="TimeValue"/>
+                  </AttributeRules>
+                </EntityRule>
+              </EntityRules>
+            </AttributeRule>
+          </Rules>
+        </ConceptTemplate>
+        <ConceptTemplate uuid="10000000-0000-0000-0001-000000000007" name="Property Sets" applicableSchema="IFC4" applicableEntity="IfcPropertySet">
+          <Rules>
+            <AttributeRule RuleID="Set" AttributeName="Name">
+              <EntityRules>
+                <EntityRule EntityName="IfcLabel"/>
+              </EntityRules>
+            </AttributeRule>
+            <AttributeRule AttributeName="Description">
+              <EntityRules>
+                <EntityRule EntityName="IfcText"/>
+              </EntityRules>
+            </AttributeRule>
+            <AttributeRule AttributeName="HasProperties">
+              <EntityRules>
+                <EntityRule EntityName="IfcSimpleProperty">
+                  <References>
+                    <Template ref="88b4aaa9-0925-447c-b009-fe357b7c754e"/>
+                  </References>
+                </EntityRule>
+              </EntityRules>
+            </AttributeRule>
+          </Rules>
+        </ConceptTemplate>
+         <ConceptTemplate uuid="10000000-0000-0000-0001-000000000002" name="IfcRelDefinesByType" applicableSchema="IFC4" applicableEntity="IfcRelDefinesByType">
+          <Rules>
+            <AttributeRule AttributeName="RelatingType">
+              <EntityRules>
+                <EntityRule EntityName="IfcTypeObject">
+                  <AttributeRules>
+                    <AttributeRule RuleID="Name" AttributeName="Name"/>
+                    <AttributeRule RuleID="Description" AttributeName="Description"/>
+                    <AttributeRule RuleID="PredefinedType" AttributeName="PredefinedType"/>
+                    <AttributeRule AttributeName="HasPropertySets">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcPropertySet">
+                          <References>
+                            <Template ref="10000000-0000-0000-0001-000000000007"/>
+                          </References>
+                        </EntityRule>
+                        <EntityRule EntityName="IfcElementQuantity">
+                          <References>
+                            <Template ref="10000000-0000-0000-0001-000000000008"/>
+                          </References>
+                        </EntityRule>
+                      </EntityRules>
+                    </AttributeRule>
+                    <AttributeRule AttributeName="HasAssociations">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcRelAssociatesClassification">
+                          <References>
+                            <Template ref="10000000-0000-0000-0001-000000000004"/>
+                          </References>
+                        </EntityRule>
+                      </EntityRules>
+                    </AttributeRule>
+                  </AttributeRules>
+                </EntityRule>
+              </EntityRules>
+            </AttributeRule>
+          </Rules>
+        </ConceptTemplate>
+        <ConceptTemplate uuid="10000000-0000-0000-0001-000000000004" name="IfcRelAssociatesClassification" applicableSchema="IFC4" applicableEntity="IfcRelAssociatesClassification">
+          <Rules>
+            <AttributeRule RuleID="Code" AttributeName="Name">
+              <EntityRules>
+                <EntityRule EntityName="IfcLabel"/>
+              </EntityRules>
+            </AttributeRule>
+            <AttributeRule AttributeName="RelatingClassification">
+              <EntityRules>
+                <EntityRule EntityName="IfcClassificationReference">
+                  <AttributeRules>
+                    <AttributeRule RuleID="ClassificationReference_ReferencedSource" AttributeName="ReferencedSource">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcClassification">
+                          <AttributeRules>
+                            <AttributeRule AttributeName="Source">
+                              <EntityRules>
+                                <EntityRule EntityName="IfcLabel"/>
+                              </EntityRules>
+                            </AttributeRule>
+                            <AttributeRule RuleID="Table" AttributeName="Name">
+                              <EntityRules>
+                                <EntityRule EntityName="IfcLabel"/>
+                              </EntityRules>
+                            </AttributeRule>
+                            <AttributeRule AttributeName="ReferenceTokens">
+                              <EntityRules>
+                                <EntityRule EntityName="IfcIdentifier"/>
+                              </EntityRules>
+                            </AttributeRule>
+                          </AttributeRules>
+                        </EntityRule>
+                      </EntityRules>
+                    </AttributeRule>
+                    <AttributeRule RuleID="Identification" AttributeName="Identification">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcIdentifier"/>
+                      </EntityRules>
+                    </AttributeRule>
+                    <AttributeRule RuleID="ClassificationReference_Identification" AttributeName="Identification">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcIdentifier"/>
+                      </EntityRules>
+                    </AttributeRule>
+                    <AttributeRule RuleID="ClassificationReference_Name" AttributeName="Name">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcLabel"/>
+                      </EntityRules>
+                    </AttributeRule>
+                    <AttributeRule RuleID="ClassificationReference_Description" AttributeName="Description">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcText"/>
+                      </EntityRules>
+                    </AttributeRule>
+                  </AttributeRules>
+                </EntityRule>
+              </EntityRules>
+            </AttributeRule>
+          </Rules>
+        </ConceptTemplate>
+       </SubTemplates>
+    </ConceptTemplate>
+  </Templates>
+  <Views><ModelView uuid="00000023-0000-0000-0000-000000000023" name="mvdXML Unit Tests for IFC4 (bSN syntax)" applicableSchema="IFC4">
+      <Definitions>
+        <Definition>
+          <Body><![CDATA[Unit tests for mvdXML-based model checking for IFC4. Mapping definitions are related to bSN definitions.]]></Body>
+        </Definition>
+      </Definitions>
+      <ExchangeRequirements>
+        <ExchangeRequirement uuid="00000023-0000-0000-0000-000000000352" name="Applicability Unit Tests : mvdXML Unit Tests" applicability="import">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Check applicability for a single property (including subtype definitions). : ]]></Body>
+            </Definition>
+          </Definitions>
+        </ExchangeRequirement>
+        <ExchangeRequirement uuid="00000023-0000-0000-0000-000000000349" name="Classification Unit Tests : mvdXML Unit Tests" applicability="import">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Check setting of classification reference attributes. : ]]></Body>
+            </Definition>
+          </Definitions>
+        </ExchangeRequirement>
+        <ExchangeRequirement uuid="00000023-0000-0000-0000-000000000353" name="Direct Attributes Unit Tests : mvdXML Unit Tests" applicability="import">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Check existence of direct attributes : ]]></Body>
+            </Definition>
+          </Definitions>
+        </ExchangeRequirement>
+        <ExchangeRequirement uuid="00000023-0000-0000-0000-000000000348" name="Property Unit Tests : mvdXML Unit Tests" applicability="import">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Check existence of predefined properties. : ]]></Body>
+            </Definition>
+          </Definitions>
+        </ExchangeRequirement>
+        <ExchangeRequirement uuid="00000023-0000-0000-0000-000000000350" name="Quantity Unit Tests : mvdXML Unit Tests" applicability="import">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Check existence of predefined quantities. : ]]></Body>
+            </Definition>
+          </Definitions>
+        </ExchangeRequirement>
+        <ExchangeRequirement uuid="00000023-0000-0000-0000-000000000354" name="Empty String test  : mvdXML Unit Tests" applicability="import">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Various tests for checking existence of String values. : ]]></Body>
+            </Definition>
+          </Definitions>
+        </ExchangeRequirement>
+        <ExchangeRequirement uuid="00000023-0000-0000-0000-000000000351" name="User Defined Property Unit Tests : mvdXML Unit Tests" applicability="import">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Check existence of user defined properties. : ]]></Body>
+            </Definition>
+          </Definitions>
+        </ExchangeRequirement>
+      </ExchangeRequirements>
+      <Roots>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029124" name="Classification : Classification : Wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Existence of classification. : Check specific attributes of classification reference. : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029124" name="Classification">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Existence of classification. : Check specific attributes of classification reference. : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000349" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRule Parameters="Table[Exists]=TRUE"/>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029104" name="Component number : TFM_Type : Wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Component number : TFM_Type : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029104" name="Component number">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Component number : TFM_Type : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000351" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set[Value]='TFM11_Type' AND Property[Value]='TypeKompLNR'"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set[Value]='TFM11_Type' AND Property[Value]='TypeKompLNR'"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set[Value]='TFM11_Type' AND T_Property[Value]='TypeKompLNR'"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029085" name="External flag : Predefined Properties for Walls : External loadbearing wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[External flag : Example for checking properties defined by IFC (prefix Pset) : External loadbearing wall]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="and">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal' AND Value[Value]=TRUE"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal'"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_Set[Value]='Pset_WallCommon' AND T_Property[Value]='IsExternal' AND T_Value[Value]=TRUE"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='LoadBearing' AND Value[Value]=TRUE"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='LoadBearing'"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_Set[Value]='Pset_WallCommon' AND T_Property[Value]='LoadBearing' AND T_Value[Value]=TRUE"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029085" name="External flag">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[External flag : Example for checking properties defined by IFC (prefix Pset) : External loadbearing wall]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000352" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal'"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal'"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set[Value]='Pset_WallCommon' AND T_Property[Value]='IsExternal'"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029091" name="External flag : Predefined Properties for Walls : External shear wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[External flag : Example for checking properties defined by IFC (prefix Pset) : External shear wall]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="and">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType[Value]='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRule Parameters="PredefinedType[Exists]=FALSE"/>
+                  <TemplateRule Parameters="T_PredefinedType[Value]='SHEAR'"/>
+                </TemplateRules>
+              </TemplateRules>
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal' AND Value[Value]=TRUE"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal'"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_Set[Value]='Pset_WallCommon' AND T_Property[Value]='IsExternal' AND T_Value[Value]=TRUE"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029091" name="External flag">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[External flag : Example for checking properties defined by IFC (prefix Pset) : External shear wall]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000352" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal'"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal'"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set[Value]='Pset_WallCommon' AND T_Property[Value]='IsExternal'"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029081" name="External flag : Predefined Properties for Walls : External wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[External flag : Example for checking properties defined by IFC (prefix Pset) : External wall]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="and">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal' AND Value[Value]=TRUE"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal'"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_Set[Value]='Pset_WallCommon' AND T_Property[Value]='IsExternal' AND T_Value[Value]=TRUE"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029081" name="External flag">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[External flag : Example for checking properties defined by IFC (prefix Pset) : External wall]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000352" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal'"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal'"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set[Value]='Pset_WallCommon' AND T_Property[Value]='IsExternal'"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029095" name="External flag : Predefined Properties for Walls : Shear wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[External flag : Example for checking properties defined by IFC (prefix Pset) : Shear wall]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="and">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType[Value]='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRule Parameters="PredefinedType[Exists]=FALSE"/>
+                  <TemplateRule Parameters="T_PredefinedType[Value]='SHEAR'"/>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029095" name="External flag">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[External flag : Example for checking properties defined by IFC (prefix Pset) : Shear wall]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000352" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal'"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal'"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set[Value]='Pset_WallCommon' AND T_Property[Value]='IsExternal'"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029077" name="External flag : Predefined Properties for Walls : Wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[External flag : Example for checking properties defined by IFC (prefix Pset) : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029077" name="External flag">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[External flag : Example for checking properties defined by IFC (prefix Pset) : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000352" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal'"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal'"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set[Value]='Pset_WallCommon' AND T_Property[Value]='IsExternal'"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029073" name="External flag : Predefined Properties for Walls : Wall (with incomplete mapping)" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[External flag : Example for checking properties defined by IFC (prefix Pset) : Test case with incomplete IFC4 mapping definition]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029073" name="External flag">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[External flag : Example for checking properties defined by IFC (prefix Pset) : Test case with incomplete IFC4 mapping definition]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000352" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal'"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal'"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set[Value]='Pset_WallCommon' AND T_Property[Value]='IsExternal'"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029117" name="External flag : Predefined Properties for Walls : Standard wall" applicableRootEntity="IfcWallStandardCase">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[External flag : Example for checking properties defined by IFC (prefix Pset) : Standard wall]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029117" name="External flag">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[External flag : Example for checking properties defined by IFC (prefix Pset) : Standard wall]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000352" requirement="mandatory"/>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000348" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal'"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='IsExternal'"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set[Value]='Pset_WallCommon' AND T_Property[Value]='IsExternal'"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029126" name="Fire Rating : Predefined Properties for Walls : Wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Fire Rating : Example for checking properties defined by IFC (prefix Pset) : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029126" name="Fire Rating">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Fire Rating : Example for checking properties defined by IFC (prefix Pset) : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000354" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='FireRating'"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='FireRating'"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set[Value]='Pset_WallCommon' AND T_Property[Value]='FireRating'"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029098" name="Height : Predefined Base Quantities for Walls : Wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Height :  : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029098" name="Height">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Height :  : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000350" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set[Value]='Qto_WallBaseQuantities' AND Property[Value]='Height'"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set[Value]='Qto_WallBaseQuantities' AND Property[Value]='Height'"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set[Value]='Qto_WallBaseQuantities' AND T_Property[Value]='Height'"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029110" name="Identification : Classification : Wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Identification : Check specific attributes of classification reference. : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029110" name="Identification">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Identification : Check specific attributes of classification reference. : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000349" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRule Parameters="ClassificationReference_Identification[Exists]=TRUE"/>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029107" name="Name : Naming : Wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Name : Naming : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029107" name="Name">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Name : Naming : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000353" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRule Parameters="Name[Exists]=TRUE"/>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029122" name="Predefined type : Type attributes : Wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Predefined type : Type attributes : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029122" name="Predefined type">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Predefined type : Type attributes : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000353" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRule Parameters="PredefinedType[Exists]=TRUE"/>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029112" name="Referenced source : Classification : Wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Referenced source : Check specific attributes of classification reference. : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029112" name="Referenced source">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Referenced source : Check specific attributes of classification reference. : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000349" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRule Parameters="ClassificationReference_ReferencedSource[Exists]=TRUE"/>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029116" name="Acoustic rating : Predefined Properties for Walls : Standard wall" applicableRootEntity="IfcWallStandardCase">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Acoustic rating : Example for checking properties defined by IFC (prefix Pset) : Standard wall]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029116" name="Acoustic rating">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Acoustic rating : Example for checking properties defined by IFC (prefix Pset) : Standard wall]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000348" requirement="excluded"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='AcousticRating'"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='AcousticRating'"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set[Value]='Pset_WallCommon' AND T_Property[Value]='AcousticRating'"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029103" name="Component group : TFM_Type : Wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Component group : TFM_Type : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029103" name="Component group">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Component group : TFM_Type : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000351" requirement="excluded"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set[Value]='TFM11_Type' AND Property[Value]='TypeKompGruppe'"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set[Value]='TFM11_Type' AND Property[Value]='TypeKompGruppe'"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set[Value]='TFM11_Type' AND T_Property[Value]='TypeKompGruppe'"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029106" name="Description : Naming : Wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Description : Naming : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029106" name="Description">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Description : Naming : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000353" requirement="excluded"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRule Parameters="Description[Exists]=TRUE"/>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029109" name="Description : Classification : Wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Description : Check specific attributes of classification reference. : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029109" name="Description">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Description : Check specific attributes of classification reference. : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000349" requirement="excluded"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRule Parameters="ClassificationReference_Description[Exists]=TRUE"/>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029100" name="Width : Predefined Base Quantities for Walls : Wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Width :  : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029100" name="Width">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Width :  : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000350" requirement="excluded"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set[Value]='Qto_WallBaseQuantities' AND Property[Value]='Width'"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set[Value]='Qto_WallBaseQuantities' AND Property[Value]='Width'"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set[Value]='Qto_WallBaseQuantities' AND T_Property[Value]='Width'"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029099" name="Length : Predefined Base Quantities for Walls : Wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Length :  : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029099" name="Length">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Length :  : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000350" requirement="not-relevant"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set[Value]='Qto_WallBaseQuantities' AND Property[Value]='Length'"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set[Value]='Qto_WallBaseQuantities' AND Property[Value]='Length'"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set[Value]='Qto_WallBaseQuantities' AND T_Property[Value]='Length'"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029118" name="Load bearing flag : Predefined Properties for Walls : Standard wall" applicableRootEntity="IfcWallStandardCase">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Load bearing flag : Example for checking properties defined by IFC (prefix Pset) : Standard wall]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029118" name="Load bearing flag">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Load bearing flag : Example for checking properties defined by IFC (prefix Pset) : Standard wall]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000348" requirement="not-relevant"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='LoadBearing'"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set[Value]='Pset_WallCommon' AND Property[Value]='LoadBearing'"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set[Value]='Pset_WallCommon' AND T_Property[Value]='LoadBearing'"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000023-0000-0000-2000-000000029111" name="Name : Classification : Wall" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Name : Check specific attributes of classification reference. : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+            </Definition>
+          </Definitions>
+          <Concepts>
+            <Concept uuid="00000023-0000-0000-0000-000000029111" name="Name">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Name : Check specific attributes of classification reference. : Any wall, should test if all walls are tested (IfcWall and subtypes IfcWallStandardCase)]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000023-0000-0000-0000-000000000349" requirement="not-relevant"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRule Parameters="ClassificationReference_Name[Exists]=TRUE"/>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+      </Roots>
+    </ModelView></Views>
+</mvdXML>
