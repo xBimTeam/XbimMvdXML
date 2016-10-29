@@ -163,8 +163,7 @@ namespace XbimPlugin.MvdXML.Viewing
         {
             if (target == null) return null;
 
-            var args = new RoutedEventArgs();
-            args.RoutedEvent = ToggleButton.CheckedEvent;
+            var args = new RoutedEventArgs {RoutedEvent = ToggleButton.CheckedEvent};
             RaiseEvent(target, args);
             return args;
         }
@@ -181,8 +180,7 @@ namespace XbimPlugin.MvdXML.Viewing
         {
             if (target == null) return null;
 
-            var args = new RoutedEventArgs();
-            args.RoutedEvent = ToggleButton.UncheckedEvent;
+            var args = new RoutedEventArgs {RoutedEvent = ToggleButton.UncheckedEvent};
             RaiseEvent(target, args);
             return args;
         }
@@ -199,8 +197,7 @@ namespace XbimPlugin.MvdXML.Viewing
         {
             if (target == null) return null;
 
-            var args = new RoutedEventArgs();
-            args.RoutedEvent = ToggleButton.IndeterminateEvent;
+            var args = new RoutedEventArgs {RoutedEvent = ToggleButton.IndeterminateEvent};
             RaiseEvent(target, args);
             return args;
         }
@@ -253,13 +250,14 @@ namespace XbimPlugin.MvdXML.Viewing
 
         private static void RaiseEvent(DependencyObject target, RoutedEventArgs args)
         {
-            if (target is UIElement)
+            var element = target as UIElement;
+            if (element != null)
             {
-                ((UIElement) target).RaiseEvent(args);
+                element.RaiseEvent(args);
             }
-            else if (target is ContentElement)
+            else
             {
-                (target as ContentElement).RaiseEvent(args);
+                (target as ContentElement)?.RaiseEvent(args);
             }
         }
 

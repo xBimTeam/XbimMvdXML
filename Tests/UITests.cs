@@ -24,8 +24,7 @@ namespace Tests
                 new ConceptRoot() {name = "1 : 3 : 1"}
             };
 
-            var g = new ConceptRootGrouping(groups);
-            g.GroupOrder = ConceptRootGrouping.GroupOrderMode.TopAtBack;
+            var g = new ConceptRootGrouping(groups) {GroupOrder = ConceptRootGrouping.GroupOrderMode.TopAtBack};
             foreach (var child in g.GetChildren())
             {
                 Debug.WriteLine(child.ToString());

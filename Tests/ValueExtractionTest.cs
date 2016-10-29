@@ -25,7 +25,7 @@ namespace Tests
             var wall = m.Instances.OfType<IfcWallStandardCase>().FirstOrDefault();
 
             // ReSharper disable once UnusedVariable
-            var engine = new MvdEngine(mvd, m, false);
+            var engine = new MvdEngine(mvd, m);
             // can instantiate engine on model
 
             foreach (var view in mvd.Views)

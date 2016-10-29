@@ -116,9 +116,12 @@ namespace XbimPlugin.MvdXML
         {
             TestProgress.Value = e.ProgressPercentage;
         }
-
+        
+        // todo: this needs to be reviewed, while trying to ensure a responsive UI.
         // private void GetReport(object sender, DoWorkEventArgs e)
-        private void GetReport(object sender, DoWorkEventArgs ea, 
+        private void GetReport(object sender, 
+            // ReSharper disable once UnusedParameter.Local
+            DoWorkEventArgs ea, 
             HashSet<Concept> selectedConcepts, 
             HashSet<ModelViewExchangeRequirement> selectedExchReq, 
             HashSet<ExpressType> selectedIfcClasses, 

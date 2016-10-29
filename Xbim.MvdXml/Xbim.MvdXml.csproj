@@ -115,7 +115,6 @@
     <Compile Include="MvdXml\ITemplateRule.cs" />
     <Compile Include="MvdXml\ModelView.cs" />
     <Compile Include="MvdXml\RequirementsRequirement.cs" />
-    <Compile Include="Validation\ConceptExtensions.cs" />
     <Compile Include="Validation\Indicator.cs" />
     <Compile Include="Validation\IndicatorLookup.cs" />
     <Compile Include="Validation\MvdPropertyRuleValue.cs" />

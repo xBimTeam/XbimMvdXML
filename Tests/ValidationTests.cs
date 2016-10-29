@@ -19,12 +19,14 @@ namespace Tests
             
             const string mvdName = @"FromMW\mvdXMLUnitTestsforIFC4_2.mvdxml";
             var mvd = mvdXML.LoadFromFile(mvdName);
-            var doc = new MvdEngine(mvd, model, false);
+            var doc = new MvdEngine(mvd, model);
+            // ReSharper disable once JoinDeclarationAndInitializer
             bool app;
             // test 1
             // 
             var cr = doc.ConceptRoots.FirstOrDefault(x => x.uuid == "00000023-0000-0000-2000-000000029095");
             Assert.IsNotNull(cr, "Did not find expected ConceptRoot");
+            // ReSharper disable once RedundantAssignment
             app = cr.AppliesTo(model.Instances[278]);
             // todo: restore when updated from Matthias
             // Assert.IsTrue(app, "Applicability not matched");

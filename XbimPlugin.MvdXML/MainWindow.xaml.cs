@@ -806,15 +806,8 @@ namespace XbimPlugin.MvdXML
 
         private Regex _colRegex;
 
-        internal Regex ColRegex
-        {
-            get
-            {
-                if (_colRegex == null)
-                    _colRegex = new Regex("R:([\\d.]+) G:([\\d.]+) B:([\\d.]+) A:([\\d.]+) DF:([\\d.]+) TF:([\\d.]+) DTF:([\\d.]+) RF:([\\d.]+) SF:([\\d.]+)");
-                return _colRegex;
-            }
-        }
+        internal Regex ColRegex => _colRegex ??
+                                   (_colRegex = new Regex( "R:([\\d.]+) G:([\\d.]+) B:([\\d.]+) A:([\\d.]+) DF:([\\d.]+) TF:([\\d.]+) DTF:([\\d.]+) RF:([\\d.]+) SF:([\\d.]+)"));
 
 
         private XbimColour ColourFromString(string colorFail)

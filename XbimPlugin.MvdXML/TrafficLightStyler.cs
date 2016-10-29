@@ -138,12 +138,10 @@ namespace XbimPlugin.MvdXML
             {
                 mesh.EndUpdate();
             }
-            if (tmpOpaquesGroup.Children.Any())
-            {
-                var mv = new ModelVisual3D();
-                mv.Content = tmpOpaquesGroup;
-                opaqueShapes.Children.Add(mv);
-            }
+            if (!tmpOpaquesGroup.Children.Any())
+                return retScene;
+            var mv = new ModelVisual3D {Content = tmpOpaquesGroup};
+            opaqueShapes.Children.Add(mv);
             // no transparents are present
             //if (tmpTransparentsGroup.Children.Any())
             //{
