@@ -36,7 +36,10 @@
                     Schema version mvdXML V1.1.
                         </TextBlock>
                         <TextBlock TextWrapping="Wrap" Margin="15" TextAlignment="Left" >
-                        Please contact <Hyperlink NavigateUri="mailto:claudio.benghi@gmail.com" RequestNavigate="Hyperlink_RequestNavigate">claudio.benghi@gmail.com</Hyperlink> for feedback and updates.
+                            To provide feedback or getting in touch with the developers, please navigate to our
+                            <Hyperlink NavigateUri="https://github.com/xBimTeam/XbimMvdXML/issues" RequestNavigate="Hyperlink_RequestNavigate">official project page</Hyperlink>
+                            and raise a new issue. Otherwise, for any urgent matter, please contact 
+                            <Hyperlink NavigateUri="mailto:claudio.benghi@gmail.com" RequestNavigate="Hyperlink_RequestNavigate">claudio.benghi@gmail.com</Hyperlink>.
                         </TextBlock>
                         <Button Content="Open MVDxml file" Click="OpenFile" Height="25" Width="200" HorizontalAlignment="Center" />
                     </StackPanel>

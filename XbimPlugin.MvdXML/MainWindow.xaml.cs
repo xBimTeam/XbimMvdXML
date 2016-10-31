@@ -36,7 +36,7 @@ namespace XbimPlugin.MvdXML
     [XplorerUiElement(PluginWindowUiContainerEnum.LayoutAnchorable, PluginWindowActivation.OnLoad, "MvdXML")]
     public partial class MainWindow : IXbimXplorerPluginWindow
     {
-        private static readonly ILog Log = LogManager.GetLogger("XbimMvdXml.ConceptRoot.Concept");
+        private static readonly ILog Log = LogManager.GetLogger("XbimPlugin.MvdXML.MainWindow");
 
         public MainWindow()
         {
@@ -401,7 +401,7 @@ namespace XbimPlugin.MvdXML
             _xpWindow.BroadCastMessage(this, "BcfAddInstance", messageData);
         }
 
-        bool _useAmber = true;
+        private bool _useAmber = true;
 
         private void WarnToggle(object sender, MouseButtonEventArgs e)
         {
@@ -409,7 +409,7 @@ namespace XbimPlugin.MvdXML
             _useAmber = !_useAmber;
         }
 
-        bool _useBlue = true;
+        private bool _useBlue = true;
 
         private void UnMatchedToggle(object sender, MouseButtonEventArgs e)
         {
