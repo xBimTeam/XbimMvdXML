@@ -57,17 +57,6 @@ namespace XbimPlugin.MvdXML
             }
 
             CmbColorGroup.SelectionChanged += ColorGroupChanged;
-
-            // versioning information
-            var assembly = Assembly.GetAssembly(typeof(MvdEngine));
-            PluginVersion.Text = $"Assembly Version: {assembly.GetName().Version}";
-            if (assembly.Location == null)
-                return;
-
-            var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            PluginVersion.Text +=
-                $"\r\nFile Version: {fvi.FileVersion}";
-
         }
 
         internal MvdEngine Doc;
@@ -208,6 +197,16 @@ namespace XbimPlugin.MvdXML
             SetBinding(SelectedItemProperty, new Binding("SelectedItem") { Source = mainWindow, Mode = BindingMode.TwoWay });
             SetBinding(SelectionProperty, new Binding("Selection") { Source = mainWindow.DrawingControl, Mode = BindingMode.TwoWay });
             SetBinding(ModelProperty, new Binding()); // whole datacontext binding, see http://stackoverflow.com/questions/8343928/how-can-i-create-a-binding-in-code-behind-that-doesnt-specify-a-path
+            
+            // versioning information
+            //
+            var assembly = Assembly.GetAssembly(typeof(MvdEngine));
+            PluginVersion.Text = $"Assembly Version: {assembly.GetName().Version}";
+            if (_xpWindow == null)
+                return;
+            var location = _xpWindow.GetAssemblyLocation(assembly);
+            var fvi = FileVersionInfo.GetVersionInfo(location);
+            PluginVersion.Text += $"\r\nFile Version: {fvi.FileVersion}";
         }
 
         // Selection

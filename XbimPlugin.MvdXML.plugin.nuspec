@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>XbimPlugin.MvdXML</id>
-    <version>4.0.0-V004</version>
+    <version>4.0.0-V005</version>
     <title>XbimPlugin.MvdXML</title>
     <authors>xBIM team</authors>
     <owners>xBIM team</owners>
@@ -21,7 +21,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="XbimPlugin.MvdXML\bin\Release\Xbim.MvdXml.dll" target="lib\Xbim.MvdXml.dll" />
-    <file src="XbimPlugin.MvdXML\bin\Release\XbimPlugin.MvdXML.exe" target="lib\XbimPlugin.MvdXML.exe" />
+    <file src="XbimPlugin.MvdXML\bin\Release\Xbim.MvdXml.dll" target="lib\net45\Xbim.MvdXml.dll" />
+    <file src="XbimPlugin.MvdXML\bin\Release\XbimPlugin.MvdXML.exe" target="lib\net45\XbimPlugin.MvdXML.exe" />
   </files>
 </package>
