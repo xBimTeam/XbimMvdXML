@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Xbim.MvdXml;
+using Xbim.Presentation;
 
 namespace XbimPlugin.MvdXML.Viewing
 {
