@@ -39,7 +39,7 @@ namespace Xbim.MvdXml
         internal void SetParent(ConceptRoot conceptRoot)
         {
             ParentConceptRoot = conceptRoot;
-            for (var i = 0; i < Requirements.Length; )
+            for (var i = 0; i < Requirements?.Length; )
             {
                 // removes requirements pointing to non-existing exchangerequirements
                 var success = Requirements[i].SetParent(this);
@@ -50,13 +50,18 @@ namespace Xbim.MvdXml
             }
             
             // try to set the concept template reference.
-            if (string.IsNullOrEmpty(Template?.@ref)) return;
-            if (ParentConceptRoot?.ParentModelView?.ParentMvdXml == null) return;
+            if (string.IsNullOrEmpty(Template?.@ref))
+                return;
+            if (ParentConceptRoot?.ParentModelView?.ParentMvdXml == null)
+                return;
 
             // sets the connection to clear caching event
-            ParentConceptRoot.ParentModelView.ParentMvdXml.Engine.RequestClearCache += Engine_RequestClearCache;
             _mvdEngine = ParentConceptRoot.ParentModelView.ParentMvdXml.Engine;
-
+            if (_mvdEngine != null)
+            {
+                _mvdEngine.RequestClearCache += Engine_RequestClearCache;
+            }            
+            
             ConceptTemplate = ParentConceptRoot.ParentModelView.ParentMvdXml.GetConceptTemplate(Template.@ref);
             if (ConceptTemplate == null)
             {

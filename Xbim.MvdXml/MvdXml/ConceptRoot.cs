@@ -28,11 +28,13 @@ namespace Xbim.MvdXml
         internal void SetParent(ModelView modelView)
         {
             ParentModelView = modelView;
-            ParentModelView.ParentMvdXml.Engine.AddConceptRootLookup(this);
-
-            foreach (var concept in Concepts)
+            ParentModelView.ParentMvdXml?.Engine?.AddConceptRootLookup(this);
+            if (Concepts != null)
             {
-                concept.SetParent(this);
+                foreach (var concept in Concepts)
+                {
+                    concept.SetParent(this);
+                }
             }
             Applicability?.SetParent(modelView);
         }

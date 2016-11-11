@@ -111,13 +111,20 @@ namespace Xbim.MvdXml.DataManagement
         {
             _expressTypeConceptRootLookup = null;
             Mvd.Engine = this;
-            foreach (var modelView in Mvd.Views)
+            if (Mvd.Views != null)
             {
-                modelView.SetParent(Mvd);
+                foreach (var modelView in Mvd.Views)
+                {
+                    modelView.SetParent(Mvd);
+                }
             }
-            foreach (var template in Mvd.Templates)
+            // ReSharper disable once InvertIf
+            if (Mvd.Templates != null)
             {
-                template.SetParent(Mvd);
+                foreach (var template in Mvd.Templates)
+                {
+                    template.SetParent(Mvd);
+                }
             }
         }
 

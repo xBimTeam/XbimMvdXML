@@ -6,8 +6,10 @@ namespace Xbim.MvdXml.Validation
     {
         public static IEnumerable<string> Validate(Concept concept)
         {
-            var dataIndicators = concept.TemplateRules.GetIndicators();
+            var dataIndicators = concept.TemplateRules?.GetIndicators();
             var s = new HashSet<string>(concept.ConceptTemplate.GetRecursiveRuleIds());
+            if (dataIndicators == null)
+                yield break;
             foreach (var di in dataIndicators)
             {
                 if (!s.Contains(di.VariableName))

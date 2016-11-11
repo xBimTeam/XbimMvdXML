@@ -17,15 +17,16 @@ namespace XbimPlugin.MvdXML.Viewing
             if (cp == null) 
                 return base.SelectTemplate(item, container);
             var cvg = cp.Content as CollectionViewGroup;
+            if (cvg == null)
+                return null;
 
             if (cvg.Items.Count <= 0) 
                 return base.SelectTemplate(item, container);
             var stinfo = cvg.Items[0] as ReportResult;
 
-            if (stinfo != null)
-                return CountyTemplate;
-            else
-                return StateTemplate;
+            return stinfo != null 
+                ? CountyTemplate 
+                : StateTemplate;
         }
     }
 }

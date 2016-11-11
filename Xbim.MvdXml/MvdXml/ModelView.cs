@@ -29,13 +29,20 @@ namespace Xbim.MvdXml
         {
             ParentMvdXml = mvd;
 
-            foreach (var modelViewExchangeRequirement in ExchangeRequirements)
+            if (ExchangeRequirements != null)
             {
-                modelViewExchangeRequirement.SetParent(this);
+                foreach (var modelViewExchangeRequirement in ExchangeRequirements)
+                {
+                    modelViewExchangeRequirement.SetParent(this);
+                }
             }
-            foreach (var root in Roots)
+            // ReSharper disable once InvertIf
+            if (Roots != null)
             {
-                root.SetParent(this);
+                foreach (var root in Roots)
+                {
+                    root.SetParent(this);
+                }
             }
         }
 
