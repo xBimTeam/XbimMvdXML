@@ -70,8 +70,6 @@ namespace XbimPlugin.MvdXML
 
         public LayerGroup GetLayerGroupUnfiltered(IPersistEntity ent)
         {
-            if (ent is IfcSpace)
-                return LayerGroup.Null;
             var suitableroots = _doc.GetConceptRoots(ent.ExpressType);
             var ret = 1; // does not apply
             //Debug.WriteLine("Entity label: #" + ent.EntityLabel + " Name:" + ent + " suitableroots: " + suitableroots.Count);
@@ -98,8 +96,6 @@ namespace XbimPlugin.MvdXML
 
         public LayerGroup GetLayerGroupFiltered(IPersistEntity entity)
         {
-            if (entity is IfcSpace)
-                return LayerGroup.Null;
             var ret = 1; // does not apply
             var thisEntityExpressType = entity.ExpressType;
             if (_selectedIfcClasses.Any())
