@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>Xbim.MvdXML</id>
-    <version>4.0.0-V010</version>
+    <version>4.0.0-V011</version>
     <title>Xbim.MvdXML</title>
     <authors>xBIM team</authors>
     <owners>xBIM team</owners>
