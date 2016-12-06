@@ -61,6 +61,8 @@ namespace XbimPlugin.MvdXML
 
         internal MvdEngine Doc;
 
+        public string SelectedPath { get; set; }
+
         private bool AdaptSchema => ChkAdaptSchema.IsChecked.HasValue && ChkAdaptSchema.IsChecked.Value;
 
         private void OpenFile(object sender, RoutedEventArgs e)

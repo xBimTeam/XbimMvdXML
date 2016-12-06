@@ -76,7 +76,7 @@ namespace XbimPlugin.MvdXML
             var entities = _xpWindow.DrawingControl.Selection.ToList();
             if (!entities.Any())
             {
-                entities = Model.Instances.ToList();
+                entities = Model?.Instances?.ToList();
             }
 
             ToggleActivityButton.Content = "Cancel";
