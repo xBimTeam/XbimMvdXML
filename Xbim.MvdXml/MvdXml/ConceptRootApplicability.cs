@@ -19,6 +19,18 @@ namespace Xbim.MvdXml
         internal void SetParent(ModelView modelView)
         {
             ModelView = modelView;
+
+            // sets the connection to clear caching event
+            var mvdEngine =  ModelView?.ParentMvdXml?.Engine;
+            if (mvdEngine != null)
+            {
+                mvdEngine.RequestClearCache += Engine_RequestClearCache;
+            }
+        }
+
+        private void Engine_RequestClearCache()
+        {
+            _dicCache.Clear();
         }
 
         [XmlIgnore()]
@@ -44,14 +56,21 @@ namespace Xbim.MvdXml
 
         internal bool IsApplicable(IPersistEntity entity)
         {
-            bool hasIt;
-            if (_dicCache.TryGetValue(entity.EntityLabel, out hasIt))
-                return hasIt;
+            bool cachedApplicatbilityValue;
+            if (_dicCache.TryGetValue(entity.EntityLabel, out cachedApplicatbilityValue))
+                return cachedApplicatbilityValue;
 
             var data = GetData(entity);
             // MvdEngine.DebugDataTable(data);
             var res = TemplateRules.PassesOn(data);
-            _dicCache.Add(entity.EntityLabel, res);
+            try
+            {
+                _dicCache.Add(entity.EntityLabel, res);
+            }
+            catch
+            {
+                // ignored (in case of multi-thread?)
+            }
             return res;
         }
     }

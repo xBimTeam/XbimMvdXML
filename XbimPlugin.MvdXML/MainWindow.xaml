@@ -152,8 +152,8 @@
                                     </GroupBox>
                                     <TextBox x:Name="ConceptsFilter" TextChanged="FilterConcepts" Margin="3,47,24,0" VerticalAlignment="Top" Height="24"/>
                                     <Path Width="16" Height="16" VerticalAlignment="Top" Margin="0,51,4,0"  HorizontalAlignment="Right" Stretch="Fill" Fill="DarkGray" Data="F1 M 34.8333,61.75L 34.8333,42.75L 19,20.5833L 57,20.5833L 41.1667,42.75L 41.1667,58.5833L 34.8333,61.75 Z "/>
-                                    <ComboBox x:Name="SelectedConcept" Height="24" Margin="3,77,3,0" VerticalAlignment="Top" />
-                                    <DataGrid x:Name="SelectedConceptData" Margin="3,104,3,3" AutoGeneratingColumn="ShowUnderscores" />
+                                    <ComboBox x:Name="SelectedConcept" Height="24" Margin="3,77,3,0" VerticalAlignment="Top" SelectionChanged="SelectedRawDataConceptChanged"   />
+                                    <DataGrid x:Name="SelectedConceptData" Margin="3,104,3,3" AutoGeneratingColumn="ShowUnderscores"  />
                                 </Grid>
                             </TabItem>
                             <TabItem Header="Information" Visibility="Collapsed" >

@@ -280,6 +280,8 @@ namespace Xbim.MvdXml.DataManagement
             AttributeRule[] rules, string prefix)
         {
             var vectorInserted = false;
+            if (rules == null)
+                return false;
             foreach (var attributeRule in rules)
             {
                 // see at deeper tree levels
@@ -331,11 +333,11 @@ namespace Xbim.MvdXml.DataManagement
 
             }
 #endif
-
             var levelHasValues = false;
+            if (rules == null)
+                return false;
             foreach (var attributeRule in rules)
             {
-                
                 // sort out values at current level
                 // we have an id and indicators require it
                 if (string.IsNullOrEmpty(attributeRule.RuleID))

@@ -138,6 +138,7 @@ namespace XbimPlugin.MvdXML
             UpdateIfcClassesTree();
             UpdateErTree();
             SelectedConcept.ItemsSource = Doc.GetAllConcepts();
+            UpdateDataTableSource();
         }
 
         private static void NotifyError(string msg, Exception ex)
@@ -363,6 +364,7 @@ namespace XbimPlugin.MvdXML
         {
             Doc = null;
             IfcClassesTree.ItemsSource = null;
+            UpdateDataTable();
             ErTree.ItemsSource = null;
             ConceptRootsTree.ItemsSource = null;
             // ListResults.ItemsSource = null;            
@@ -443,7 +445,13 @@ namespace XbimPlugin.MvdXML
                     data = Doc.GetData(SelectedEntity, dataTableSourceConceptTemplate);
                 }
                 SelectedConceptData.AutoGenerateColumns = true;
-                SelectedConceptData.ItemsSource = data.DefaultView;
+
+                // prepare view to block add/delete
+                var v = data.DefaultView;
+                v.AllowNew = false;
+                v.AllowDelete = false;
+
+                SelectedConceptData.ItemsSource = v;
             }
             else
             {
@@ -456,6 +464,15 @@ namespace XbimPlugin.MvdXML
         private void ShowUnderscores(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             var header = e.Column.Header.ToString();
+
+            // this allows to bind correctly to properties with dots in the name
+            // more at: http://stackoverflow.com/questions/25017542/how-to-prevent-columns-from-not-displaying-in-wpf-datagrids-when-using-in-th
+            // 
+            if (e.PropertyName.Contains('.') && e.Column is DataGridBoundColumn)
+            {
+                var col = e.Column as DataGridBoundColumn;
+                col.Binding = new Binding(string.Format("[{0}]", e.PropertyName));
+            }
 
             // Replace all underscores with two underscores, to prevent AccessKey handling
             e.Column.Header = header.Replace("_", "__");
@@ -965,6 +982,11 @@ namespace XbimPlugin.MvdXML
                 return;
             Doc.ForceModelSchema = AdaptSchema;
             UpdateUiLists();
+        }
+
+        private void SelectedRawDataConceptChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateDataTable();
         }
     }
 }

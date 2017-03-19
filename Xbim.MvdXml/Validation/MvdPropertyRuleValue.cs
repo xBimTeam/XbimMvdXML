@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -50,18 +52,46 @@ namespace Xbim.MvdXml.Validation
         // todo: will probably have to implement the full grammar to parse and convert the string.
         // todo: numeric values will have to be implemeted in the datatable extraction, if we want to rely on datatable filters
 
-        public static string BuildSql(string storageString)
+        public static string BuildSql(string storageString, DataTable tableOfReference)
         {
             var pars = GetValues(storageString);
-            var lst = pars.Select(mvdPropertyRuleValue => mvdPropertyRuleValue.ToSql()).ToList();
+            var lst = pars.Select(mvdPropertyRuleValue => mvdPropertyRuleValue.ToSql(tableOfReference)).ToList();
             return string.Join(" AND ", lst);
         }
 
-        private string ToSql()
+        private string ToSql(DataTable tableOfReference)
         {
             var sb = new StringBuilder();
             sb.AppendFormat("{0} {1} {2}", DataIndicator.ColumnName, DataComparison, DataValue);
-            return sb.ToString();
+
+            // equal and different can work on any comparison
+            if (DataComparison == "=" ||
+                DataComparison == "!=")
+            {
+                return sb.ToString();
+            }
+
+            // from here on it's only >, >=, <, <= 
+            // (unless invalid which is thrown at the end)
+
+            // if not string no need to convert
+            if (tableOfReference.Columns[DataIndicator.ColumnName].DataType != typeof(string))
+                return sb.ToString();
+
+            sb = new StringBuilder();
+
+            if (DataComparison == "<" ||
+                DataComparison == "<=" ||
+                DataComparison == ">=" ||
+                DataComparison == ">")
+            {
+                sb.AppendFormat("convert({0}, 'System.Double') {1} {2}", DataIndicator.ColumnName, DataComparison, DataValue);
+                return sb.ToString();
+            }
+
+            // otherwise invalid
+            throw  new InvalidDataException();
+
         }
     }
 }
