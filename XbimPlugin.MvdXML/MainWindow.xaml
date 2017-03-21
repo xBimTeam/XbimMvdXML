@@ -36,7 +36,10 @@
                     <StackPanel>
                         <TextBlock x:Name="PluginVersion" Margin="10" TextAlignment="Center" />
                         <TextBlock TextWrapping="Wrap" Margin="15" TextAlignment="Left" Foreground="Blue" >
-                    Schema version mvdXML V1.1.
+                            Schema version mvdXML V1.1.
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" Margin="15" TextAlignment="Left" Foreground="Red" >
+                            This version of the library has known regression issues, do not use in production environments.
                         </TextBlock>
                         <TextBlock TextWrapping="Wrap" Margin="15" TextAlignment="Left" >
                             To provide feedback or getting in touch with the developers, please navigate to our

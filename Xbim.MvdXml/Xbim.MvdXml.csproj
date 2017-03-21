@@ -98,6 +98,7 @@
     <Compile Include="DataManagement\Combinations.cs" />
     <Compile Include="DataManagement\ConceptExtensions.cs" />
     <Compile Include="DataManagement\ConceptTestResult.cs" />
+    <Compile Include="DataManagement\DataFragment.cs" />
     <Compile Include="DataManagement\MvdEngine.cs" />
     <Compile Include="DataManagement\AttributeRuleExtensions.cs" />
     <Compile Include="MvdXml\ArrayExtensions.cs" />

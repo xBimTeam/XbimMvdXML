@@ -134,9 +134,6 @@ namespace Xbim.MvdXml
         /// </returns>
         public ConceptTestResult Test(IPersistEntity ent, ConceptTestMode mode)
         {           
-#if DEBUG
-            Log.Debug($"Concept {uuid} testing {mode}");
-#endif
             var entityLabel = ent.EntityLabel;
             ConceptTestResult ret;
             ConceptTestResult hasIt;

@@ -201,79 +201,121 @@ namespace Xbim.MvdXml.DataManagement
 
             // when ending row or going deeper it fills row
             var valueVector = new Dictionary<string, List<object>>();
-            RecursiveFill(template.Rules, dt, entity, valueVector, fastIndicators, "", template.SubTemplates);
-
+            if (false)
+                RecursiveFillAttributes(template.Rules, dt, entity, valueVector, fastIndicators, "", template.SubTemplates);
+            else
+            {
+                var vls = GetAttributes(template, entity, valueVector, fastIndicators, "");
+                vls?.Populate(dt);
+            }
             return dt;
         }
 
-        private bool RecursiveFill(AttributeRule[] rules, DataTable dt, IPersistEntity entity, Dictionary<string, List<object>> valuesVector, IndicatorLookup dataIndicators, string prefix, ConceptTemplate[] subTemplates)
+        private DataFragment GetAttributes(ConceptTemplate template, IPersistEntity entity,
+            Dictionary<string, List<object>> valuesVector, IndicatorLookup dataIndicators, string prefix)
         {
-#if DEBUG
-            // stop here to observe the transversal of the tree
-            if (entity.EntityLabel == _iDebugHelpNextStop || _iDebugHelpNextStop == -1)
-            {
-                
-            }
-#endif
-
-            // prepare the list of subTemplates that match only once
-            var tSub = 
-                subTemplates?.Where(subTemplate => subTemplate.Rules != null && subTemplate.AppliesTo(entity)).ToList() 
+            // prepare once the list of subTemplates that match 
+            var relevantSubTemplates =
+                template.SubTemplates?.Where(subTemplate => subTemplate.Rules != null && subTemplate.AppliesTo(entity)).ToList()
                 ?? new List<ConceptTemplate>();
 
-            var addedVectorItems = new List<string>();
-
-            // rules are enumerated twice, the first time values at this level are extracted, the second time to navigate the children in the tree
-            // first pass to add values at this level
-            //
-            var levelHasValues = ExtractRulesValues(entity, valuesVector, dataIndicators, rules, prefix, addedVectorItems);
-            // Now process sub templates
-            foreach (var subTemplate in tSub)
+            List<AttributeRule[]> tmp  = new List<AttributeRule[]>();
+            tmp.Add(template.Rules);
+            foreach (var relevantSubTemplate in relevantSubTemplates)
             {
-                // the order of the OR is important, we want to be sure to execute the ExtractRulesValues even if levelHasValues is already true
-                levelHasValues = ExtractRulesValues(entity, valuesVector, dataIndicators, subTemplate.Rules, prefix, addedVectorItems) 
-                    || levelHasValues;
+                tmp.Add(relevantSubTemplate.Rules);
             }
 
-            // subsequent pass to add children values along the tree 
-            // This is done in second stage so that all values at the current level are prepared in the vector
+            return GetAttributes(tmp, entity, valuesVector, dataIndicators, prefix);
+            
+        }
+
+        private DataFragment GetAttributes(List<AttributeRule[]> rulesSets, IPersistEntity entity, Dictionary<string, List<object>> valuesVector, IndicatorLookup dataIndicators, string prefix )
+        {
+            // 1.  get all values
+
+            // add values at this level
             //
-            var vectorInserted = ProcessRuleTree(dt, entity, valuesVector, dataIndicators, rules, prefix);
-            foreach (var subTemplate in tSub)
+
+            var fragments = new List<DataFragment>();
+
+            foreach (var attributeRulese in rulesSets)
             {
-                // the order of the OR is important, we want to be sure to execute the ProcessRuleTree even if vectorInserted is already true
-                vectorInserted = ProcessRuleTree(dt, entity, valuesVector, dataIndicators, subTemplate.Rules, prefix)
-                    || vectorInserted;
+                var t = ExtractRulesValues(entity, valuesVector, dataIndicators, attributeRulese, prefix);
+                if (t != null)
+                    fragments.Add(t);
             }
-            if (!vectorInserted && levelHasValues)
+
+            // process the rest of the tree 
+            //
+            foreach (var attributeRulese in rulesSets)
             {
-                // todo: investigate possible code weakness.
-                // if the toArray is omitteed some test fail.
-                var paramList = valuesVector.Values.ToArray();
-                // ReSharper disable once CoVariantArrayConversion
-                var rows = Combinations.GetCombinations(paramList);
-                foreach (var combinationRow in rows)
+                var t = ProcessRuleTree(entity, valuesVector, dataIndicators, attributeRulese, prefix);
+                if (t != null)
+                    fragments.Add(t);
+            }
+
+            // 2. combine them and return
+            return  DataFragment.Combine(fragments);
+             
+        }
+
+        private DataFragment ProcessRuleTree(IPersistEntity entity, Dictionary<string, List<object>> valueVector, IndicatorLookup dataIndicators,
+            AttributeRule[] rules, string prefix)
+        {
+            // todo: xxx review return value logic
+
+            var f = new List<DataFragment>();
+
+            if (rules == null)
+                return null;
+            foreach (var attributeRule in rules)
+            {
+                var attributeFragment = new DataFragment();
+
+                // todo: if no entity is specified then the attribute is not set; is this correct?
+                // see at deeper tree levels
+                if (attributeRule.EntityRules == null || attributeRule.EntityRules.EntityRule.Length <= 0)
+                    continue;
+                // here we have to see if the attribute gets values that we can use
+                ExpressMetaProperty retProp;
+                var entityRuleValue = GetFieldValue(entity, attributeRule.AttributeName, out retProp);
+                if (retProp == null) // we are in the case where the property does not exist in the schema
                 {
-                    var row = dt.NewRow();
-                    var i = 0;
-                    foreach (var key in valuesVector.Keys)
-                    {
-                        row[key] = combinationRow[i++];
-                    }
-                    dt.Rows.Add(row);
+                    Log.Warn($"{attributeRule.AttributeName} property is not available for type {entity.GetType().Name} (as expected on attributeRule '{attributeRule.RuleID}' in {attributeRule.ParentConceptTemplate.uuid})");
+                    continue;
                 }
-                vectorInserted = true;
-            }
-            if (!levelHasValues) 
-                return vectorInserted;
 
-            // need to remove vector values of this level before going to higher level
-            //
-            foreach (var added in addedVectorItems)
-            {
-                valuesVector.Remove(added);                        
+                if (retProp.EntityAttribute.IsEnumerable)
+                {
+                    var propCollection = entityRuleValue as IEnumerable<object>;
+                    if (propCollection == null)
+                        continue;
+                    var children = propCollection.OfType<IPersistEntity>().ToArray();
+                    foreach (var child in children)
+                    {
+                        // todo: 
+                        // this is likely to return the same variable names for the datatable
+                        var t = FillEntities(attributeRule.EntityRules.EntityRule, child, valueVector, dataIndicators,
+                            prefix);
+                        attributeFragment.Merge(t);
+                    }
+                }
+                else
+                {
+                    var t = FillEntities(attributeRule.EntityRules.EntityRule, entityRuleValue as IPersistEntity,
+                                valueVector, dataIndicators, prefix);
+                    attributeFragment.Merge(t);
+                }
+                f.Add(attributeFragment);
             }
-            return true;
+            return DataFragment.Combine(f);
+        }
+
+
+        private bool RecursiveFillAttributes(AttributeRule[] rules, DataTable dt, IPersistEntity entity, Dictionary<string, List<object>> valuesVector, IndicatorLookup dataIndicators, string prefix, ConceptTemplate[] subTemplates)
+        {
+            throw  new NotImplementedException();
         }
 
         private bool ProcessRuleTree(DataTable dt, IPersistEntity entity, Dictionary<string, List<object>> valueVector, IndicatorLookup dataIndicators,
@@ -307,24 +349,26 @@ namespace Xbim.MvdXml.DataManagement
                         if (child.EntityLabel == 688)
                         {
                         }
-                        var thisInserted = RecursiveFill(attributeRule.EntityRules.EntityRule, dt, child, valueVector, dataIndicators, prefix);
+                        var thisInserted = RecursiveFillEntities(attributeRule.EntityRules.EntityRule, dt, child, valueVector, dataIndicators, prefix);
                         vectorInserted = vectorInserted || thisInserted;
                     }
                 }
                 else
                 {
                     // the order of the or clause below is important; RecursiveFill needs to happen
-                    vectorInserted = RecursiveFill(attributeRule.EntityRules.EntityRule, dt, entityRuleValue as IPersistEntity, valueVector, dataIndicators, prefix)
+                    vectorInserted = RecursiveFillEntities(attributeRule.EntityRules.EntityRule, dt, entityRuleValue as IPersistEntity, valueVector, dataIndicators, prefix)
                                      || vectorInserted;
                 }
             }
             return vectorInserted;
         }
 
-
-        private bool ExtractRulesValues(IPersistEntity entity, Dictionary<string, List<object>> valueVector, IndicatorLookup dataIndicators,
-            AttributeRule[] rules, string prefix, List<string> addedVectorItems)
+        private DataFragment ExtractRulesValues(IPersistEntity entity, Dictionary<string, List<object>> valueVector, IndicatorLookup dataIndicators,
+            AttributeRule[] rules, string prefix, List<string> addedVectorItems = null)
         {
+
+            var tmp = new List<DataFragment>();
+
 #if DEBUG
             // _iDebugHelpNextStop = 10690;
             // stop here to see when values are attributed
@@ -333,9 +377,9 @@ namespace Xbim.MvdXml.DataManagement
 
             }
 #endif
-            var levelHasValues = false;
+            
             if (rules == null)
-                return false;
+                return null;
             foreach (var attributeRule in rules)
             {
                 // sort out values at current level
@@ -351,79 +395,62 @@ namespace Xbim.MvdXml.DataManagement
                 // set the value
                 if (dataIndicators.requires(storageName, Indicator.ValueSelectorEnum.Value))
                 {
-                    if (storageName == "IsAssigned")
-                    {
-
-                    }
+                    DataFragment tF;
                     if (!valueVector.ContainsKey(storageName))
                         valueVector.Add(storageName, new List<object>());
 
                     if (value is IEnumerable<object>)
                     {
                         var asEnum = value as IEnumerable<object>;
-                        foreach (var item in asEnum)
-                        {
-                            valueVector[storageName].Add(item);
-                        }
+                        tF = new DataFragment(storageName, asEnum);
                     }
                     else
-                        valueVector[storageName].Add(value);
-                    addedVectorItems.Add(storageName);
-                    levelHasValues = true;
+                        tF = new DataFragment(storageName, value);
+                    tmp.Add(tF);
                 }
 
                 // set the type
                 if (dataIndicators.requires(storageName, Indicator.ValueSelectorEnum.Type))
                 {
-                    var storName = Indicator.GetColumnName(storageName,
-                        Indicator.ValueSelectorEnum.Type);
+                    var storName = Indicator.GetColumnName(storageName, Indicator.ValueSelectorEnum.Type);
                     if (!valueVector.ContainsKey(storName))
                         valueVector.Add(storName, new List<object>());
-                    valueVector[storName].Add(value.GetType().Name);
-                    addedVectorItems.Add(storName);
-                    levelHasValues = true;
+                    
+                    tmp.Add( new DataFragment(storName, value.GetType().Name));
                 }
 
                 // set the Size
                 if (dataIndicators.requires(storageName, Indicator.ValueSelectorEnum.Size))
                 {
-                    var storName = Indicator.GetColumnName(storageName,
-                        Indicator.ValueSelectorEnum.Size);
-                    if (!valueVector.ContainsKey(storName))
-                        valueVector.Add(storName, new List<object>());
+                    var storName = Indicator.GetColumnName(storageName, Indicator.ValueSelectorEnum.Size);
+                    
                     if (value is IEnumerable<object>)
                     {
                         var asEnum = value as IEnumerable<object>;
-                        valueVector[storName].Add(asEnum.Count());
+                        tmp.Add(new DataFragment(storName, asEnum.Count()));
                     }
                     else if (value == null)
-                        valueVector[storName].Add(0);
-                    else 
-                        valueVector[storName].Add(1); // there's one entity
-
-                    addedVectorItems.Add(storName);
-                    levelHasValues = true;
+                        tmp.Add(new DataFragment(storName, 0));
+                    else
+                        tmp.Add(new DataFragment(storName, 1)); // there's one entity   
                 }
 
                 // set Existence
                 // ReSharper disable once InvertIf // for symmetry in code
                 if (dataIndicators.requires(storageName, Indicator.ValueSelectorEnum.Exists))
                 {
-                    var storName = Indicator.GetColumnName(storageName,
-                        Indicator.ValueSelectorEnum.Exists);
+                    var storName = Indicator.GetColumnName(storageName, Indicator.ValueSelectorEnum.Exists);
                     var storValue = value != null;
                     if (value != null)
                     {
                         storValue = value.ToString().Trim() != "";
                     }
-                    if (!valueVector.ContainsKey(storName))
-                        valueVector.Add(storName, new List<object>());
-                    valueVector[storName].Add(storValue); // true if not null
-                    addedVectorItems.Add(storName);
-                    levelHasValues = true;
+
+                    tmp.Add(new DataFragment(storName, storValue)); // true if not null
+                    
                 }
             }
-            return levelHasValues;
+            return DataFragment.Combine(tmp);
         }
 
         /// <summary>
@@ -460,7 +487,46 @@ namespace Xbim.MvdXml.DataManagement
         private int _iDebugHelpNextStop = 0;
 #endif
 
-        private bool RecursiveFill(EntityRule[] rules, DataTable dt, IPersistEntity entity, Dictionary<string, List<object>> valueVector, IndicatorLookup dataIndicators, string prefix)
+        private DataFragment FillEntities(EntityRule[] rules, IPersistEntity entity, Dictionary<string, List<object>> valueVector, IndicatorLookup dataIndicators, string prefix)
+        {
+            // todo: review the return logic
+
+            if (entity == null)
+                return null;
+            foreach (var entityRule in rules)
+            {
+                // it's probably safe to assume that if we are here then the whole schema is the same of the element we are using
+                // regardless from _forceModelSchema settings; it would otherwise be complicated to consider which of the schemas to use of the
+                // array of schemes of the parent ConceptTemplate.
+                var filterType = GetExpressType(entity.Model.Metadata, entityRule.EntityName.ToUpper());
+                if (filterType == null)
+                    continue;
+                if (!filterType.NonAbstractSubTypes.Contains(entity.ExpressType))
+                    continue;
+
+                if (entityRule.References != null)
+                {
+                    // need to resolve reference
+                    if (string.IsNullOrEmpty(entityRule.References.Template?.@ref))
+                        continue;
+                    var tPrefix = prefix;
+                    // Debug.Print(@"Ref: {0} on {1} ({2})", entityRule.References.Template.@ref, entity.EntityLabel, entity.GetType().Name);
+                    var refTemplate = Mvd.GetConceptTemplate(entityRule.References.Template.@ref);
+                    if (!string.IsNullOrEmpty(entityRule.References.IdPrefix))
+                        tPrefix += entityRule.References.IdPrefix;
+                    return GetAttributes(refTemplate, entity, valueVector, dataIndicators, tPrefix);
+                }
+                else if (entityRule.AttributeRules != null)
+                {
+                    // rules nested directly 
+                    return GetAttributes(new List<AttributeRule[]> {entityRule.AttributeRules.AttributeRule}, entity, valueVector, dataIndicators, prefix);
+                }
+            }
+            return null;
+        }
+
+
+        private bool RecursiveFillEntities(EntityRule[] rules, DataTable dt, IPersistEntity entity, Dictionary<string, List<object>> valueVector, IndicatorLookup dataIndicators, string prefix)
         {
             if (entity == null)
                 return false;
@@ -494,14 +560,14 @@ namespace Xbim.MvdXml.DataManagement
                     var refTemplate = Mvd.GetConceptTemplate(entityRule.References.Template.@ref);
                     if (!string.IsNullOrEmpty(entityRule.References.IdPrefix))
                         tPrefix += entityRule.References.IdPrefix;
-                    var thisInserted = RecursiveFill(refTemplate.Rules, dt, entity, valueVector, dataIndicators, tPrefix, refTemplate.SubTemplates);
+                    var thisInserted = RecursiveFillAttributes(refTemplate.Rules, dt, entity, valueVector, dataIndicators, tPrefix, refTemplate.SubTemplates);
                     vectorInserted = vectorInserted || thisInserted;
                 }
                 else if (entityRule.AttributeRules != null)
                 {
                     // rules nested directly 
                     // todo: check that it's ok to send null as subtemplate
-                    var thisInserted = RecursiveFill(entityRule.AttributeRules.AttributeRule, dt, entity, valueVector, dataIndicators, prefix, null);
+                    var thisInserted = RecursiveFillAttributes(entityRule.AttributeRules.AttributeRule, dt, entity, valueVector, dataIndicators, prefix, null);
                     vectorInserted = vectorInserted || thisInserted;
                 }
             }
