@@ -831,7 +831,7 @@ namespace XbimPlugin.MvdXML
 
         private XbimColour ColourFromString(string colorFail)
         {
-            // todo: XbimColour needs to save to invariant culture
+            // todo: XbimColour has been amended in xbim.ifc with fromString function; use that.
             var c = new XbimColour();
             var m = ColRegex.Match(colorFail);
             if (m.Success)

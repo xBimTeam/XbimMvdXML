@@ -20,6 +20,8 @@ namespace Xbim.MvdXml
             }
         }
 
+        public override string ToString() => "EntityRule: " + EntityName;
+
         private ConceptTemplate GetRefTemplate()
         {
             if (string.IsNullOrEmpty(References?.Template?.@ref))

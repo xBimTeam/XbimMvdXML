@@ -12,22 +12,34 @@ namespace Xbim.MvdXml.DataManagement
         internal List<string> FieldNames;
         internal List<List<object>> Values;
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public DataFragment()
         {
         }
 
+        /// <summary>
+        /// Basic constructor
+        /// </summary>
         public DataFragment(List<string> fieldNames, List<List<object>> values)
         {
             FieldNames = fieldNames;
             Values = values;
         }
 
+        /// <summary>
+        /// Basic constructor
+        /// </summary>
         public DataFragment(string storageName, object value)
         {
             FieldNames = new List<string>() { storageName };
             Values = new List<List<object>>() { new List<object>() { value } };
         }
 
+        /// <summary>
+        /// Basic constructor
+        /// </summary>
         public DataFragment(string storageName, IEnumerable<object> asEnum)
         {
             FieldNames = new List<string>() {storageName};
@@ -38,6 +50,14 @@ namespace Xbim.MvdXml.DataManagement
             }
         }
 
+        /// <summary>
+        /// Overridden for debugging purposes.
+        /// </summary>
+        public override string ToString()
+        {
+            return $"DataFragment: '{string.Join(",", FieldNames)}' Count: {Values.Count}";
+        }
+
         public static DataFragment Combine(List<DataFragment> fragments)
         {
             var okFragments = fragments.Where(f => f != null && !f.IsEmpty).ToArray();
@@ -46,16 +66,20 @@ namespace Xbim.MvdXml.DataManagement
             if (okFragments.Length == 1)
                 return okFragments[0];
 
-            var oList = new List<List<object>>[okFragments.Length];
+            // title values
+            var titles = okFragments.SelectMany(x => x.FieldNames).ToList();
+            var dist = titles.Distinct();
+            if (titles.Count != dist.Count())
+            {
+                
+            }
 
+            var oList = new List<List<object>>[okFragments.Length];
             var i=0;
             foreach (var dataFragment in okFragments)
             {
                 oList[i++] = dataFragment.Values;
             }
-
-            var titles = okFragments.SelectMany(x => x.FieldNames).ToList();
-            
 
             var rowsT = Combinations.GetCombinations(oList);
             var LRet = new List<List<object>>();
