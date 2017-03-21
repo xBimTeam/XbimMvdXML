@@ -11,7 +11,7 @@ namespace Xbim.MvdXml
     // 
     // its use in visuals styler is as follows:
     // mandatory -> normal behaviour               -> If any fail Red, if all pass green 
-    // raccomended -> warning if does not pass     -> If any fail orange, if all pass green 
+    // reccomended -> warning if does not pass     -> If any fail orange, if all pass green 
     // excluded -> pass/fail are reversed          -> If any pass Red, if all fail green 
     // not-relevant (ignore the test, turned off)  -> Invisible (blue in alternative scheme)  (not executed from the enginge)
     // not-recommended ->                          -> if any pass Orange, if all fail green

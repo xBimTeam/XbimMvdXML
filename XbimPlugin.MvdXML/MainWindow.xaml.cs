@@ -825,26 +825,31 @@ namespace XbimPlugin.MvdXML
         private Regex _colRegex;
 
         internal Regex ColRegex => _colRegex ??
-                                   (_colRegex = new Regex( "R:([\\d.]+) G:([\\d.]+) B:([\\d.]+) A:([\\d.]+) DF:([\\d.]+) TF:([\\d.]+) DTF:([\\d.]+) RF:([\\d.]+) SF:([\\d.]+)"));
+                                   //(_colRegex = new Regex( "R:([\\d.]+) G:([\\d.]+) B:([\\d.]+) A:([\\d.]+) DF:([\\d.]+) TF:([\\d.]+) DTF:([\\d.]+) RF:([\\d.]+) SF:([\\d.]+)"));
+                                   (_colRegex = new Regex("R:([\\d.,]+) G:([\\d.,]+) B:([\\d.,]+) A:([\\d.,]+)"));
 
 
         private XbimColour ColourFromString(string colorFail)
         {
+            // todo: XbimColour needs to save to invariant culture
             var c = new XbimColour();
             var m = ColRegex.Match(colorFail);
             if (m.Success)
             {
-                c.Red = Convert.ToSingle(m.Groups[1].Value);
-                c.Green = Convert.ToSingle(m.Groups[2].Value);
-                c.Blue = Convert.ToSingle(m.Groups[3].Value);
-                c.Alpha = Convert.ToSingle(m.Groups[4].Value);
+                c.Red = float.Parse(m.Groups[1].Value, CultureInfo.CurrentCulture);
+                c.Green = float.Parse(m.Groups[2].Value, CultureInfo.CurrentCulture);
+                c.Blue = float.Parse(m.Groups[3].Value, CultureInfo.CurrentCulture);
+                c.Alpha = float.Parse(m.Groups[4].Value, CultureInfo.CurrentCulture);
                 // todo: why are some of the following fields now readonly?
                 //c.DiffuseFactor = Convert.ToSingle(m.Groups[5].Value);
                 //c.TransmissionFactor = Convert.ToSingle(m.Groups[6].Value);
                 //c.DiffuseTransmissionFactor = Convert.ToSingle(m.Groups[7].Value);
                 //c.ReflectionFactor = Convert.ToSingle(m.Groups[8].Value);
                 //c.SpecularFactor = Convert.ToSingle(m.Groups[9].Value);
-
+            }
+            else
+            {
+                MessageBox.Show($"Colour string '{colorFail}' not understood.");
             }
             return c;       
         }
