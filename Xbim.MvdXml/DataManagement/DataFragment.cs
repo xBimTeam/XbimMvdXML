@@ -81,7 +81,7 @@ namespace Xbim.MvdXml.DataManagement
                 oList[i++] = dataFragment.Values;
             }
 
-            var rowsT = Combinations.GetCombinations(oList);
+            var rowsT = Mathematics.GetCombinations(oList);
             var LRet = new List<List<object>>();
             foreach (var objectse in rowsT)
             {

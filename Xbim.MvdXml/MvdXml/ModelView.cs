@@ -5,7 +5,7 @@ using log4net;
 // ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
-    public  partial class ModelView
+    public  partial class ModelView : IUnique
     {
         private static readonly ILog Log = LogManager.GetLogger("Xbim.MvdXml.RequirementsRequirement");
 
@@ -56,6 +56,15 @@ namespace Xbim.MvdXml
             _failedLookupMessages.Add(exchangeRequirementUuid);
             Log.Error($"UUID '{exchangeRequirementUuid}' cannot be found in exchange requirements of ModelView '{uuid}'.");
             return null;
+        }
+
+        /// <summary>
+        /// provides access to the underlying Uuid string
+        /// </summary>
+        /// <returns>a string</returns>
+        public string GetUuid()
+        {
+            return uuid;
         }
     }
 }

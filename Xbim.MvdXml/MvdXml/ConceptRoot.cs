@@ -6,7 +6,7 @@ using Xbim.Common;
 // ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
-    public  partial class ConceptRoot
+    public  partial class ConceptRoot : IUnique
     {
         private static readonly ILog Log = LogManager.GetLogger("XbimMvdXml.ConceptRoot.ConceptRoot");
 
@@ -66,6 +66,15 @@ namespace Xbim.MvdXml
             // now evaluate applicability rules or return true 
             return Applicability == null
                    || Applicability.IsApplicable(entity);
+        }
+
+        /// <summary>
+        /// provides access to the underlying Uuid string
+        /// </summary>
+        /// <returns>a string</returns>
+        public string GetUuid()
+        {
+            return uuid;
         }
     }
 }

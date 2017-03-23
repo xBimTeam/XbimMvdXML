@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using Xbim.MvdXml.DataManagement;
 using Xbim.MvdXml.Validation;
 
 // ReSharper disable once CheckNamespace
@@ -57,11 +58,11 @@ namespace Xbim.MvdXml
             throw new NotImplementedException(@"PassesOn not implemented for operator: " + opString + " in TemplateRules.");
         }
 
-        internal List<Indicator> GetIndicators()
+        internal List<DataIndicator> GetIndicators()
         {
             var ind = ((ITemplateRule)this).RecursiveProperiesRuleValues();
             return ind?.Select(x => x.DataIndicator).Distinct().ToList() 
-                ?? new List<Indicator>();
+                ?? new List<DataIndicator>();
         }
     }
 }

@@ -11,7 +11,7 @@ using Xbim.MvdXml.DataManagement;
 namespace Xbim.MvdXml
 {
     // ReSharper disable once InconsistentNaming
-    public partial class mvdXML
+    public partial class mvdXML: IUnique
     {
         private static readonly ILog Log = LogManager.GetLogger("Xbim.MvdXml.mvdXML");
 
@@ -89,6 +89,13 @@ namespace Xbim.MvdXml
             //            yield return concept;
             return from view in Views from conceptRoot in view.Roots from concept in conceptRoot.Concepts select concept;
         }
+
+        public IEnumerable<ConceptRoot> GetAllConceptsRoots()
+        {
+            return Views.SelectMany(view => view.Roots);
+        }
+
+
 
         /// <summary>
         /// Loads an mvdXML deserializing it from a file.
@@ -232,6 +239,15 @@ namespace Xbim.MvdXml
                 Log.Error("Error cought while attempting namespace fix", ex);
                 return false;
             }
+        }
+
+        /// <summary>
+        /// provides access to the underlying Uuid string
+        /// </summary>
+        /// <returns>a string</returns>
+        public string GetUuid()
+        {
+            return uuid;
         }
     }
 }

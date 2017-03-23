@@ -30,7 +30,7 @@ namespace Tests
             // can instantiate engine on model
             var engine = new MvdEngine(mvd, m);
             // data indicators
-            var ind = new IndicatorLookup("Set", "Property", "Value", "T_Set", "T_Property", "T_Value");
+            var ind = new DataIndicatorLookup("Set", "Property", "Value", "T_Set", "T_Property", "T_Value");
 
             // simple property data extraction with subtemplates
             //
@@ -54,7 +54,7 @@ namespace Tests
             var engine = new MvdEngine(mvd, m);
 
             // data indicators
-            var ind = new IndicatorLookup("Set", "Property", "Value", "T_Set", "T_Property", "T_Value");
+            var ind = new DataIndicatorLookup("Set", "Property", "Value", "T_Set", "T_Property", "T_Value");
         
             // simple property data extraction with subtemplates
             //

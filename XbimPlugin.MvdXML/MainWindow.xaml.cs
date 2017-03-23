@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -27,6 +28,7 @@ using Xbim.Common;
 using Xbim.Presentation.LayerStyling;
 using Xbim.Ifc;
 using Xbim.Common.Metadata;
+using Xbim.MvdXml.Validation;
 
 namespace XbimPlugin.MvdXML
 {
@@ -57,6 +59,19 @@ namespace XbimPlugin.MvdXML
             }
 
             CmbColorGroup.SelectionChanged += ColorGroupChanged;
+
+#if DEBUG
+            // loads the last commands stored
+            var fname = Path.Combine(Path.GetTempPath(), "mvdxmlcommands.txt");
+            if (!System.IO.File.Exists(fname))
+                return;
+            using (var reader = System.IO.File.OpenText(fname))
+            {
+                var read = reader.ReadToEnd();
+                TxtCommand.Text = read;
+            }
+#endif
+
         }
 
         internal MvdEngine Doc;
@@ -67,7 +82,6 @@ namespace XbimPlugin.MvdXML
 
         private void OpenFile(object sender, RoutedEventArgs e)
         {
-
             var openFile = new OpenFileDialog { Filter = @"mvdXML|*.mvdXML;*.xml" };
             var res = openFile.ShowDialog();
 
@@ -949,6 +963,50 @@ namespace XbimPlugin.MvdXML
         private void SelectedRawDataConceptChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateDataTable();
+        }
+
+        private void txtCommand_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter || (!Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyDown(Key.RightCtrl)))
+                return;
+            CommandExecute();
+            e.Handled = true;
+        }
+
+        private void CommandExecute()
+        {
+#if DEBUG
+            // stores the commands being launched
+            var fname = Path.Combine(Path.GetTempPath(), "mvdxmlcommands.txt");
+            using (var writer = System.IO.File.CreateText(fname))
+            {
+                writer.Write(TxtCommand.Text);
+                writer.Flush();
+                writer.Close();
+            }
+#endif
+            var th = new TextHighliter();
+
+            th.Append("=== Reporting uuid issues", Brushes.DarkGreen);
+            int i = 0;
+            foreach (var issue in Doc.Mvd.ReportUuidIssues())
+            {
+                th.Append(issue, Brushes.OrangeRed);
+                i++;
+            }
+            if (i == 0)
+                th.Append($"=== No issues found.", Brushes.DarkGreen);
+            else if (i == 1)
+                th.Append($"=== 1 issue found.", Brushes.Red);
+            else
+                th.Append($"=== {i} issues found.", Brushes.Red);
+
+            th.DropInto(TxtOut.Document);
+        }
+
+        private void cmdRun(object sender, RoutedEventArgs e)
+        {
+            CommandExecute();
         }
     }
 }

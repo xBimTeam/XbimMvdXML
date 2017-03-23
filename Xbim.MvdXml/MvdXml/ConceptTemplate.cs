@@ -7,7 +7,7 @@ using Xbim.Common;
 // ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
-    public partial class ConceptTemplate 
+    public partial class ConceptTemplate : IUnique
     {
         private static readonly ILog Log = LogManager.GetLogger("Xbim.MvdXml.CncptTemplate");
 
@@ -156,6 +156,15 @@ namespace Xbim.MvdXml
         private bool ApplicableIs(string currTypeName)
         {
             return applicableEntity.Any(applicable => string.Equals(applicable, currTypeName, StringComparison.OrdinalIgnoreCase));
+        }
+
+        /// <summary>
+        /// provides access to the underlying Uuid string
+        /// </summary>
+        /// <returns>a string</returns>
+        public string GetUuid()
+        {
+            return uuid;
         }
     }
 }

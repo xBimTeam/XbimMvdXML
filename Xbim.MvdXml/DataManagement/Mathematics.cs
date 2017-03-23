@@ -2,7 +2,7 @@
 
 namespace Xbim.MvdXml.DataManagement
 {
-    internal static class Combinations
+    internal static class Mathematics
     {
         // combination function from 
         // http://newscentral.exsees.com/item/5a032ab499762278ca45602a69135f19-4e33b3ef2b87f26076f715c0d25b11f6
@@ -34,6 +34,5 @@ namespace Xbim.MvdXml.DataManagement
             GetCombinationsRec(sources: enumerables, chain: chain, index: 0, combinations: combinations);
             return combinations;
         }
-
     }
 }

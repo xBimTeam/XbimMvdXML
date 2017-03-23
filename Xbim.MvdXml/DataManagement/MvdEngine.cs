@@ -20,6 +20,10 @@ namespace Xbim.MvdXml.DataManagement
     {
         private static readonly ILog Log = LogManager.GetLogger("Xbim.MvdXml.DataManagement.MvdEngine");
 
+        // todo: there's probably scope for removing the model from the mvdEngine
+        // we could have a manager to resolve references and UUIDs within the mvdxml schema
+        // and another class to deal with the caching of results attached with a model
+
         private readonly IModel _model;
 
         /// <summary>
@@ -175,7 +179,7 @@ namespace Xbim.MvdXml.DataManagement
         {
             // todo: there's no filter of the applicability of the template to the entity in the GetData function
             var allRules = template.GetRecursiveRuleIds().Distinct();
-            var allIndicators = allRules.Select(rule => new Indicator(rule)).ToList();
+            var allIndicators = allRules.Select(rule => new DataIndicator(rule)).ToList();
 
             return GetData(entity, template, allIndicators);
         }
@@ -188,17 +192,17 @@ namespace Xbim.MvdXml.DataManagement
         /// <param name="template">the ConceptTemplate to apply</param>
         /// <param name="dataIndicators">the indicators of interest</param>
         /// <returns></returns>
-        public DataTable GetData(IPersistEntity entity, ConceptTemplate template, IEnumerable<Indicator> dataIndicators)
+        public DataTable GetData(IPersistEntity entity, ConceptTemplate template, IEnumerable<DataIndicator> dataIndicators)
         {
             var dt = new DataTable();
-            var indicators = dataIndicators as Indicator[] ?? dataIndicators.ToArray();
+            var indicators = dataIndicators as DataIndicator[] ?? dataIndicators.ToArray();
             foreach (var dataIndicator in indicators)
             {
                 var c = new DataColumn(dataIndicator.ColumnName);
                 dt.Columns.Add(c);
             }
 
-            var fastIndicators = new IndicatorLookup(indicators);
+            var fastIndicators = new DataIndicatorLookup(indicators);
             // template.DebugTemplateTree();
 
             // when ending row or going deeper it fills row
@@ -208,13 +212,13 @@ namespace Xbim.MvdXml.DataManagement
             return dt;
         }
 
-        internal DataFragment GetAttributes(ConceptTemplate template, IPersistEntity entity, IndicatorLookup dataIndicators, string prefix)
+        internal DataFragment GetAttributes(ConceptTemplate template, IPersistEntity entity, DataIndicatorLookup dataIndicators, string prefix)
         {
             var useT = template.GetSpecificConceptTemplateFor(entity);
             return GetAttributes(useT.Rules, entity, dataIndicators, prefix);
         }
 
-        private DataFragment GetAttributes(AttributeRule[] attributeRules, IPersistEntity entity, IndicatorLookup dataIndicators, string prefix)
+        private DataFragment GetAttributes(AttributeRule[] attributeRules, IPersistEntity entity, DataIndicatorLookup dataIndicators, string prefix)
         {
             // 1.  get all values
 
@@ -238,7 +242,7 @@ namespace Xbim.MvdXml.DataManagement
 
         // this is only internal for testing purposes; it should be private otherwise...
         // is there a way to do that?
-        internal DataFragment ProcessRuleTree(IPersistEntity entity, IndicatorLookup dataIndicators, AttributeRule[] rules, string prefix)
+        internal DataFragment ProcessRuleTree(IPersistEntity entity, DataIndicatorLookup dataIndicators, AttributeRule[] rules, string prefix)
         {
             // todo: xxx review return value logic
             var f = new List<DataFragment>();
@@ -286,7 +290,7 @@ namespace Xbim.MvdXml.DataManagement
             return DataFragment.Combine(f);
         }
         
-        private DataFragment ExtractRulesValues(IPersistEntity entity, IndicatorLookup dataIndicators, AttributeRule[] rules, string prefix)
+        private DataFragment ExtractRulesValues(IPersistEntity entity, DataIndicatorLookup dataIndicators, AttributeRule[] rules, string prefix)
         {
             var tmp = new List<DataFragment>();            
             if (rules == null)
@@ -309,7 +313,7 @@ namespace Xbim.MvdXml.DataManagement
                     continue;
                 }
                 // set the value
-                if (dataIndicators.requires(storageName, Indicator.ValueSelectorEnum.Value))
+                if (dataIndicators.Requires(storageName, DataIndicator.ValueSelectorEnum.Value))
                 {
                     DataFragment tF;
                     if (value is IEnumerable<object>)
@@ -324,17 +328,17 @@ namespace Xbim.MvdXml.DataManagement
 
                 // set the type
                 //
-                if (dataIndicators.requires(storageName, Indicator.ValueSelectorEnum.Type))
+                if (dataIndicators.Requires(storageName, DataIndicator.ValueSelectorEnum.Type))
                 {
-                    var storName = Indicator.GetColumnName(storageName, Indicator.ValueSelectorEnum.Type);            
+                    var storName = DataIndicator.GetColumnName(storageName, DataIndicator.ValueSelectorEnum.Type);            
                     tmp.Add( new DataFragment(storName, value.GetType().Name));
                 }
 
                 // set the Size
                 //
-                if (dataIndicators.requires(storageName, Indicator.ValueSelectorEnum.Size))
+                if (dataIndicators.Requires(storageName, DataIndicator.ValueSelectorEnum.Size))
                 {
-                    var storName = Indicator.GetColumnName(storageName, Indicator.ValueSelectorEnum.Size);
+                    var storName = DataIndicator.GetColumnName(storageName, DataIndicator.ValueSelectorEnum.Size);
                     
                     if (value is IEnumerable<object>)
                     {
@@ -350,9 +354,9 @@ namespace Xbim.MvdXml.DataManagement
                 // set Existence
                 // ReSharper disable once InvertIf // for symmetry in code
                 //
-                if (dataIndicators.requires(storageName, Indicator.ValueSelectorEnum.Exists))
+                if (dataIndicators.Requires(storageName, DataIndicator.ValueSelectorEnum.Exists))
                 {
-                    var storName = Indicator.GetColumnName(storageName, Indicator.ValueSelectorEnum.Exists);
+                    var storName = DataIndicator.GetColumnName(storageName, DataIndicator.ValueSelectorEnum.Exists);
                     var storValue = value != null;
                     if (value != null)
                     {
@@ -393,7 +397,7 @@ namespace Xbim.MvdXml.DataManagement
             return previouslyAdded.ToList();
         }
         
-        internal DataFragment FillEntities(EntityRule[] rules, IPersistEntity entity, IndicatorLookup dataIndicators, string prefix)
+        internal DataFragment FillEntities(EntityRule[] rules, IPersistEntity entity, DataIndicatorLookup dataIndicators, string prefix)
         {
             // todo: review the return logic; 
             

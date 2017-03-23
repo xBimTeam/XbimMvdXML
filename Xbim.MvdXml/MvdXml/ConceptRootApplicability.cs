@@ -3,6 +3,7 @@ using System.Data;
 using System.Xml.Serialization;
 using log4net;
 using Xbim.Common;
+using Xbim.MvdXml.DataManagement;
 using Xbim.MvdXml.Validation;
 
 
@@ -63,10 +64,10 @@ namespace Xbim.MvdXml
         private ConceptRoot _parentConceptRoot;
 
         [XmlIgnore()]
-        private List<Indicator> _dataIndicators;
+        private List<DataIndicator> _dataIndicators;
 
         [XmlIgnore()]
-        internal List<Indicator> DataIndicators 
+        internal List<DataIndicator> DataIndicators 
             => _dataIndicators ?? (_dataIndicators = TemplateRules.GetIndicators());
 
         internal DataTable GetData(IPersistEntity entity)

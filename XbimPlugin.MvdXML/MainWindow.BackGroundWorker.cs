@@ -9,6 +9,9 @@ using Xbim.Common.Metadata;
 using Xbim.MvdXml;
 using Xbim.MvdXml.DataManagement;
 
+// todo: there's scope for moving/refactoring this class to the mvdxml dll, to establish some model validation 
+// and reporting functions
+
 namespace XbimPlugin.MvdXML
 {
     public partial class MainWindow

@@ -5,18 +5,19 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Xbim.MvdXml.Validation;
 
-namespace Xbim.MvdXml.Validation
+namespace Xbim.MvdXml.DataManagement
 {
     public class MvdPropertyRuleValue
     { 
-        public Indicator DataIndicator;
+        public DataIndicator DataIndicator;
         public string DataValue;
         public string DataComparison;
 
         public MvdPropertyRuleValue(string varDataIndicator, string varDataValue, string varDataComparison)
         {
-            DataIndicator = new Indicator(varDataIndicator);
+            DataIndicator = new DataIndicator(varDataIndicator);
             DataComparison = varDataComparison;
             DataValue = varDataValue;
         }

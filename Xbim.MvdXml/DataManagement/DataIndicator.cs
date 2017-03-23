@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Xbim.MvdXml.Validation
+namespace Xbim.MvdXml.DataManagement
 {
     // todo: this class need renaming and documentation
-    public class Indicator : IEquatable<Indicator>
+    public class DataIndicator : IEquatable<DataIndicator>
     {
         public override string ToString()
         {
@@ -25,7 +25,7 @@ namespace Xbim.MvdXml.Validation
             Size
         }
 
-        public Indicator(string stringValue)
+        public DataIndicator(string stringValue)
         {
             var v = NameAndSelectorRegex.Match(stringValue.Trim());
             if (v.Success)
@@ -57,9 +57,8 @@ namespace Xbim.MvdXml.Validation
 
         // implemented with guidance from https://msdn.microsoft.com/en-us/library/vstudio/bb348436(v=vs.100).aspx
 
-        public bool Equals(Indicator other)
+        public bool Equals(DataIndicator other)
         {
-
             //Check whether the compared object is null.
             if (ReferenceEquals(other, null)) return false;
 
@@ -76,5 +75,4 @@ namespace Xbim.MvdXml.Validation
             return ColumnName.GetHashCode();
         }
     }
-
 }

@@ -87,10 +87,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WpfControls, Version=1.0.0.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WpfControls.AutoCompleteTextBox.1.0.0.7\lib\net35\WpfControls.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Xbim.CobieExpress, Version=4.0.0.0, Culture=neutral, PublicKeyToken=11e3655e576ec5a9, processorArchitecture=MSIL">
       <HintPath>..\packages\Xbim.Essentials.4.0.28-V013\lib\net40\Xbim.CobieExpress.dll</HintPath>
       <Private>True</Private>
@@ -145,8 +141,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="FilesystemSuggestionProvider.cs" />
     <Compile Include="RequiredValidationRule.cs" />
+    <Compile Include="TextHighliter.cs" />
     <Compile Include="Viewing\ConcepGrouping.cs" />
     <Compile Include="Viewing\ConceptExpander.cs" />
     <Compile Include="Viewing\ConceptRootExpander.cs">

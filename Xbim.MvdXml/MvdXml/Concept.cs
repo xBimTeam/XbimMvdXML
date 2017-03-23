@@ -9,7 +9,7 @@ using Xbim.Common;
 // ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
-    public  partial class Concept
+    public  partial class Concept : IUnique
     {
         private static readonly ILog Log = LogManager.GetLogger("Xbim.XbimMvdXml.Concept");
 
@@ -179,6 +179,15 @@ namespace Xbim.MvdXml
                     break;
             }
             return ret;
+        }
+
+        /// <summary>
+        /// provides access to the underlying Uuid string
+        /// </summary>
+        /// <returns>a string</returns>
+        public string GetUuid()
+        {
+            return uuid;
         }
     }
 }
