@@ -35,7 +35,7 @@ namespace XbimPlugin.MvdXML
             if (_backgroundTester.IsBusy)
                 WorkerRequestCancel();
             else
-                WorkerStart();            
+                WorkerStart();
         }
 
         private void WorkerRequestCancel()
@@ -66,7 +66,7 @@ namespace XbimPlugin.MvdXML
             _backgroundScheduleRestart = false;
             if (Model?.ModelFactors == null)
                 return;
-            
+
             var selectedConcepts = SelectedConcepts();
             var selectedExchReq = SelectedExchangeRequirements();
             var selectedIfcClasses = SelectedIfcClasses();
@@ -82,13 +82,14 @@ namespace XbimPlugin.MvdXML
             ToggleActivityButton.Content = "Cancel";
             ToggleActivityButton.Background = Brushes.Orange;
             // ProcessUiTasks();
-            
+
             _backgroundTester = new BackgroundWorker
             {
                 WorkerSupportsCancellation = true,
                 WorkerReportsProgress = true
             };
-            _backgroundTester.DoWork += (obj, ea) => GetReport(obj, ea, selectedConcepts, selectedExchReq, selectedIfcClasses, entities, Doc);
+            _backgroundTester.DoWork +=
+                (obj, ea) => GetReport(obj, ea, selectedConcepts, selectedExchReq, selectedIfcClasses, entities, Doc);
             _backgroundTester.ProgressChanged += bw_ProgressChanged;
             _backgroundTester.RunWorkerCompleted += bw_RunWorkerCompleted;
             _backgroundTester.RunWorkerAsync();
@@ -96,7 +97,7 @@ namespace XbimPlugin.MvdXML
 
         private void WorkerEnsureStop()
         {
-            if (!_backgroundTester.IsBusy) 
+            if (!_backgroundTester.IsBusy)
                 return;
             WorkerRequestCancel();
             _backgroundScheduleRestart = false;
@@ -116,16 +117,16 @@ namespace XbimPlugin.MvdXML
         {
             TestProgress.Value = e.ProgressPercentage;
         }
-        
+
         // todo: this needs to be reviewed, while trying to ensure a responsive UI.
         // private void GetReport(object sender, DoWorkEventArgs e)
-        private void GetReport(object sender, 
+        private void GetReport(object sender,
             // ReSharper disable once UnusedParameter.Local
-            DoWorkEventArgs ea, 
-            HashSet<Concept> selectedConcepts, 
-            HashSet<ModelViewExchangeRequirement> selectedExchReq, 
-            HashSet<ExpressType> selectedIfcClasses, 
-            List<IPersistEntity> entities, 
+            DoWorkEventArgs ea,
+            HashSet<Concept> selectedConcepts,
+            HashSet<ModelViewExchangeRequirement> selectedExchReq,
+            HashSet<ExpressType> selectedIfcClasses,
+            List<IPersistEntity> entities,
             MvdEngine doc)
         {
             var bw = sender as BackgroundWorker;
@@ -137,16 +138,20 @@ namespace XbimPlugin.MvdXML
             var entitiesInQueue = entities.Count;
             double itemsDone = 0;
             var lastReported = 0;
-            
-            
+
+
             foreach (var entity in entities)
             {
-                var thisEntityExpressType = entity.ExpressType; 
+                var thisEntityExpressType = entity.ExpressType;
 
                 if (selectedIfcClasses.Any())
                 {
                     // if no one of the selected classes contains the element type in the subtypes skip entity
-                    var needTest = selectedIfcClasses.Any(classesToTest => classesToTest == thisEntityExpressType || classesToTest.SubTypes.Contains(thisEntityExpressType));
+                    var needTest =
+                        selectedIfcClasses.Any(
+                            classesToTest =>
+                                classesToTest == thisEntityExpressType ||
+                                classesToTest.SubTypes.Contains(thisEntityExpressType));
                     if (!needTest)
                         continue;
                 }
@@ -178,24 +183,31 @@ namespace XbimPlugin.MvdXML
                         }
                     }
                 }
-                var queueEstimate = --entitiesInQueue * 10 + todo.Count; // assumed 10 req per element on average
-
-                foreach (var requirementsRequirement in todo)
+                var queueEstimate = --entitiesInQueue*10 + todo.Count; // assumed 10 req per element on average
+                try
                 {
-                    itemsDone++;
-                    var thisProgress = Convert.ToInt32(itemsDone/queueEstimate*100);
-                    if (lastReported != thisProgress)
+                    foreach (var requirementsRequirement in todo)
                     {
-                        _backgroundTester.ReportProgress(thisProgress);
-                        lastReported = thisProgress;
-                    }
 
-                    if (bw.CancellationPending)
-                        return;
-                    var result = ReportRequirementRequirement(requirementsRequirement, entity);
-                    if (!ConfigShowResult(result))
-                        continue;
-                    AddOnUi(report, result);
+                        itemsDone++;
+                        var thisProgress = Convert.ToInt32(itemsDone/queueEstimate*100);
+                        if (lastReported != thisProgress)
+                        {
+                            _backgroundTester.ReportProgress(thisProgress);
+                            lastReported = thisProgress;
+                        }
+
+                        if (bw.CancellationPending)
+                            return;
+                        var result = ReportRequirementRequirement(requirementsRequirement, entity);
+                        if (!ConfigShowResult(result))
+                            continue;
+                        AddOnUi(report, result);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"Error processing entity #{entity.EntityLabel}.", ex);
                 }
             }
         }

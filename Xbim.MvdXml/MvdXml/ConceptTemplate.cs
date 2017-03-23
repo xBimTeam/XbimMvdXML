@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using log4net;
 using Xbim.Common;
@@ -112,6 +113,49 @@ namespace Xbim.MvdXml
             {
                 subTemplate.DebugTemplateTree(indentation, prefix);
             }
+        }
+
+        /// <summary>
+        /// When SubTemplates are available return the most suitable amongst them for the entity specified
+        /// </summary>
+        /// <param name="entity">an entity whose type is used to determine the most suitable ConceptTemplate match</param>
+        /// <returns>the most suitable ConceptTemplate match</returns>
+        public ConceptTemplate GetSpecificConceptTemplateFor(IPersistEntity entity)
+        {
+            if (SubTemplates == null)
+                return this;
+            // try to use the lowest valid subtemplate
+            var currType = entity.GetType();
+            var currTypeName = currType.Name;
+            
+            // while stepping up the inheritance tree has not reached the concepTemplate's own applicable scope
+            //
+            while (!ApplicableIs(currTypeName))
+            {
+                // look for a matching subtemplate use that
+                var firstValidSub = SubTemplates.FirstOrDefault(subTemplate =>
+                        subTemplate.Rules != null
+                        && subTemplate.ApplicableIs(currTypeName)
+                );
+                // if found, return
+                if (firstValidSub != null)
+                {
+                    // useRules = firstValidSub.Rules;
+                    return firstValidSub;
+                }
+                // otherwise look one level up
+                if (currType.BaseType == null)
+                    break;
+                currType = currType.BaseType;
+                currTypeName = currType.Name;
+            }
+            // if nothing then return the top level
+            return this;
+        }
+
+        private bool ApplicableIs(string currTypeName)
+        {
+            return applicableEntity.Any(applicable => string.Equals(applicable, currTypeName, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

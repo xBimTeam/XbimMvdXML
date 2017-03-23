@@ -206,58 +206,43 @@ namespace Xbim.MvdXml.DataManagement
             return dt;
         }
 
-        private DataFragment GetAttributes(ConceptTemplate template, IPersistEntity entity, IndicatorLookup dataIndicators, string prefix)
+        internal DataFragment GetAttributes(ConceptTemplate template, IPersistEntity entity, IndicatorLookup dataIndicators, string prefix)
         {
-            // prepare once the list of subTemplates that match 
-            //
-            var relevantSubTemplates =
-                template.SubTemplates?.Where(subTemplate => subTemplate.Rules != null && subTemplate.AppliesTo(entity)).ToList()
-                ?? new List<ConceptTemplate>();
-
-            var tmp = new List<AttributeRule[]> {template.Rules};
-            foreach (var relevantSubTemplate in relevantSubTemplates)
-            {
-                tmp.Add(relevantSubTemplate.Rules);
-            }
-
-            return GetAttributes(tmp, entity, dataIndicators, prefix);
+            var useT = template.GetSpecificConceptTemplateFor(entity);
+            return GetAttributes(useT.Rules, entity, dataIndicators, prefix);
         }
 
-        private DataFragment GetAttributes(List<AttributeRule[]> rulesSets, IPersistEntity entity, IndicatorLookup dataIndicators, string prefix )
+        private DataFragment GetAttributes(AttributeRule[] attributeRules, IPersistEntity entity, IndicatorLookup dataIndicators, string prefix)
         {
             // 1.  get all values
 
             // add values at this level
             //
             var fragments = new List<DataFragment>();
-
-            foreach (var attributeRulese in rulesSets)
-            {
-                var t = ExtractRulesValues(entity, dataIndicators, attributeRulese, prefix);
-                if (t != null)
-                    fragments.Add(t);
-            }
+            var t1 = ExtractRulesValues(entity, dataIndicators, attributeRules, prefix);
+            if (t1 != null)
+                fragments.Add(t1);
 
             // process the rest of the tree 
-            //
-            foreach (var attributeRulese in rulesSets)
-            {
-                var t = ProcessRuleTree(entity, dataIndicators, attributeRulese, prefix);
-                if (t != null)
-                    fragments.Add(t);
-            }
+            //            
+            var t = ProcessRuleTree(entity, dataIndicators, attributeRules, prefix);
+            if (t != null)
+                fragments.Add(t);
+            
 
             // 2. combine them and return
             return  DataFragment.Combine(fragments);
         }
 
-        private DataFragment ProcessRuleTree(IPersistEntity entity, IndicatorLookup dataIndicators, AttributeRule[] rules, string prefix)
+        // this is only internal for testing purposes; it should be private otherwise...
+        // is there a way to do that?
+        internal DataFragment ProcessRuleTree(IPersistEntity entity, IndicatorLookup dataIndicators, AttributeRule[] rules, string prefix)
         {
             // todo: xxx review return value logic
             var f = new List<DataFragment>();
 
             if (rules == null)
-                return null;
+                return null;          
             foreach (var attributeRule in rules)
             {
                 var attributeFragment = new DataFragment();
@@ -293,7 +278,8 @@ namespace Xbim.MvdXml.DataManagement
                     var t = FillEntities(attributeRule.EntityRules.EntityRule, entityRuleValue as IPersistEntity, dataIndicators, prefix);
                     attributeFragment.Merge(t);
                 }
-                f.Add(attributeFragment);
+                if (!attributeFragment.IsEmpty)
+                    f.Add(attributeFragment);
             }
             return DataFragment.Combine(f);
         }
@@ -314,7 +300,12 @@ namespace Xbim.MvdXml.DataManagement
                     continue;
                 ExpressMetaProperty retProp;
                 var value = GetFieldValue(entity, attributeRule.AttributeName, out retProp);
-
+                if (retProp == null)
+                {
+                    // propery not found in class... ignore
+                    // 
+                    continue;
+                }
                 // set the value
                 if (dataIndicators.requires(storageName, Indicator.ValueSelectorEnum.Value))
                 {
@@ -400,10 +391,11 @@ namespace Xbim.MvdXml.DataManagement
             return previouslyAdded.ToList();
         }
         
-        private DataFragment FillEntities(EntityRule[] rules, IPersistEntity entity, IndicatorLookup dataIndicators, string prefix)
+        internal DataFragment FillEntities(EntityRule[] rules, IPersistEntity entity, IndicatorLookup dataIndicators, string prefix)
         {
-            // todo: review the return logic
-
+            // todo: review the return logic; 
+            
+            // 
             if (entity == null)
                 return null;
             foreach (var entityRule in rules)
@@ -427,12 +419,15 @@ namespace Xbim.MvdXml.DataManagement
                     var refTemplate = Mvd.GetConceptTemplate(entityRule.References.Template.@ref);
                     if (!string.IsNullOrEmpty(entityRule.References.IdPrefix))
                         tPrefix += entityRule.References.IdPrefix;
-                    return GetAttributes(refTemplate, entity, dataIndicators, tPrefix);
+                    // todo: xxx this is wrong! what about the following rules?
+                    var t = GetAttributes(refTemplate, entity, dataIndicators, tPrefix);
+                    return t;
                 }
                 else if (entityRule.AttributeRules != null)
                 {
-                    // rules nested directly 
-                    return GetAttributes(new List<AttributeRule[]> {entityRule.AttributeRules.AttributeRule}, entity, dataIndicators, prefix);
+                    // todo: xxx this is wrong! what about the following rules?
+                    // rules nested directly
+                    return GetAttributes(entityRule.AttributeRules.AttributeRule, entity, dataIndicators, prefix);
                 }
             }
             return null;

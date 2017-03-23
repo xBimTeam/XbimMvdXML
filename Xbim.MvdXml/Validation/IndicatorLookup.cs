@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 
 namespace Xbim.MvdXml.Validation
 {
@@ -6,6 +7,18 @@ namespace Xbim.MvdXml.Validation
     public class IndicatorLookup
     {
         private readonly Dictionary<string, List<Indicator.ValueSelectorEnum>> _fastIndicators;
+
+        public string ToString()
+        {
+            var sb = new StringBuilder();
+            foreach (var fastIndicator in _fastIndicators)
+            {
+                sb.Append(fastIndicator.Key + ":");
+                sb.Append(string.Join(",", fastIndicator.Value.ToArray()));
+                sb.Append(";");
+            }
+            return sb.ToString();
+        }
 
         public IndicatorLookup(IEnumerable<Indicator> dataIndicators)
         {
@@ -22,6 +35,19 @@ namespace Xbim.MvdXml.Validation
                 {
                     _fastIndicators.Add(indicator.VariableName, new List<Indicator.ValueSelectorEnum>() { indicator.VariableValueSelector });
                 }
+            }
+        }
+
+        /// <summary>
+        /// Creates a list of indicators with value only access
+        /// </summary>
+        /// <param name="values"></param>
+        public IndicatorLookup(params string[] values)
+        {
+            _fastIndicators = new Dictionary<string, List<Indicator.ValueSelectorEnum>>();
+            foreach (var value in values)
+            {
+                _fastIndicators.Add(value, new List<Indicator.ValueSelectorEnum>() {Indicator.ValueSelectorEnum.Value });
             }
         }
 

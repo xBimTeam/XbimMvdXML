@@ -37,6 +37,11 @@ namespace Xbim.MvdXml
             }
         }
 
+        public override string ToString()
+        {
+            return $"{AttributeName}{(string.IsNullOrEmpty(RuleID) ? "" : $" => {RuleID}")}";
+        }
+
         /// <summary>
         /// Allows the navigation of the xml tree to the Parent
         /// </summary>

@@ -342,10 +342,10 @@ namespace XbimPlugin.MvdXML
                 UseBlue =  _useBlue
             };
             ls2.SetColors(
-                ColourFromString(Settings.Default.ColorPass),
-                ColourFromString(Settings.Default.ColorFail),
-                ColourFromString(Settings.Default.ColorWarning),
-                ColourFromString(Settings.Default.ColorNonApplicable)
+                XbimColour.FromString(Settings.Default.ColorPass),
+                XbimColour.FromString(Settings.Default.ColorFail),
+                XbimColour.FromString(Settings.Default.ColorWarning),
+                XbimColour.FromString(Settings.Default.ColorNonApplicable)
                 );
             
             ls2.SetFilters(
@@ -594,19 +594,7 @@ namespace XbimPlugin.MvdXML
                 }
             }
         }
-
-        // ReSharper disable once UnusedMember.Local
-        private IEnumerable<ReportResult> ReportEr(ModelViewExchangeRequirement er, IPersistEntity entity)
-        {
-            foreach (var reqReq in er.PointingConceptRequirement)
-            {
-                var rep = ReportRequirementRequirement(reqReq, entity);
-                if (!ConfigShowResult(rep))
-                    continue;
-                yield return rep;
-            }
-        }
-
+        
         private ReportResult ReportRequirementRequirement(RequirementsRequirement requirementsRequirement, IPersistEntity entity)
         {
             var testResult = requirementsRequirement.Test(entity);
@@ -794,16 +782,16 @@ namespace XbimPlugin.MvdXML
             switch ( tag )
             {
                 case "F":
-                    col = ColourFromString(Settings.Default.ColorFail);
+                    col = XbimColour.FromString(Settings.Default.ColorFail);
                     break;
                 case "P":
-                    col = ColourFromString(Settings.Default.ColorPass);
+                    col = XbimColour.FromString(Settings.Default.ColorPass);
                     break;
                 case "W":
-                    col = ColourFromString(Settings.Default.ColorWarning);
+                    col = XbimColour.FromString(Settings.Default.ColorWarning);
                     break;
                 case "N/A":
-                    col = ColourFromString(Settings.Default.ColorNonApplicable);
+                    col = XbimColour.FromString(Settings.Default.ColorNonApplicable);
                     break;
             }
             if (col==null)
@@ -822,37 +810,8 @@ namespace XbimPlugin.MvdXML
         }
 
 
-        private Regex _colRegex;
-
-        internal Regex ColRegex => _colRegex ??
-                                   //(_colRegex = new Regex( "R:([\\d.]+) G:([\\d.]+) B:([\\d.]+) A:([\\d.]+) DF:([\\d.]+) TF:([\\d.]+) DTF:([\\d.]+) RF:([\\d.]+) SF:([\\d.]+)"));
-                                   (_colRegex = new Regex("R:([\\d.,]+) G:([\\d.,]+) B:([\\d.,]+) A:([\\d.,]+)"));
-
-
-        private XbimColour ColourFromString(string colorFail)
-        {
-            // todo: XbimColour has been amended in xbim.ifc with fromString function; use that.
-            var c = new XbimColour();
-            var m = ColRegex.Match(colorFail);
-            if (m.Success)
-            {
-                c.Red = float.Parse(m.Groups[1].Value, CultureInfo.CurrentCulture);
-                c.Green = float.Parse(m.Groups[2].Value, CultureInfo.CurrentCulture);
-                c.Blue = float.Parse(m.Groups[3].Value, CultureInfo.CurrentCulture);
-                c.Alpha = float.Parse(m.Groups[4].Value, CultureInfo.CurrentCulture);
-                // todo: why are some of the following fields now readonly?
-                //c.DiffuseFactor = Convert.ToSingle(m.Groups[5].Value);
-                //c.TransmissionFactor = Convert.ToSingle(m.Groups[6].Value);
-                //c.DiffuseTransmissionFactor = Convert.ToSingle(m.Groups[7].Value);
-                //c.ReflectionFactor = Convert.ToSingle(m.Groups[8].Value);
-                //c.SpecularFactor = Convert.ToSingle(m.Groups[9].Value);
-            }
-            else
-            {
-                MessageBox.Show($"Colour string '{colorFail}' not understood.");
-            }
-            return c;       
-        }
+       
+       
 
         private void SaveColors(object sender, RoutedEventArgs e)
         {
@@ -891,8 +850,6 @@ namespace XbimPlugin.MvdXML
             Settings.Default.ColorNonApplicable = new XbimColour(@"Non applicable", 0, 0, 1, 0.3).ToString();
             ColorGroupChanged(null, null);
         }
-
-
   
         private MemoryStream StreamFromString(string value)
         {

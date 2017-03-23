@@ -1,17 +1,72 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xbim.Ifc2x3.SharedBldgElements;
 using Xbim.MvdXml;
 using Xbim.MvdXml.DataManagement;
 using Xbim.Ifc;
+using Xbim.MvdXml.Validation;
 
 namespace Tests
 {
     [TestClass]
     [DeploymentItem(@"FromNN\", @"FromNN\")]
+    [DeploymentItem(@"FromMW\", @"FromMW\")]
     public class ValueExtractionTest
     {
+        [TestMethod]
+        public void ToleratesMissingFields()
+        {
+            // ConceptTemplate uuid="10000000-0000-0000-0001-000000000008" has problems with the 
+            // use of multiple AttributeRule(s) that do not exist in the schema at that level 
+            // We want to tolerate the error and ignore it
+            //
+            const string fileName = @"FromMW\mvdXMLUnitTestsforIFC4_2.mvdxml";
+            var mvd = mvdXML.LoadFromFile(fileName);
+
+            var m = IfcStore.Open(@"FromMW\mvdXML_ifc4_unit-test.ifc");
+
+            // can instantiate engine on model
+            var engine = new MvdEngine(mvd, m);
+            // data indicators
+            var ind = new IndicatorLookup("Set", "Property", "Value", "T_Set", "T_Property", "T_Value");
+
+            // simple property data extraction with subtemplates
+            //
+            var template = mvd.GetConceptTemplate("10000000-0000-0000-0001-000000000008");
+            var data = engine.GetAttributes(template, m.Instances[10693], ind, "");
+            var str = data.ToString();
+
+            CollectionAssert.AreEqual(data.FieldNames, new List<string>() {"Set", "Property", "Value" });
+            Assert.AreEqual(data.Values.Count, 3);
+        }
+
+        [TestMethod]
+        public void DataExtraction1()
+        {
+            const string fileName = @"FromMW\mvdXMLUnitTestsforIFC4_2.mvdxml";
+            var mvd = mvdXML.LoadFromFile(fileName);
+
+            var m = IfcStore.Open(@"FromMW\mvdXML_ifc4_unit-test.ifc");
+
+            // can instantiate engine on model
+            var engine = new MvdEngine(mvd, m);
+
+            // data indicators
+            var ind = new IndicatorLookup("Set", "Property", "Value", "T_Set", "T_Property", "T_Value");
+        
+            // simple property data extraction with subtemplates
+            //
+            var templateSingleProp = mvd.GetConceptTemplate("88b4aaa9-0925-447c-b009-fe357b7c754e");
+            var dataSingleProp = engine.GetAttributes(templateSingleProp, m.Instances[606], ind, "");
+
+            CollectionAssert.AreEqual(dataSingleProp.FieldNames, new List<string>() {"Property", "Value"});
+            Assert.AreEqual(dataSingleProp.Values.Count, 1);
+            Assert.AreEqual(dataSingleProp.Values[0][0].ToString(), "LoadBearing");
+            Assert.AreEqual(dataSingleProp.Values[0][1].ToString(), "true");
+        }
+
         [TestMethod]
         public void TestConceptPass()
         {
@@ -19,14 +74,18 @@ namespace Tests
             var mvd = mvdXML.LoadFromFile(fileName);
             
             var m = IfcStore.Open(@"FromNN\mvdXML test.ifc");
+
+            // can instantiate engine on model
+            var engine = new MvdEngine(mvd, m);
+            
+
             // m.Open(@"C:\Users\Bonghi\Desktop\str\FILE2015.xBIM");
             // var walls = m.Instances.OfType<IfcWallStandardCase>();
             // var wall = m.Instances[1973];
             var wall = m.Instances.OfType<IfcWallStandardCase>().FirstOrDefault();
 
             // ReSharper disable once UnusedVariable
-            var engine = new MvdEngine(mvd, m);
-            // can instantiate engine on model
+            
 
             foreach (var view in mvd.Views)
             {
