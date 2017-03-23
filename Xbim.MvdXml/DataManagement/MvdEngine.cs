@@ -158,6 +158,8 @@ namespace Xbim.MvdXml.DataManagement
         public DataTable GetData(IPersistEntity entity, Concept concept)
         {
             var template = concept.ConceptTemplate;
+            if (concept.TemplateRules == null)
+                return null;
             var dataIndicators = concept.TemplateRules.GetIndicators();
             return GetData(entity, template, dataIndicators);
         }

@@ -36,7 +36,7 @@ namespace Xbim.MvdXml
                     concept.SetParent(this);
                 }
             }
-            Applicability?.SetParent(modelView);
+            Applicability?.SetParent(modelView, this);
         }
 
         /// <summary>

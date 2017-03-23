@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Xml.Serialization;
+using log4net;
 using Xbim.Common;
 using Xbim.MvdXml.Validation;
 
@@ -10,15 +11,19 @@ namespace Xbim.MvdXml
 {
     public partial class ConceptRootApplicability 
     {
+        private static readonly ILog Log = LogManager.GetLogger("Xbim.MvdXml.ConceptRootApplicability");
+
         /// <summary>
         /// Allows the navigation of the xml tree 
         /// </summary>
         [XmlIgnore()]
         public ModelView ModelView { get; private set; }
 
-        internal void SetParent(ModelView modelView)
+        internal void SetParent(ModelView modelView, ConceptRoot parent)
         {
             ModelView = modelView;
+
+            _parentConceptRoot = parent;
 
             // sets the connection to clear caching event
             var mvdEngine =  ModelView?.ParentMvdXml?.Engine;
@@ -39,17 +44,39 @@ namespace Xbim.MvdXml
         /// <summary>
         /// Allows the navigation to the referenced ConceptTemplate
         /// </summary>
-        public ConceptTemplate ConceptTemplate 
-            => _conceptTemplate ?? (_conceptTemplate = ModelView.ParentMvdXml.GetConceptTemplate(Template.@ref));
-        
+        public ConceptTemplate ConceptTemplate
+        {
+            get
+            {
+                if (_conceptTemplate != null)
+                {
+                    return _conceptTemplate;
+                }
+                _conceptTemplate = ModelView.ParentMvdXml.GetConceptTemplate(Template.@ref);
+                if (_conceptTemplate == null)
+                    Log.Error($"Error conceptTemplate {Template.@ref} not found in applicability for {_parentConceptRoot.uuid}.");
+                return _conceptTemplate;
+            }
+        }
+
+        [XmlIgnore()]
+        private ConceptRoot _parentConceptRoot;
+
+        [XmlIgnore()]
         private List<Indicator> _dataIndicators;
 
+        [XmlIgnore()]
         internal List<Indicator> DataIndicators 
             => _dataIndicators ?? (_dataIndicators = TemplateRules.GetIndicators());
 
         internal DataTable GetData(IPersistEntity entity)
         {
-            return ModelView.ParentMvdXml.Engine.GetData(entity, ConceptTemplate, DataIndicators);
+            var cTemp = ConceptTemplate;
+            if (cTemp == null)
+            {
+                return null;
+            }
+            return ModelView.ParentMvdXml.Engine.GetData(entity, cTemp, DataIndicators);
         }
 
         readonly Dictionary<int, bool> _dicCache = new Dictionary<int, bool>();

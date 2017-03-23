@@ -15,6 +15,8 @@ namespace Xbim.MvdXml
 
         bool ITemplateRule.PassesOn(DataTable ret)
         {
+            if (ret == null)
+                return false;
             var thisLevelVal = MvdPropertyRuleValue.BuildSql(Parameters, ret);
             var v = ret.Select(thisLevelVal).Any();
             return v;

@@ -87,6 +87,10 @@ namespace Xbim.MvdXml
             if (_dicApplies.TryGetValue(entity.EntityLabel, out hasIt))
                 return hasIt;
 
+            // todo: this should be sending a warning/error?
+            if (ConceptTemplate == null)
+                return false;
+
             // it can either apply because of template or Parent ConceptRoot applicableRootEntity
             var ret = ParentConceptRoot.AppliesTo(entity)
                       && ConceptTemplate.AppliesTo(entity);
@@ -105,6 +109,9 @@ namespace Xbim.MvdXml
         /// <param name="dataTable">the data to be tested</param>
         public bool PassesOn(DataTable dataTable)
         {
+            // todo: should return waring/error?
+            if (TemplateRules == null)
+                return false;
             return TemplateRules.PassesOn(dataTable);
         }
 
