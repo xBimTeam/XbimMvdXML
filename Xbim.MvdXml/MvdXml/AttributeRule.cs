@@ -4,7 +4,7 @@ using log4net;
 // ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
-    public partial class AttributeRule
+    public partial class AttributeRule: IReference
     {
         private static readonly ILog Log = LogManager.GetLogger("Xbim.MvdXml.AttributeRule");
 
@@ -69,6 +69,24 @@ namespace Xbim.MvdXml
                 foreach (var eRuleId in eRule.GetRecursiveRuleIds(prefix))
                 {
                     yield return eRuleId;
+                }
+            }
+        }
+
+        IEnumerable<ReferenceConstraint> IReference.DirectReferences()
+        {
+            yield break;
+        }
+
+        IEnumerable<ReferenceConstraint> IReference.AllReferences()
+        {
+            if (EntityRules == null)
+                yield break;
+            foreach (IReference attributeRuleEntityRule in EntityRules.EntityRule)
+            {
+                foreach (var sub in attributeRuleEntityRule.AllReferences())
+                {
+                    yield return sub;
                 }
             }
         }

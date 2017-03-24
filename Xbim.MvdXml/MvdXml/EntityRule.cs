@@ -3,7 +3,7 @@
 // ReSharper disable once CheckNamespace 
 namespace Xbim.MvdXml
 {
-    public partial class EntityRule
+    public partial class EntityRule: IReference
     {
         /// <summary>
         /// Allows the navigation of the xml tree to the Parent
@@ -71,6 +71,31 @@ namespace Xbim.MvdXml
                 foreach (var sub in attributeRule.GetRecursiveRuleIds(prefix))
                 {
                     yield return sub;
+                }
+            }
+        }
+
+        IEnumerable<ReferenceConstraint> IReference.DirectReferences()
+        {
+            if (string.IsNullOrEmpty(References?.Template?.@ref))
+                yield break;
+            yield return new ReferenceConstraint(ParentConceptTemplate, References?.Template?.@ref, typeof(ConceptTemplate));
+        }
+
+        IEnumerable<ReferenceConstraint> IReference.AllReferences()
+        {
+            foreach (var direct in ((IReference)this).DirectReferences())
+            {
+                yield return direct;
+            }
+            if (AttributeRules != null)
+            {
+                foreach (IReference attributeRule in AttributeRules.AttributeRule)
+                {
+                    foreach (var sub in attributeRule.AllReferences())
+                    {
+                        yield return sub;
+                    }
                 }
             }
         }

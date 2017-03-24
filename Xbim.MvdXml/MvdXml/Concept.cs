@@ -9,7 +9,7 @@ using Xbim.Common;
 // ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
-    public  partial class Concept : IUnique
+    public  partial class Concept : IUnique, IReference
     {
         private static readonly ILog Log = LogManager.GetLogger("Xbim.XbimMvdXml.Concept");
 
@@ -49,9 +49,7 @@ namespace Xbim.MvdXml
                     i++;
             }
             
-            // try to set the concept template reference.
-            if (string.IsNullOrEmpty(Template?.@ref))
-                return;
+            
             if (ParentConceptRoot?.ParentModelView?.ParentMvdXml == null)
                 return;
 
@@ -60,13 +58,12 @@ namespace Xbim.MvdXml
             if (_mvdEngine != null)
             {
                 _mvdEngine.RequestClearCache += Engine_RequestClearCache;
-            }            
-            
-            ConceptTemplate = ParentConceptRoot.ParentModelView.ParentMvdXml.GetConceptTemplate(Template.@ref);
-            if (ConceptTemplate == null)
-            {
-                Log.WarnFormat($"Concept template {Template.@ref} not found for Concept {ToString()}");
             }
+
+            // try to set the concept template reference.
+            if (string.IsNullOrEmpty(Template?.@ref))
+                return;
+            ConceptTemplate = ParentConceptRoot.ParentModelView.ParentMvdXml.GetConceptTemplate(Template.@ref);
         }
 
         private void Engine_RequestClearCache()
@@ -188,6 +185,29 @@ namespace Xbim.MvdXml
         public string GetUuid()
         {
             return uuid;
+        }
+
+        IEnumerable<ReferenceConstraint> IReference.DirectReferences()
+        {
+            if (string.IsNullOrEmpty(Template?.@ref))
+                yield break;
+            yield return new ReferenceConstraint(this, Template?.@ref, typeof(ConceptTemplate));
+        }
+
+        IEnumerable<ReferenceConstraint> IReference.AllReferences()
+        {
+            foreach (var direct in ((IReference)this).DirectReferences())
+            {
+                yield return direct;
+            }
+
+            foreach (IReference requirement in Requirements)
+            {
+                foreach (var sub in requirement.AllReferences())
+                {
+                    yield return sub;
+                }
+            }
         }
     }
 }

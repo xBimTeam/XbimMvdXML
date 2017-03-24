@@ -28,7 +28,7 @@ using Xbim.Common;
 using Xbim.Presentation.LayerStyling;
 using Xbim.Ifc;
 using Xbim.Common.Metadata;
-using Xbim.MvdXml.Validation;
+using Xbim.MvdXml.Integrity;
 
 namespace XbimPlugin.MvdXML
 {
@@ -985,23 +985,106 @@ namespace XbimPlugin.MvdXML
                 writer.Close();
             }
 #endif
-            var th = new TextHighliter();
 
-            th.Append("=== Reporting uuid issues", Brushes.DarkGreen);
-            int i = 0;
-            foreach (var issue in Doc.Mvd.ReportUuidIssues())
+            TxtOut.Document = new FlowDocument();
+
+            var commandArray = TxtCommand.Text.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            if (TxtCommand.SelectedText != string.Empty)
+                commandArray = TxtCommand.SelectedText.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            
+            foreach (var cmdF in commandArray)
             {
-                th.Append(issue, Brushes.OrangeRed);
-                i++;
-            }
-            if (i == 0)
-                th.Append($"=== No issues found.", Brushes.DarkGreen);
-            else if (i == 1)
-                th.Append($"=== 1 issue found.", Brushes.Red);
-            else
-                th.Append($"=== {i} issues found.", Brushes.Red);
+                var th = new TextHighliter();
 
-            th.DropInto(TxtOut.Document);
+                th.Append("> " + cmdF, Brushes.ForestGreen);
+                var cmd = cmdF;
+                var i = cmd.IndexOf("//", StringComparison.Ordinal);
+                if (i > 0)
+                {
+                    cmd = cmd.Substring(0, i);
+                }
+                if (cmd.TrimStart().StartsWith("//"))
+                    continue;
+
+                var commandMatch = Regex.Match(cmd, @"^Check *(?<mode>(all|uuid|variables))?$", RegexOptions.IgnoreCase);
+                if (commandMatch.Success)
+                {
+                    var mode = commandMatch.Groups["mode"].Value.ToLowerInvariant();
+                    var some = false;
+                    if (mode == "all" || mode == "uuid")
+                    {
+                        th.Append("== Reporting uuid-issues", Brushes.DarkGreen);
+                        int iCnt = 0;
+                        foreach (var issue in Doc.Mvd.ReportUuidIssues())
+                        {
+                            th.Append(issue, Brushes.OrangeRed);
+                            iCnt++;
+                        }
+                        if (iCnt == 0)
+                            th.Append($"== No uuid-issues found.", Brushes.DarkGreen);
+                        else if (iCnt == 1)
+                            th.Append($"== 1 uuid-issue found.", Brushes.Red);
+                        else
+                            th.Append($"== {iCnt} uuid-issues found.", Brushes.Red);
+
+                        some = true;
+                    }
+                    if (mode == "all" || mode == "variables")
+                    {
+                        th.Append("== Reporting variable-issues", Brushes.DarkGreen);
+                        int iCnt = 0;
+                        foreach (var issue in Doc.Mvd.ReportVariableNameIssues())
+                        {
+                            th.Append(issue, Brushes.OrangeRed);
+                            iCnt++;
+                        }
+                        if (iCnt == 0)
+                            th.Append($"== No variable-issues found.", Brushes.DarkGreen);
+                        else if (iCnt == 1)
+                            th.Append($"== 1 variable-issues found.", Brushes.Red);
+                        else
+                            th.Append($"== {iCnt} variable-issues found.", Brushes.Red);
+
+                        some = true;
+                    }
+                    if (!some)
+                    {
+                        th.Append($"== Checkm command. Unknown mode \"{mode}\". Nothing done.", Brushes.Red);
+                    }
+
+                    th.DropInto(TxtOut.Document);
+                    continue;
+                }
+
+                commandMatch = Regex.Match(cmd, @"^clear *(?<what>(cache))*$", RegexOptions.IgnoreCase);
+                if (commandMatch.Success)
+                {
+                    var what = commandMatch.Groups["what"].Value.ToLowerInvariant();
+                    if (what == "cache")
+                    {
+                        Doc.ClearCache();
+                        th.Append($"== Cache cleared.", Brushes.DarkGreen);
+                        th.DropInto(TxtOut.Document);
+                        continue;
+                    }
+                    th.Append($"== Clear command. Unknown item \"{what}\". Nothing done.", Brushes.Red);
+                    th.DropInto(TxtOut.Document);
+                    continue;
+                }
+
+                commandMatch = Regex.Match(cmd, @"^help$", RegexOptions.IgnoreCase);
+                if (commandMatch.Success)
+                {
+                    th.AppendFormat("Commands:");
+                    th.AppendFormat("- Check <UUID|Variables|All>");
+                    th.AppendFormat("- Clear <Cache>");
+                    th.DropInto(TxtOut.Document);
+                    continue;
+                }
+
+                th.Append($"Commands not understood: \"{cmd}\".", Brushes.Red);
+                th.DropInto(TxtOut.Document);
+            }
         }
 
         private void cmdRun(object sender, RoutedEventArgs e)

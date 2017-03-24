@@ -5,7 +5,7 @@ using log4net;
 // ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
-    public  partial class ModelView : IUnique
+    public  partial class ModelView : IUnique, IReference
     {
         private static readonly ILog Log = LogManager.GetLogger("Xbim.MvdXml.RequirementsRequirement");
 
@@ -65,6 +65,29 @@ namespace Xbim.MvdXml
         public string GetUuid()
         {
             return uuid;
+        }
+        
+        IEnumerable<ReferenceConstraint> IReference.DirectReferences()
+        {
+            if (string.IsNullOrEmpty(BaseView?.@ref))
+                yield break;
+            yield return new ReferenceConstraint(this, BaseView.@ref, typeof(ModelView));
+        }
+
+        IEnumerable<ReferenceConstraint> IReference.AllReferences()
+        {
+            foreach (var direct in ((IReference)this).DirectReferences() )
+            {
+                yield return direct;
+            }
+
+            foreach (IReference conceptRoot in Roots)
+            {
+                foreach (var sub in conceptRoot.AllReferences())
+                {
+                    yield return sub;
+                }
+            }
         }
     }
 }

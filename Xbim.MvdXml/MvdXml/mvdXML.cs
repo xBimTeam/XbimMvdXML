@@ -11,7 +11,7 @@ using Xbim.MvdXml.DataManagement;
 namespace Xbim.MvdXml
 {
     // ReSharper disable once InconsistentNaming
-    public partial class mvdXML: IUnique
+    public partial class mvdXML: IUnique, IReference
     {
         private static readonly ILog Log = LogManager.GetLogger("Xbim.MvdXml.mvdXML");
 
@@ -134,6 +134,7 @@ namespace Xbim.MvdXml
             }
         }
 
+        [XmlIgnore()] private bool _notifiedMissingUuid = false;
 
         [XmlIgnore()]
         private Dictionary<string, ConceptTemplate> _conceptTemplates;
@@ -146,22 +147,27 @@ namespace Xbim.MvdXml
         public ConceptTemplate GetConceptTemplate(string refUuid)
         {
             if (_conceptTemplates == null)
-                _conceptTemplates = new Dictionary<string, ConceptTemplate>();
-            if (!_conceptTemplates.ContainsKey(refUuid))
             {
-                foreach (var conceptTemplate in Templates)
+                _conceptTemplates = new Dictionary<string, ConceptTemplate>();
+                if (!_conceptTemplates.ContainsKey(refUuid))
                 {
-                    foreach (var subTemp in conceptTemplate.GetTemplatesTree())
+                    foreach (var conceptTemplate in Templates)
                     {
-                        if (!_conceptTemplates.ContainsKey(subTemp.uuid))
-                            _conceptTemplates.Add(subTemp.uuid, subTemp);
+                        foreach (var subTemp in conceptTemplate.GetTemplatesTree())
+                        {
+                            if (!_conceptTemplates.ContainsKey(subTemp.uuid))
+                                _conceptTemplates.Add(subTemp.uuid, subTemp);
+                        }
                     }
                 }
             }
             ConceptTemplate ret;
-            return _conceptTemplates.TryGetValue(refUuid, out ret) 
-                ? ret 
-                : null;
+            var found = _conceptTemplates.TryGetValue(refUuid, out ret) ;
+            if (found || _notifiedMissingUuid)
+                return ret;
+            Log.Error("Some UUID references could not be found in the file. Run integrity tests for details.");
+            _notifiedMissingUuid = true;
+            return null;
         }
 
         [XmlIgnore()]
@@ -248,6 +254,32 @@ namespace Xbim.MvdXml
         public string GetUuid()
         {
             return uuid;
+        }
+
+        IEnumerable<ReferenceConstraint> IReference.DirectReferences()
+        {
+            yield break;
+        }
+
+        IEnumerable<ReferenceConstraint> IReference.AllReferences()
+        {
+            // templates
+            foreach (IReference conceptTemplate in Templates)
+            {
+                foreach (var sub in conceptTemplate.AllReferences())
+                {
+                    yield return sub;
+                }
+            }
+            // Views
+            foreach (IReference view in Views)
+            {
+                foreach (var sub in view.AllReferences())
+                {
+                    yield return sub;
+                }
+            }
+
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using log4net;
 using Xbim.Common;
@@ -6,7 +7,7 @@ using Xbim.Common;
 // ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
-    public  partial class ConceptRoot : IUnique
+    public  partial class ConceptRoot : IUnique, IReference
     {
         private static readonly ILog Log = LogManager.GetLogger("XbimMvdXml.ConceptRoot.ConceptRoot");
 
@@ -75,6 +76,28 @@ namespace Xbim.MvdXml
         public string GetUuid()
         {
             return uuid;
+        }
+
+        IEnumerable<ReferenceConstraint> IReference.DirectReferences()
+        {
+            if (Applicability == null)
+                yield break;
+            yield return new ReferenceConstraint(this, Applicability.Template.@ref, typeof(ConceptTemplate));
+        }
+
+        IEnumerable<ReferenceConstraint> IReference.AllReferences()
+        {
+            foreach (var direct in ((IReference)this).DirectReferences())
+            {
+                yield return direct;
+            }
+            foreach (IReference concept in Concepts)
+            {
+                foreach (var sub in concept.AllReferences())
+                {
+                    yield return sub;
+                }
+            }
         }
     }
 }

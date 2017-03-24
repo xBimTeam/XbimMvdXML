@@ -2,7 +2,6 @@
 using System.Data;
 using System.Linq;
 using Xbim.MvdXml.DataManagement;
-using Xbim.MvdXml.Validation;
 
 // ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml

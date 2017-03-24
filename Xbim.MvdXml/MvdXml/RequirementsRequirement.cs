@@ -1,4 +1,5 @@
-﻿using Xbim.Common;
+﻿using System.Collections.Generic;
+using Xbim.Common;
 using Xbim.MvdXml.DataManagement;
 
 // ReSharper disable once CheckNamespace
@@ -9,7 +10,7 @@ namespace Xbim.MvdXml
     // "excluded"  -> then pass and fail are reversed. 
     // "not-relevant" -> it is disabled and need not be checked.
     // 
-    // its use in visuals styler is as follows:
+    // its use in visual styler is as follows:
     // mandatory -> normal behaviour               -> If any fail Red, if all pass green 
     // reccomended -> warning if does not pass     -> If any fail orange, if all pass green 
     // excluded -> pass/fail are reversed          -> If any pass Red, if all fail green 
@@ -19,7 +20,7 @@ namespace Xbim.MvdXml
     // colours/return statuses need to be interpreted in light of this type (except for not-relevant, that should be avoided to save time)
     // filter in the API to only execute (mandatory, reccomended, excluded, not-rec).
 
-    public partial class RequirementsRequirement
+    public partial class RequirementsRequirement : IReference
     {
         /// <summary>
         /// Allows the navigation of the xml tree to the Parent
@@ -92,6 +93,21 @@ namespace Xbim.MvdXml
                 case RequirementsRequirementRequirement.notrelevant:
                 default:
                     return ret;
+            }
+        }
+
+        IEnumerable<ReferenceConstraint> IReference.DirectReferences()
+        {
+            if (string.IsNullOrEmpty(exchangeRequirement))
+                yield break;
+            yield return new ReferenceConstraint(ParentConcept, exchangeRequirement, typeof(ModelViewExchangeRequirement));
+        }
+
+        IEnumerable<ReferenceConstraint> IReference.AllReferences()
+        {
+            foreach (var direct in ((IReference)this).DirectReferences())
+            {
+                yield return direct;
             }
         }
     }

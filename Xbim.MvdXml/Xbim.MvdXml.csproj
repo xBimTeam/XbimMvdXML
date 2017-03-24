@@ -113,10 +113,12 @@
     <Compile Include="MvdXml\EntityRule.cs" />
     <Compile Include="MvdXml\EntityRuleAttributeRules.cs" />
     <Compile Include="MvdXml\ExchangeRequirement.cs" />
+    <Compile Include="MvdXml\IReference.cs" />
     <Compile Include="MvdXml\ITemplateRule.cs" />
     <Compile Include="MvdXml\IUnique.cs" />
     <Compile Include="MvdXml\ModelView.cs" />
     <Compile Include="MvdXml\ModelViewExchangeRequirement.cs" />
+    <Compile Include="MvdXml\ReferenceConstraint.cs" />
     <Compile Include="MvdXml\RequirementsRequirement.cs" />
     <Compile Include="DataManagement\DataIndicator.cs" />
     <Compile Include="DataManagement\DataIndicatorLookup.cs" />
@@ -134,7 +136,7 @@
     </Compile>
     <Compile Include="MvdXml\mvdXML.cs" />
     <Compile Include="Schema\mvdXML_V1_1.cs" />
-    <Compile Include="Validation\MvdXmlSchemaValidator.cs" />
+    <Compile Include="Integrity\MvdXmlIntegrityReporter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

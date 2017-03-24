@@ -4,13 +4,12 @@ using System.Xml.Serialization;
 using log4net;
 using Xbim.Common;
 using Xbim.MvdXml.DataManagement;
-using Xbim.MvdXml.Validation;
 
 
 // ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
-    public partial class ConceptRootApplicability 
+    public partial class ConceptRootApplicability : IReference
     {
         private static readonly ILog Log = LogManager.GetLogger("Xbim.MvdXml.ConceptRootApplicability");
 
@@ -100,6 +99,21 @@ namespace Xbim.MvdXml
                 // ignored (in case of multi-thread?)
             }
             return res;
+        }
+
+        IEnumerable<ReferenceConstraint> IReference.DirectReferences()
+        {
+            if (string.IsNullOrEmpty(Template?.@ref))
+                yield break;
+            yield return new ReferenceConstraint(_parentConceptRoot, Template?.@ref, typeof(ConceptTemplate));
+        }
+
+        IEnumerable<ReferenceConstraint> IReference.AllReferences()
+        {
+            foreach (var direct in ((IReference)this).DirectReferences())
+            {
+                yield return direct;
+            }
         }
     }
 }

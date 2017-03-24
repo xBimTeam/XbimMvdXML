@@ -6,7 +6,6 @@ using Xbim.Ifc2x3.SharedBldgElements;
 using Xbim.MvdXml;
 using Xbim.MvdXml.DataManagement;
 using Xbim.Ifc;
-using Xbim.MvdXml.Validation;
 
 namespace Tests
 {

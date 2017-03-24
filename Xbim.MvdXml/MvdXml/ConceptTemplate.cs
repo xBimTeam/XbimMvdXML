@@ -7,7 +7,7 @@ using Xbim.Common;
 // ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
-    public partial class ConceptTemplate : IUnique
+    public partial class ConceptTemplate : IUnique, IReference
     {
         private static readonly ILog Log = LogManager.GetLogger("Xbim.MvdXml.CncptTemplate");
 
@@ -165,6 +165,22 @@ namespace Xbim.MvdXml
         public string GetUuid()
         {
             return uuid;
+        }
+
+        IEnumerable<ReferenceConstraint> IReference.DirectReferences()
+        {
+            yield break;
+        }
+
+        IEnumerable<ReferenceConstraint> IReference.AllReferences()
+        {
+            foreach (IReference attributeRule in Rules)
+            {
+                foreach (var referenceConstraint in attributeRule.AllReferences())
+                {
+                    yield return referenceConstraint;
+                }
+            }
         }
     }
 }
