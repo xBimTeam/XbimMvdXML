@@ -174,6 +174,8 @@ namespace Xbim.MvdXml
 
         IEnumerable<ReferenceConstraint> IReference.AllReferences()
         {
+            if (Rules == null)
+                yield break;
             foreach (IReference attributeRule in Rules)
             {
                 foreach (var referenceConstraint in attributeRule.AllReferences())

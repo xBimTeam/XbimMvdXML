@@ -111,7 +111,8 @@ namespace Xbim.MvdXml.DataManagement
                 }
                 else
                 {
-                    throw new NotImplementedException();
+                    // todo: xxx resume throwing error
+                    // throw new NotImplementedException();
                 }
             }
             else if (IsEmpty)
