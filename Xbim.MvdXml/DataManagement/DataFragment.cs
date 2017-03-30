@@ -111,8 +111,26 @@ namespace Xbim.MvdXml.DataManagement
                 }
                 else
                 {
-                    // todo: xxx resume throwing error
-                    // throw new NotImplementedException();
+                    // add the missing fields and expand the list values by the required size
+                    var missingFields = p0.FieldNames.Except(FieldNames).ToArray();
+                    // ReSharper disable once PossibleMultipleEnumeration 
+                    if (missingFields.Any())
+                    {
+                        // ReSharper disable once PossibleMultipleEnumeration
+                        FieldNames.AddRange(missingFields);
+                        var addArray = new object[missingFields.Length];
+                        foreach (var value in Values)
+                        {
+                            value.AddRange(addArray);
+                        }
+                    }
+                    var map = GetFieldMapping(p0.FieldNames, FieldNames);
+                    // ensure capacity for size
+                    Values.Capacity = Values.Count + p0.Values.Count;
+                    foreach (var p0Value in p0.Values)
+                    {
+                        Values.Add(MappedValue(p0Value, map, FieldNames.Count));
+                    }
                 }
             }
             else if (IsEmpty)
@@ -125,6 +143,33 @@ namespace Xbim.MvdXml.DataManagement
                 Values = new List<List<object>>();
                 Values.AddRange(p0.Values);
             }
+        }
+
+        private List<object> MappedValue(List<object> source, List<int> map, int destinationListLenght)
+        {
+            var arr = new object[destinationListLenght];
+            var iSourceIndex = 0;
+            foreach (var destinationIndex in map)
+            {
+                arr[destinationIndex] = source[iSourceIndex++];
+            }
+            return arr.ToList();
+        }
+
+        /// <summary>
+        /// Used for the fast allocation of existing fields onto a fragment with a different order. 
+        /// </summary>
+        /// <param name="fieldNamesToMap">The fields that we are looking for</param>
+        /// <param name="fieldNamesOnDestination">the fields that provide the sequence in the destination list</param>
+        /// <returns>A list of indices to place the fieldNamesToMap onto the fieldNamesOnDestination</returns>
+        private static List<int> GetFieldMapping(List<string> fieldNamesToMap, List<string> fieldNamesOnDestination)
+        {
+            var ret = new List<int>();
+            foreach (var fieldToMap in fieldNamesToMap)
+            {
+                ret.Add(fieldNamesOnDestination.IndexOf(fieldToMap));
+            }
+            return ret;
         }
 
         public bool IsEmpty => FieldNames == null || !FieldNames.Any();
