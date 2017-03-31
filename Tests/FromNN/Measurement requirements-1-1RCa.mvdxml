@@ -1,0 +1,575 @@
+<?xml version="1.0"?>
+<mvdXML name="Measurement Requirements" uuid="4afb1a8b-0b61-4ff8-9863-c10690fe06f2" xmlns="http://buildingsmart-tech.org/mvdXML/mvdXML1-1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://buildingsmart-tech.org/mvdXML/mvdXML1-1 ../xsd/mvdXML_V1-1RC.xsd">
+	<!-- 
+[16:55:18] Nicholas Nisbet: "NRM 2 costing failed because volume measure validation did not pass."
+[16:55:41] Nicholas Nisbet: "Volume measure not found"
+-->
+	<Templates>
+		<ConceptTemplate uuid="00000000-0000-0000-0001-000000000001" name="ProductConceptTemplate" applicableSchema="IFC2x3" applicableEntity="IfcProduct">
+			<Definitions>
+				<Definition>
+					<Body lang="en"><![CDATA[Concept Template for any Product]]></Body>
+				</Definition>
+			</Definitions>
+			<Rules>
+				<AttributeRule AttributeName="Name" RuleID="Name"/>
+				<AttributeRule AttributeName="Description" RuleID="Desc"/>
+				<AttributeRule RuleID="ObjectType" AttributeName="ObjectType"/>
+				<AttributeRule RuleID="Tag" AttributeName="Tag"/>
+				<AttributeRule RuleID="PredefinedType" AttributeName="PredefinedType"/>
+				<AttributeRule RuleID="LongName" AttributeName="LongName"/>
+				<AttributeRule RuleID="AnchorageSlip" AttributeName="AnchorageSlip"/>
+				<AttributeRule RuleID="BarLength" AttributeName="BarLength"/>
+				<AttributeRule RuleID="BarSurface" AttributeName="BarSurface"/>
+				<AttributeRule RuleID="BuildingAddress" AttributeName="BuildingAddress"/>
+				<AttributeRule RuleID="CompositionType" AttributeName="CompositionType"/>
+				<AttributeRule RuleID="CrossSectionArea" AttributeName="CrossSectionArea"/>
+				<AttributeRule RuleID="Elevation" AttributeName="Elevation"/>
+				<AttributeRule RuleID="ElevationOfRefHeight" AttributeName="ElevationOfRefHeight"/>
+				<AttributeRule RuleID="ElevationOfTerrain" AttributeName="ElevationOfTerrain"/>
+				<AttributeRule RuleID="ElevationWithFlooring" AttributeName="ElevationWithFlooring"/>
+				<AttributeRule RuleID="FlowDirection" AttributeName="FlowDirection"/>
+				<AttributeRule RuleID="FrictionCoefficient" AttributeName="FrictionCoefficient"/>
+				<AttributeRule RuleID="LandTitleNumber" AttributeName="LandTitleNumber"/>
+				<AttributeRule RuleID="LongitudinalBarCrossSectionArea" AttributeName="LongitudinalBarCrossSectionArea"/>
+				<AttributeRule RuleID="LongitudinalBarNominalDiameter" AttributeName="LongitudinalBarNominalDiameter"/>
+				<AttributeRule RuleID="LongitudinalBarSpacing" AttributeName="LongitudinalBarSpacing"/>
+				<AttributeRule RuleID="MeshLength" AttributeName="MeshLength"/>
+				<AttributeRule RuleID="MeshWidth" AttributeName="MeshWidth"/>
+				<AttributeRule RuleID="MinCurvatureRadius" AttributeName="MinCurvatureRadius"/>
+				<AttributeRule RuleID="NominalDiameter" AttributeName="NominalDiameter"/>
+				<AttributeRule RuleID="NominalLength" AttributeName="NominalLength"/>
+				<AttributeRule RuleID="NumberOfRiser" AttributeName="NumberOfRiser"/>
+				<AttributeRule RuleID="NumberOfTreads" AttributeName="NumberOfTreads"/>
+				<AttributeRule RuleID="OperationType" AttributeName="OperationType"/>
+				<AttributeRule RuleID="OverallHeight" AttributeName="OverallHeight"/>
+				<AttributeRule RuleID="OverallWidth" AttributeName="OverallWidth"/>
+				<AttributeRule RuleID="PartitioningType" AttributeName="PartitioningType"/>
+				<AttributeRule RuleID="PreStress" AttributeName="PreStress"/>
+				<AttributeRule RuleID="PredefinedType" AttributeName="PredefinedType"/>
+				<AttributeRule RuleID="ProxyType" AttributeName="ProxyType"/>
+				<AttributeRule RuleID="RefElevation" AttributeName="RefElevation"/>
+				<AttributeRule RuleID="RefLatitude" AttributeName="RefLatitude"/>
+				<AttributeRule RuleID="RefLongitude" AttributeName="RefLongitude"/>
+				<AttributeRule RuleID="RiserHeight" AttributeName="RiserHeight"/>
+				<AttributeRule RuleID="SiteAddress" AttributeName="SiteAddress"/>
+				<AttributeRule RuleID="SteelGrade" AttributeName="SteelGrade"/>
+				<AttributeRule RuleID="SystemType" AttributeName="SystemType"/>
+				<AttributeRule RuleID="TensionForce" AttributeName="TensionForce"/>
+				<AttributeRule RuleID="TransverseBarCrossSectionArea" AttributeName="TransverseBarCrossSectionArea"/>
+				<AttributeRule RuleID="TransverseBarNominalDiameter" AttributeName="TransverseBarNominalDiameter"/>
+				<AttributeRule RuleID="TransverseBarSpacing" AttributeName="TransverseBarSpacing"/>
+				<AttributeRule RuleID="TreadLength" AttributeName="TreadLength"/>
+				<AttributeRule RuleID="UserDefinedOperationType" AttributeName="UserDefinedOperationType"/>
+				<AttributeRule RuleID="UserDefinedPartitioningType" AttributeName="UserDefinedPartitioningType"/>
+				<AttributeRule AttributeName="IsDefinedBy">
+					<EntityRules>
+						<EntityRule EntityName="IfcRelDefinesByProperties">
+							<References>
+								<Template ref="10000000-0000-0000-0001-000000000001"/>
+							</References>
+						</EntityRule>
+						<EntityRule EntityName="IfcRelDefinesByType">
+							<References IdPrefix="T_">
+								<Template ref="10000000-0000-0000-0001-000000000002"/>
+							</References>
+						</EntityRule>
+					</EntityRules>
+				</AttributeRule>
+				<AttributeRule AttributeName="HasAssignments">
+					<EntityRules>
+						<EntityRule EntityName="IfcRelAssignsToGroup">
+							<References>
+								<Template ref="10000000-0000-0000-0001-000000000003"/>
+							</References>
+						</EntityRule>
+					</EntityRules>
+				</AttributeRule>
+				<AttributeRule AttributeName="HasAssociations">
+					<EntityRules>
+						<EntityRule EntityName="IfcRelAssociatesClassification">
+							<References>
+								<Template ref="10000000-0000-0000-0001-000000000004"/>
+							</References>
+						</EntityRule>
+					</EntityRules>
+				</AttributeRule>
+				<AttributeRule AttributeName="ContainedInStructure">
+					<EntityRules>
+						<EntityRule EntityName="IfcRelContainedInSpatialStructure">
+							<References IdPrefix="S_">
+								<Template ref="10000000-0000-0000-0001-000000000005"/>
+							</References>
+						</EntityRule>
+					</EntityRules>
+				</AttributeRule>
+				<AttributeRule AttributeName="Decomposes">
+					<EntityRules>
+						<EntityRule EntityName="IfcRelDecomposes">
+							<References IdPrefix="A_">
+								<Template ref="10000000-0000-0000-0001-000000000006"/>
+							</References>
+						</EntityRule>
+					</EntityRules>
+				</AttributeRule>
+			</Rules>
+		</ConceptTemplate>
+		<ConceptTemplate uuid="00000000-0000-0000-0001-000000000002" name="GroupConceptTemplate" applicableSchema="IFC2x3" applicableEntity="IfcGroup">
+			<Definitions>
+				<Definition>
+					<Body lang="en"><![CDATA[Concept Template for any Group]]></Body>
+				</Definition>
+			</Definitions>
+			<Rules>
+				<AttributeRule AttributeName="Name" RuleID="Name"/>
+				<AttributeRule AttributeName="Description" RuleID="Desc"/>
+				<AttributeRule AttributeName="IsDefinedBy">
+					<EntityRules>
+						<EntityRule EntityName="IfcRelDefinesByProperties">
+							<References>
+								<Template ref="10000000-0000-0000-0001-000000000001"/>
+							</References>
+						</EntityRule>
+					</EntityRules>
+				</AttributeRule>
+				<AttributeRule AttributeName="HasAssociations">
+					<EntityRules>
+						<EntityRule EntityName="IfcRelAssociatesClassification">
+							<References>
+								<Template ref="10000000-0000-0000-0001-000000000004"/>
+							</References>
+						</EntityRule>
+					</EntityRules>
+				</AttributeRule>
+			</Rules>
+		</ConceptTemplate>
+		<ConceptTemplate uuid="00000000-0000-0000-0001-000000000003" name="ProjectConceptTemplate" applicableSchema="IFC2x3" applicableEntity="IfcProject">
+			<Definitions>
+				<Definition>
+					<Body lang="en"><![CDATA[Concept Template for any Group]]></Body>
+				</Definition>
+			</Definitions>
+			<Rules>
+				<AttributeRule AttributeName="Name" RuleID="Name"/>
+				<AttributeRule AttributeName="Description" RuleID="Desc"/>
+				<AttributeRule RuleID="LongName" AttributeName="LongName"/>
+				<AttributeRule RuleID="Phase" AttributeName="Phase"/>
+				<AttributeRule AttributeName="IsDefinedBy">
+					<EntityRules>
+						<EntityRule EntityName="IfcRelDefinesByProperties">
+							<References>
+								<Template ref="10000000-0000-0000-0001-000000000001"/>
+							</References>
+						</EntityRule>
+					</EntityRules>
+				</AttributeRule>
+				<AttributeRule AttributeName="HasAssociations">
+					<EntityRules>
+						<EntityRule EntityName="IfcRelAssociatesClassification">
+							<References>
+								<Template ref="10000000-0000-0000-0001-000000000004"/>
+							</References>
+						</EntityRule>
+					</EntityRules>
+				</AttributeRule>
+			</Rules>
+		</ConceptTemplate>
+		<ConceptTemplate uuid="a322fdd7-cd28-4ea7-8797-f6cf124ab3d6" name="Partial Templates" applicableSchema="IFC4">
+			<Definitions>
+				<Definition>
+					<Body lang="en"><![CDATA[Partial concept templates are described herein to indicate usage of common data types, which are then incorporated into other templates.]]></Body>
+				</Definition>
+			</Definitions>
+			<SubTemplates>
+				<ConceptTemplate uuid="88b4aaa9-0925-447c-b009-fe357b7c754e" name="Properties" code="" applicableSchema="IFC4" applicableEntity="IfcSimpleProperty">
+					<Definitions>
+						<Definition>
+							<Body lang="en"><![CDATA[Properties may contain user-defined data, where data types are open-ended.]]></Body>
+						</Definition>
+					</Definitions>
+					<Rules>
+						<AttributeRule RuleID="Property" AttributeName="Name">
+							<EntityRules>
+								<EntityRule EntityName="IfcIdentifier"/>
+							</EntityRules>
+						</AttributeRule>
+						<AttributeRule AttributeName="Description">
+							<EntityRules>
+								<EntityRule EntityName="IfcText"/>
+							</EntityRules>
+						</AttributeRule>
+					</Rules>
+					<SubTemplates>
+						<ConceptTemplate uuid="6655f6d0-29a8-47b8-8f3d-c9fce9c9a620" name="Single Value" applicableSchema="IFC4" applicableEntity="IfcPropertySingleValue">
+							<Rules>
+								<AttributeRule RuleID="Property" AttributeName="Name">
+									<EntityRules>
+										<EntityRule EntityName="IfcIdentifier"/>
+									</EntityRules>
+								</AttributeRule>
+								<AttributeRule AttributeName="Description">
+									<EntityRules>
+										<EntityRule EntityName="IfcText"/>
+									</EntityRules>
+								</AttributeRule>
+								<AttributeRule RuleID="Value" AttributeName="NominalValue">
+									<EntityRules>
+										<EntityRule EntityName="IfcValue"/>
+									</EntityRules>
+								</AttributeRule>
+							</Rules>
+						</ConceptTemplate>
+						<ConceptTemplate uuid="c148a099-c351-43a8-9266-5f3de0b45a95" name="Enumerated Value" applicableSchema="IFC4" applicableEntity="IfcPropertyEnumeratedValue">
+							<Rules>
+								<AttributeRule RuleID="Property" AttributeName="Name">
+									<EntityRules>
+										<EntityRule EntityName="IfcIdentifier"/>
+									</EntityRules>
+								</AttributeRule>
+								<AttributeRule AttributeName="Description">
+									<EntityRules>
+										<EntityRule EntityName="IfcText"/>
+									</EntityRules>
+								</AttributeRule>
+								<AttributeRule RuleID="Value" AttributeName="EnumerationValues">
+									<EntityRules>
+										<EntityRule EntityName="IfcValue"/>
+									</EntityRules>
+								</AttributeRule>
+								<AttributeRule AttributeName="EnumerationReference">
+									<EntityRules>
+										<EntityRule EntityName="IfcPropertyEnumeration">
+											<AttributeRules>
+												<AttributeRule RuleID="Property" AttributeName="Name">
+													<EntityRules>
+														<EntityRule EntityName="IfcLabel"/>
+													</EntityRules>
+												</AttributeRule>
+											</AttributeRules>
+										</EntityRule>
+									</EntityRules>
+								</AttributeRule>
+							</Rules>
+						</ConceptTemplate>
+					</SubTemplates>
+				</ConceptTemplate>
+				<ConceptTemplate uuid="10000000-0000-0000-0001-000000000001" name="IfcRelDefinesByProperties" applicableSchema="" applicableEntity="IfcRelDefinesByProperties">
+					<Rules>
+						<AttributeRule AttributeName="RelatingPropertyDefinition">
+							<EntityRules>
+								<EntityRule EntityName="IfcPropertySet">
+									<References>
+										<Template ref="10000000-0000-0000-0001-000000000007"/>
+									</References>
+								</EntityRule>
+								<EntityRule EntityName="IfcElementQuantity">
+									<References>
+										<Template ref="10000000-0000-0000-0001-000000000008"/>
+									</References>
+								</EntityRule>
+							</EntityRules>
+						</AttributeRule>
+					</Rules>
+				</ConceptTemplate>
+				<ConceptTemplate uuid="10000000-0000-0000-0001-000000000008" name="IfcElementQuantity" applicableSchema="IFC4" applicableEntity="IfcElementQuantity">
+					<Rules>
+						<AttributeRule RuleID="Set" AttributeName="Name">
+							<EntityRules>
+								<EntityRule EntityName="IfcLabel"/>
+							</EntityRules>
+						</AttributeRule>
+						<AttributeRule AttributeName="Description">
+							<EntityRules>
+								<EntityRule EntityName="IfcText"/>
+							</EntityRules>
+						</AttributeRule>
+						<AttributeRule AttributeName="Quantities">
+							<EntityRules>
+								<EntityRule EntityName="IfcPhysicalSimpleQuantity">
+									<AttributeRules>
+										<AttributeRule RuleID="Property" AttributeName="Name">
+											<EntityRules>
+												<EntityRule EntityName="IfcLabel"/>
+											</EntityRules>
+										</AttributeRule>
+										<AttributeRule RuleID="Value" AttributeName="CountValue"/>
+										<AttributeRule RuleID="Value" AttributeName="LengthValue"/>
+										<AttributeRule RuleID="Value" AttributeName="AreaValue"/>
+										<AttributeRule RuleID="Value" AttributeName="VolumeValue"/>
+										<AttributeRule RuleID="Value" AttributeName="WeightValue"/>
+										<AttributeRule RuleID="Value" AttributeName="TimeValue"/>
+									</AttributeRules>
+								</EntityRule>
+							</EntityRules>
+						</AttributeRule>
+					</Rules>
+				</ConceptTemplate>
+				<ConceptTemplate uuid="10000000-0000-0000-0001-000000000007" name="Property Sets" applicableSchema="IFC4" applicableEntity="IfcPropertySet">
+					<Rules>
+						<AttributeRule RuleID="Set" AttributeName="Name">
+							<EntityRules>
+								<EntityRule EntityName="IfcLabel"/>
+							</EntityRules>
+						</AttributeRule>
+						<AttributeRule AttributeName="Description">
+							<EntityRules>
+								<EntityRule EntityName="IfcText"/>
+							</EntityRules>
+						</AttributeRule>
+						<AttributeRule AttributeName="HasProperties">
+							<EntityRules>
+								<EntityRule EntityName="IfcSimpleProperty">
+									<References>
+										<Template ref="88b4aaa9-0925-447c-b009-fe357b7c754e"/>
+									</References>
+								</EntityRule>
+							</EntityRules>
+						</AttributeRule>
+					</Rules>
+				</ConceptTemplate>
+				<ConceptTemplate uuid="10000000-0000-0000-0001-000000000003" name="IfcRelAssignsToGroup" applicableSchema="IFC4" applicableEntity="IfcRelAssignsToGroup">
+					<Rules>
+						<AttributeRule AttributeName="RelatingGroup">
+							<EntityRules>
+								<EntityRule EntityName="IfcGroup">
+									<AttributeRules>
+										<AttributeRule AttributeName="Name" RuleID="Group"/>
+										<AttributeRule AttributeName="ObjectType" RuleID="By"/>
+										<AttributeRule AttributeName="IsDefinedBy">
+											<EntityRules>
+												<EntityRule EntityName="IfcRelDefinesByProperties">
+													<References IdPrefix="G_">
+														<Template ref="10000000-0000-0000-0001-000000000001"/>
+													</References>
+												</EntityRule>
+											</EntityRules>
+										</AttributeRule>
+										<AttributeRule AttributeName="HasAssociations">
+											<EntityRules>
+												<EntityRule EntityName="IfcRelAssociatesClassification">
+													<References IdPrefix="G_">
+														<Template ref="10000000-0000-0000-0001-000000000004"/>
+													</References>
+												</EntityRule>
+											</EntityRules>
+										</AttributeRule>
+									</AttributeRules>
+								</EntityRule>
+							</EntityRules>
+						</AttributeRule>
+					</Rules>
+				</ConceptTemplate>
+				<ConceptTemplate uuid="10000000-0000-0000-0001-000000000002" name="IfcRelDefinesByType" applicableSchema="IFC4" applicableEntity="IfcRelDefinesByType">
+					<Rules>
+						<AttributeRule AttributeName="RelatingType">
+							<EntityRules>
+								<EntityRule EntityName="IfcTypeObject">
+									<AttributeRules>
+										<AttributeRule AttributeName="Name" RuleID="Name"/>
+										<AttributeRule AttributeName="Description" RuleID="Desc"/>
+										<AttributeRule AttributeName="HasPropertySets">
+											<EntityRules>
+												<EntityRule EntityName="IfcPropertySet">
+													<References>
+														<Template ref="10000000-0000-0000-0001-000000000007"/>
+													</References>
+												</EntityRule>
+												<EntityRule EntityName="IfcElementQuantity">
+													<References>
+														<Template ref="10000000-0000-0000-0001-000000000008"/>
+													</References>
+												</EntityRule>
+											</EntityRules>
+										</AttributeRule>
+										<AttributeRule AttributeName="HasAssociations">
+											<EntityRules>
+												<EntityRule EntityName="IfcRelAssociatesClassification">
+													<References>
+														<Template ref="10000000-0000-0000-0001-000000000004"/>
+													</References>
+												</EntityRule>
+											</EntityRules>
+										</AttributeRule>
+									</AttributeRules>
+								</EntityRule>
+							</EntityRules>
+						</AttributeRule>
+					</Rules>
+				</ConceptTemplate>
+				<ConceptTemplate uuid="10000000-0000-0000-0001-000000000004" name="IfcRelAssociatesClassification" applicableSchema="IFC4" applicableEntity="IfcRelAssociatesClassification">
+					<Rules>
+						<AttributeRule RuleID="Code" AttributeName="Name">
+							<EntityRules>
+								<EntityRule EntityName="IfcLabel"/>
+							</EntityRules>
+						</AttributeRule>
+						<AttributeRule AttributeName="RelatingClassification">
+							<EntityRules>
+								<EntityRule EntityName="IfcClassificationReference">
+									<AttributeRules>
+										<AttributeRule AttributeName="ReferencedSource">
+											<EntityRules>
+												<EntityRule EntityName="IfcClassification">
+													<AttributeRules>
+														<AttributeRule AttributeName="Source">
+															<EntityRules>
+																<EntityRule EntityName="IfcLabel"/>
+															</EntityRules>
+														</AttributeRule>
+														<AttributeRule RuleID="Table" AttributeName="Name">
+															<EntityRules>
+																<EntityRule EntityName="IfcLabel"/>
+															</EntityRules>
+														</AttributeRule>
+														<AttributeRule AttributeName="ReferenceTokens">
+															<EntityRules>
+																<EntityRule EntityName="IfcIdentifier"/>
+															</EntityRules>
+														</AttributeRule>
+													</AttributeRules>
+												</EntityRule>
+											</EntityRules>
+										</AttributeRule>
+										<AttributeRule AttributeName="Identification">
+											<EntityRules>
+												<EntityRule EntityName="IfcIdentifier"/>
+											</EntityRules>
+										</AttributeRule>
+									</AttributeRules>
+								</EntityRule>
+							</EntityRules>
+						</AttributeRule>
+					</Rules>
+				</ConceptTemplate>
+				<ConceptTemplate uuid="10000000-0000-0000-0001-000000000005" name="IfcRelContainedInSpatialStructure" applicableSchema="IFC4" applicableEntity="IfcRelContainedInSpatialStructure">
+					<Rules>
+						<AttributeRule AttributeName="RelatingStructure">
+							<EntityRules>
+								<EntityRule EntityName="IfcSpatialStructureElement">
+									<AttributeRules>
+										<AttributeRule AttributeName="Name" RuleID="Name"/>
+										<AttributeRule AttributeName="Description" RuleID="Desc"/>
+										<AttributeRule AttributeName="IsDefinedBy">
+											<EntityRules>
+												<EntityRule EntityName="IfcRelDefinesByProperties">
+													<References IdPrefix="">
+														<Template ref="10000000-0000-0000-0001-000000000001"/>
+													</References>
+												</EntityRule>
+											</EntityRules>
+										</AttributeRule>
+										<AttributeRule AttributeName="HasAssociations">
+											<EntityRules>
+												<EntityRule EntityName="IfcRelAssociatesClassification">
+													<References>
+														<Template ref="10000000-0000-0000-0001-000000000004"/>
+													</References>
+												</EntityRule>
+											</EntityRules>
+										</AttributeRule>
+									</AttributeRules>
+								</EntityRule>
+							</EntityRules>
+						</AttributeRule>
+					</Rules>
+				</ConceptTemplate>
+				<ConceptTemplate uuid="10000000-0000-0000-0001-000000000006" name="IfcRelDecomposes" applicableSchema="IFC4" applicableEntity="IfcRelDecomposes">
+					<Rules>
+						<AttributeRule AttributeName="RelatingStructure">
+							<EntityRules>
+								<EntityRule EntityName="IfcProduct">
+									<AttributeRules>
+										<AttributeRule AttributeName="Name" RuleID="Name"/>
+										<AttributeRule AttributeName="Description" RuleID="Desc"/>
+										<AttributeRule AttributeName="IsDefinedBy">
+											<EntityRules>
+												<EntityRule EntityName="IfcRelDefinesByProperties">
+													<References IdPrefix="">
+														<Template ref="10000000-0000-0000-0001-000000000001"/>
+													</References>
+												</EntityRule>
+											</EntityRules>
+										</AttributeRule>
+										<AttributeRule AttributeName="HasAssociations">
+											<EntityRules>
+												<EntityRule EntityName="IfcRelAssociatesClassification">
+													<References>
+														<Template ref="10000000-0000-0000-0001-000000000004"/>
+													</References>
+												</EntityRule>
+											</EntityRules>
+										</AttributeRule>
+									</AttributeRules>
+								</EntityRule>
+							</EntityRules>
+						</AttributeRule>
+					</Rules>
+				</ConceptTemplate>
+			</SubTemplates>
+		</ConceptTemplate>
+	</Templates>
+	<Views>
+		<ModelView uuid="a7af5d43-f311-476c-a0ec-2fce423d75e3" name="Measurement Requirements" applicableSchema="IFC2X3">
+			<ExchangeRequirements>
+				<ExchangeRequirement uuid="5fedbe0a-b8e8-490d-9b04-40dd34890071" name="Volume and fire requirements" applicability="import">
+					<Definitions>
+						<Definition>
+							<Body><![CDATA[Required information:  include volume measures on building elements]]></Body>
+						</Definition>
+					</Definitions>
+				</ExchangeRequirement>
+			</ExchangeRequirements>
+			<Roots>
+				<ConceptRoot uuid="2d841f37-3443-43fc-bee3-a5639e98f4e7" name="volumes on walls" applicableRootEntity="IfcWall">
+					<Definitions>
+						<Definition>
+							<Body><![CDATA[walls should have volume measure attached]]></Body>
+						</Definition>
+					</Definitions>
+					<Concepts>
+						<Concept uuid="5bcba8d1-ef16-4488-9285-23ecb3a17490" name="Volume specification" override="false">
+							<Template ref="00000000-0000-0000-0001-000000000001"/>
+							<Requirements>
+								<Requirement applicability="import" requirement="mandatory" exchangeRequirement="5fedbe0a-b8e8-490d-9b04-40dd34890071"/>
+								<Requirement applicability="export" requirement="mandatory" exchangeRequirement="5fedbe0a-b8e8-490d-9b04-40dd34890071"/>
+							</Requirements>
+							<TemplateRules operator="or">
+								<TemplateRule Parameters="Set[Value]='Dimensions' ; Property[Value]='Volume'"/>
+								<TemplateRules operator="and">
+									<TemplateRules operator="nor">
+										<TemplateRule Parameters="Set='Dimensions' ; Property='Volume'"/>
+									</TemplateRules>
+									<TemplateRules operator="or">
+										<TemplateRule Parameters="T_Set='Dimensions';T_Property='Volume';"/>
+										<TemplateRule Parameters="S_Set='Dimensions';S_Property='Volume';"/>
+										<TemplateRule Parameters="A_Set='Dimensions';A_Property='Volume';"/>
+										<TemplateRule Parameters="G_Set='Dimensions';G_Property='Volume';'"/>
+									</TemplateRules>
+								</TemplateRules>
+							</TemplateRules>
+						</Concept>
+					</Concepts>
+				</ConceptRoot>
+				<ConceptRoot uuid="2d841f37-3443-43fc-bee3-a5643e98f4e7" name="Fire rating on walls" applicableRootEntity="IfcWall">
+					<Definitions>
+						<Definition>
+							<Body><![CDATA[walls should have volume measure attached]]></Body>
+						</Definition>
+					</Definitions>
+					<Concepts>
+						<Concept uuid="5bcba8d1-ef16-4488-9285-23ecb3a17490" name="Fire rated" override="false">
+							<Template ref="00000000-0000-0000-0001-000000000001"/>
+							<Requirements>
+								<Requirement applicability="import" requirement="mandatory" exchangeRequirement="5fedbe0a-b8e8-490d-9b04-40dd34890071"/>
+								<Requirement applicability="export" requirement="mandatory" exchangeRequirement="5fedbe0a-b8e8-490d-9b04-40dd34890071"/>
+							</Requirements>
+							<TemplateRules operator="or">
+								<TemplateRule Parameters="Set[Exists]=true; Property='FireRating'; Property[Type]='IfcIdentifier'"/>
+							</TemplateRules>
+						</Concept>
+					</Concepts>
+				</ConceptRoot>
+			</Roots>
+		</ModelView>
+	</Views>
+</mvdXML>

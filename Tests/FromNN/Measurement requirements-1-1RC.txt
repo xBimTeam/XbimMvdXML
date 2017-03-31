@@ -1,0 +1,4 @@
+I am attaching the (NRM) Measurement requirements as mvdxml1.1RC files.
+The first is a similar to the original as possible.  
+The second extends the rule to say that if the object doesn’t have the Volume in its Dimensions, check its Type, Group, Aggregate or Container. 
+This won’t affect the outcomes you are used to seeing, but will test your use of the Operators, Prefixes and SubTemplates.

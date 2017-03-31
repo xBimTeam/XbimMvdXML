@@ -1,0 +1,2400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mvdXML xmlns="http://buildingsmart-tech.org/mvdXML/mvdXML1-1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://buildingsmart-tech.org/mvdXML/mvdXML1-1 ../xsd/mvdXML_V1-1RC.xsd" uuid="00000013-0000-0000-0000-000000000013" name="AEC3 Requirements Database Manager">
+  <Templates>
+    <ConceptTemplate uuid="00000000-0000-0000-0001-000000000001" name="ProductConceptTemplate" applicableSchema="IFC4" applicableEntity="IfcProduct">
+      <Definitions>
+        <Definition>
+          <Body lang="en"><![CDATA[Concept Template for any Product]]></Body>
+        </Definition>
+      </Definitions>
+      <Rules>
+        <AttributeRule AttributeName="Name" RuleID="Name"/>
+        <AttributeRule AttributeName="Description" RuleID="Desc"/>
+        <AttributeRule RuleID="ObjectType" AttributeName="ObjectType"/>
+        <AttributeRule RuleID="Tag" AttributeName="Tag"/>
+        <AttributeRule RuleID="PredefinedType" AttributeName="PredefinedType"/>
+        <AttributeRule RuleID="LongName" AttributeName="LongName"/>
+        <AttributeRule RuleID="AnchorageSlip" AttributeName="AnchorageSlip"/>
+        <AttributeRule RuleID="BarLength" AttributeName="BarLength"/>
+        <AttributeRule RuleID="BarSurface" AttributeName="BarSurface"/>
+        <AttributeRule RuleID="BuildingAddress" AttributeName="BuildingAddress"/>
+        <AttributeRule RuleID="CompositionType" AttributeName="CompositionType"/>
+        <AttributeRule RuleID="CrossSectionArea" AttributeName="CrossSectionArea"/>
+        <AttributeRule RuleID="Elevation" AttributeName="Elevation"/>
+        <AttributeRule RuleID="ElevationOfRefHeight" AttributeName="ElevationOfRefHeight"/>
+        <AttributeRule RuleID="ElevationOfTerrain" AttributeName="ElevationOfTerrain"/>
+        <AttributeRule RuleID="ElevationWithFlooring" AttributeName="ElevationWithFlooring"/>
+        <AttributeRule RuleID="FlowDirection" AttributeName="FlowDirection"/>
+        <AttributeRule RuleID="FrictionCoefficient" AttributeName="FrictionCoefficient"/>
+        <AttributeRule RuleID="LandTitleNumber" AttributeName="LandTitleNumber"/>
+        <AttributeRule RuleID="LongitudinalBarCrossSectionArea" AttributeName="LongitudinalBarCrossSectionArea"/>
+        <AttributeRule RuleID="LongitudinalBarNominalDiameter" AttributeName="LongitudinalBarNominalDiameter"/>
+        <AttributeRule RuleID="LongitudinalBarSpacing" AttributeName="LongitudinalBarSpacing"/>
+        <AttributeRule RuleID="MeshLength" AttributeName="MeshLength"/>
+        <AttributeRule RuleID="MeshWidth" AttributeName="MeshWidth"/>
+        <AttributeRule RuleID="MinCurvatureRadius" AttributeName="MinCurvatureRadius"/>
+        <AttributeRule RuleID="NominalDiameter" AttributeName="NominalDiameter"/>
+        <AttributeRule RuleID="NominalLength" AttributeName="NominalLength"/>
+        <AttributeRule RuleID="NumberOfRiser" AttributeName="NumberOfRiser"/>
+        <AttributeRule RuleID="NumberOfTreads" AttributeName="NumberOfTreads"/>
+        <AttributeRule RuleID="OperationType" AttributeName="OperationType"/>
+        <AttributeRule RuleID="OverallHeight" AttributeName="OverallHeight"/>
+        <AttributeRule RuleID="OverallWidth" AttributeName="OverallWidth"/>
+        <AttributeRule RuleID="PartitioningType" AttributeName="PartitioningType"/>
+        <AttributeRule RuleID="PreStress" AttributeName="PreStress"/>
+        <AttributeRule RuleID="PredefinedType" AttributeName="PredefinedType"/>
+        <AttributeRule RuleID="ProxyType" AttributeName="ProxyType"/>
+        <AttributeRule RuleID="RefElevation" AttributeName="RefElevation"/>
+        <AttributeRule RuleID="RefLatitude" AttributeName="RefLatitude"/>
+        <AttributeRule RuleID="RefLongitude" AttributeName="RefLongitude"/>
+        <AttributeRule RuleID="RiserHeight" AttributeName="RiserHeight"/>
+        <AttributeRule RuleID="SiteAddress" AttributeName="SiteAddress"/>
+        <AttributeRule RuleID="SteelGrade" AttributeName="SteelGrade"/>
+        <AttributeRule RuleID="SystemType" AttributeName="SystemType"/>
+        <AttributeRule RuleID="TensionForce" AttributeName="TensionForce"/>
+        <AttributeRule RuleID="TransverseBarCrossSectionArea" AttributeName="TransverseBarCrossSectionArea"/>
+        <AttributeRule RuleID="TransverseBarNominalDiameter" AttributeName="TransverseBarNominalDiameter"/>
+        <AttributeRule RuleID="TransverseBarSpacing" AttributeName="TransverseBarSpacing"/>
+        <AttributeRule RuleID="TreadLength" AttributeName="TreadLength"/>
+        <AttributeRule RuleID="UserDefinedOperationType" AttributeName="UserDefinedOperationType"/>
+        <AttributeRule RuleID="UserDefinedPartitioningType" AttributeName="UserDefinedPartitioningType"/>
+        <AttributeRule AttributeName="IsDefinedBy">
+          <EntityRules>
+            <EntityRule EntityName="IfcRelDefinesByProperties">
+              <References>
+                <Template ref="10000000-0000-0000-0001-000000000001"/>
+              </References>
+            </EntityRule>
+            <EntityRule EntityName="IfcRelDefinesByType">
+              <References IdPrefix="T_">
+                <Template ref="10000000-0000-0000-0001-000000000002"/>
+              </References>
+            </EntityRule>
+          </EntityRules>
+        </AttributeRule>
+        <AttributeRule AttributeName="HasAssignments">
+          <EntityRules>
+            <EntityRule EntityName="IfcRelAssignsToGroup">
+              <References>
+                <Template ref="10000000-0000-0000-0001-000000000003"/>
+              </References>
+            </EntityRule>
+          </EntityRules>
+        </AttributeRule>
+        <AttributeRule AttributeName="HasAssociations">
+          <EntityRules>
+            <EntityRule EntityName="IfcRelAssociatesClassification">
+              <References>
+                <Template ref="10000000-0000-0000-0001-000000000004"/>
+              </References>
+            </EntityRule>
+          </EntityRules>
+        </AttributeRule>
+        <AttributeRule AttributeName="ContainedInStructure">
+          <EntityRules>
+            <EntityRule EntityName="IfcRelContainedInSpatialStructure">
+              <References IdPrefix="S_">
+                <Template ref="10000000-0000-0000-0001-000000000005"/>
+              </References>
+            </EntityRule>
+          </EntityRules>
+        </AttributeRule>
+        <AttributeRule AttributeName="Decomposes">
+          <EntityRules>
+            <EntityRule EntityName="IfcRelDecomposes">
+              <References IdPrefix="A_">
+                <Template ref="10000000-0000-0000-0001-000000000006"/>
+              </References>
+            </EntityRule>
+          </EntityRules>
+        </AttributeRule>
+      </Rules>
+    </ConceptTemplate>
+    <ConceptTemplate uuid="00000000-0000-0000-0001-000000000002" name="GroupConceptTemplate" applicableSchema="IFC4" applicableEntity="IfcGroup">
+      <Definitions>
+        <Definition>
+          <Body lang="en"><![CDATA[Concept Template for any Group]]></Body>
+        </Definition>
+      </Definitions>
+      <Rules>
+        <AttributeRule AttributeName="Name" RuleID="Name"/>
+        <AttributeRule AttributeName="Description" RuleID="Desc"/>
+        <AttributeRule RuleID="PredefinedType" AttributeName="PredefinedType"/>
+        <AttributeRule RuleID="LongName" AttributeName="LongName"/>
+        <AttributeRule RuleID="CurrentValue" AttributeName="CurrentValue"/>
+        <AttributeRule RuleID="DepreciatedValue" AttributeName="DepreciatedValue"/>
+        <AttributeRule RuleID="Identification" AttributeName="Identification"/>
+        <AttributeRule RuleID="IncorporationDate" AttributeName="IncorporationDate"/>
+        <AttributeRule RuleID="LastUpdateDate" AttributeName="LastUpdateDate"/>
+        <AttributeRule RuleID="OriginalValue" AttributeName="OriginalValue"/>
+        <AttributeRule RuleID="ResponsiblePerson" AttributeName="ResponsiblePerson"/>
+        <AttributeRule RuleID="TotalReplacementCost" AttributeName="TotalReplacementCost"/>
+        <AttributeRule AttributeName="IsDefinedBy">
+          <EntityRules>
+            <EntityRule EntityName="IfcRelDefinesByProperties">
+              <References>
+                <Template ref="10000000-0000-0000-0001-000000000001"/>
+              </References>
+            </EntityRule>
+          </EntityRules>
+        </AttributeRule>
+        <AttributeRule AttributeName="HasAssociations">
+          <EntityRules>
+            <EntityRule EntityName="IfcRelAssociatesClassification">
+              <References>
+                <Template ref="10000000-0000-0000-0001-000000000004"/>
+              </References>
+            </EntityRule>
+          </EntityRules>
+        </AttributeRule>
+      </Rules>
+    </ConceptTemplate>
+    <ConceptTemplate uuid="00000000-0000-0000-0001-000000000003" name="ProjectConceptTemplate" applicableSchema="IFC4" applicableEntity="IfcProject">
+      <Definitions>
+        <Definition>
+          <Body lang="en"><![CDATA[Concept Template for any Group]]></Body>
+        </Definition>
+      </Definitions>
+      <Rules>
+        <AttributeRule AttributeName="Name" RuleID="Name"/>
+        <AttributeRule AttributeName="Description" RuleID="Desc"/>
+        <AttributeRule RuleID="LongName" AttributeName="LongName"/>
+        <AttributeRule RuleID="Phase" AttributeName="Phase"/>
+        <AttributeRule RuleID="ObjectType" AttributeName="ObjectType"/>
+        <AttributeRule AttributeName="IsDefinedBy">
+          <EntityRules>
+            <EntityRule EntityName="IfcRelDefinesByProperties">
+              <References>
+                <Template ref="10000000-0000-0000-0001-000000000001"/>
+              </References>
+            </EntityRule>
+          </EntityRules>
+        </AttributeRule>
+        <AttributeRule AttributeName="HasAssociations">
+          <EntityRules>
+            <EntityRule EntityName="IfcRelAssociatesClassification">
+              <References>
+                <Template ref="10000000-0000-0000-0001-000000000004"/>
+              </References>
+            </EntityRule>
+          </EntityRules>
+        </AttributeRule>
+      </Rules>
+    </ConceptTemplate>
+    <ConceptTemplate uuid="a322fdd7-cd28-4ea7-8797-f6cf124ab3d6" name="Partial Templates" applicableSchema="IFC4">
+      <Definitions>
+        <Definition>
+          <Body lang="en"><![CDATA[Partial concept templates are described herein to indicate usage of common data types, which are then incorporated into other templates.]]></Body>
+        </Definition>
+      </Definitions>
+      <SubTemplates>
+        <ConceptTemplate uuid="88b4aaa9-0925-447c-b009-fe357b7c754e" name="Properties" code="" applicableSchema="IFC4" applicableEntity="IfcSimpleProperty">
+          <Definitions>
+            <Definition>
+              <Body lang="en"><![CDATA[Properties may contain user-defined data, where data types are open-ended.]]></Body>
+            </Definition>
+          </Definitions>
+          <Rules>
+            <AttributeRule RuleID="Property" AttributeName="Name">
+              <EntityRules>
+                <EntityRule EntityName="IfcIdentifier"/>
+              </EntityRules>
+            </AttributeRule>
+            <AttributeRule AttributeName="Description">
+              <EntityRules>
+                <EntityRule EntityName="IfcText"/>
+              </EntityRules>
+            </AttributeRule>
+          </Rules>
+          <SubTemplates>
+            <ConceptTemplate uuid="6655f6d0-29a8-47b8-8f3d-c9fce9c9a620" name="Single Value" applicableSchema="IFC4" applicableEntity="IfcPropertySingleValue">
+              <Rules>
+                <AttributeRule RuleID="Property" AttributeName="Name">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcIdentifier"/>
+                  </EntityRules>
+                </AttributeRule>
+                <AttributeRule AttributeName="Description">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcText"/>
+                  </EntityRules>
+                </AttributeRule>
+                <AttributeRule RuleID="Value" AttributeName="NominalValue">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcValue"/>
+                  </EntityRules>
+                </AttributeRule>
+              </Rules>
+            </ConceptTemplate>
+            <ConceptTemplate uuid="c148a099-c351-43a8-9266-5f3de0b45a95" name="Enumerated Value" applicableSchema="IFC4" applicableEntity="IfcPropertyEnumeratedValue">
+              <Rules>
+                <AttributeRule RuleID="Property" AttributeName="Name">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcIdentifier"/>
+                  </EntityRules>
+                </AttributeRule>
+                <AttributeRule AttributeName="Description">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcText"/>
+                  </EntityRules>
+                </AttributeRule>
+                <AttributeRule RuleID="Value" AttributeName="EnumerationValues">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcValue"/>
+                  </EntityRules>
+                </AttributeRule>
+                <AttributeRule AttributeName="EnumerationReference">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcPropertyEnumeration">
+                      <AttributeRules>
+                        <AttributeRule RuleID="Property" AttributeName="Name">
+                          <EntityRules>
+                            <EntityRule EntityName="IfcLabel"/>
+                          </EntityRules>
+                        </AttributeRule>
+                      </AttributeRules>
+                    </EntityRule>
+                  </EntityRules>
+                </AttributeRule>
+              </Rules>
+            </ConceptTemplate>
+          </SubTemplates>
+        </ConceptTemplate>
+        <ConceptTemplate uuid="10000000-0000-0000-0001-000000000001" name="IfcRelDefinesByProperties" applicableSchema="" applicableEntity="IfcRelDefinesByProperties">
+          <Rules>
+            <AttributeRule AttributeName="RelatingPropertyDefinition">
+              <EntityRules>
+                <EntityRule EntityName="IfcPropertySet">
+                  <References>
+                    <Template ref="10000000-0000-0000-0001-000000000007"/>
+                  </References>
+                </EntityRule>
+                <EntityRule EntityName="IfcElementQuantity">
+                  <References>
+                    <Template ref="10000000-0000-0000-0001-000000000008"/>
+                  </References>
+                </EntityRule>
+              </EntityRules>
+            </AttributeRule>
+          </Rules>
+        </ConceptTemplate>
+        <ConceptTemplate uuid="10000000-0000-0000-0001-000000000008" name="IfcElementQuantity" applicableSchema="IFC4" applicableEntity="IfcElementQuantity">
+          <Rules>
+            <AttributeRule RuleID="Set" AttributeName="Name">
+              <EntityRules>
+                <EntityRule EntityName="IfcLabel"/>
+              </EntityRules>
+            </AttributeRule>
+            <AttributeRule AttributeName="Description">
+              <EntityRules>
+                <EntityRule EntityName="IfcText"/>
+              </EntityRules>
+            </AttributeRule>
+            <AttributeRule AttributeName="Quantities">
+              <EntityRules>
+                <EntityRule EntityName="IfcPhysicalSimpleQuantity">
+                  <AttributeRules>
+                    <AttributeRule RuleID="Property" AttributeName="Name">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcLabel"/>
+                      </EntityRules>
+                    </AttributeRule>
+                    <AttributeRule RuleID="Value" AttributeName="CountValue"/>
+                    <AttributeRule RuleID="Value" AttributeName="LengthValue"/>
+                    <AttributeRule RuleID="Value" AttributeName="AreaValue"/>
+                    <AttributeRule RuleID="Value" AttributeName="VolumeValue"/>
+                    <AttributeRule RuleID="Value" AttributeName="WeightValue"/>
+                    <AttributeRule RuleID="Value" AttributeName="TimeValue"/>
+                  </AttributeRules>
+                </EntityRule>
+              </EntityRules>
+            </AttributeRule>
+          </Rules>
+        </ConceptTemplate>
+        <ConceptTemplate uuid="10000000-0000-0000-0001-000000000007" name="Property Sets" applicableSchema="IFC4" applicableEntity="IfcPropertySet">
+          <Rules>
+            <AttributeRule RuleID="Set" AttributeName="Name">
+              <EntityRules>
+                <EntityRule EntityName="IfcLabel"/>
+              </EntityRules>
+            </AttributeRule>
+            <AttributeRule AttributeName="Description">
+              <EntityRules>
+                <EntityRule EntityName="IfcText"/>
+              </EntityRules>
+            </AttributeRule>
+            <AttributeRule AttributeName="HasProperties">
+              <EntityRules>
+                <EntityRule EntityName="IfcSimpleProperty">
+                  <References>
+                    <Template ref="88b4aaa9-0925-447c-b009-fe357b7c754e"/>
+                  </References>
+                </EntityRule>
+              </EntityRules>
+            </AttributeRule>
+          </Rules>
+        </ConceptTemplate>
+        <ConceptTemplate uuid="10000000-0000-0000-0001-000000000003" name="IfcRelAssignsToGroup" applicableSchema="IFC4" applicableEntity="IfcRelAssignsToGroup">
+          <Rules>
+            <AttributeRule AttributeName="RelatingGroup">
+              <EntityRules>
+                <EntityRule EntityName="IfcGroup">
+                  <AttributeRules>
+                    <AttributeRule AttributeName="Name" RuleID="Group"/>
+                    <AttributeRule AttributeName="ObjectType" RuleID="By"/>
+                    <AttributeRule AttributeName="IsDefinedBy">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcRelDefinesByProperties">
+                          <References IdPrefix="G_">
+                            <Template ref="10000000-0000-0000-0001-000000000001"/>
+                          </References>
+                        </EntityRule>
+                      </EntityRules>
+                    </AttributeRule>
+                    <AttributeRule AttributeName="HasAssociations">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcRelAssociatesClassification">
+                          <References IdPrefix="G_">
+                            <Template ref="10000000-0000-0000-0001-000000000004"/>
+                          </References>
+                        </EntityRule>
+                      </EntityRules>
+                    </AttributeRule>
+                  </AttributeRules>
+                </EntityRule>
+              </EntityRules>
+            </AttributeRule>
+          </Rules>
+        </ConceptTemplate>
+        <ConceptTemplate uuid="10000000-0000-0000-0001-000000000002" name="IfcRelDefinesByType" applicableSchema="IFC4" applicableEntity="IfcRelDefinesByType">
+          <Rules>
+            <AttributeRule AttributeName="RelatingType">
+              <EntityRules>
+                <EntityRule EntityName="IfcTypeObject">
+                  <AttributeRules>
+                    <AttributeRule AttributeName="Name" RuleID="Name"/>
+                    <AttributeRule AttributeName="Description" RuleID="Desc"/>
+                    <AttributeRule AttributeName="HasPropertySets">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcPropertySet">
+                          <References>
+                            <Template ref="10000000-0000-0000-0001-000000000007"/>
+                          </References>
+                        </EntityRule>
+                        <EntityRule EntityName="IfcElementQuantity">
+                          <References>
+                            <Template ref="10000000-0000-0000-0001-000000000008"/>
+                          </References>
+                        </EntityRule>
+                      </EntityRules>
+                    </AttributeRule>
+                    <AttributeRule AttributeName="HasAssociations">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcRelAssociatesClassification">
+                          <References>
+                            <Template ref="10000000-0000-0000-0001-000000000004"/>
+                          </References>
+                        </EntityRule>
+                      </EntityRules>
+                    </AttributeRule>
+                  </AttributeRules>
+                </EntityRule>
+              </EntityRules>
+            </AttributeRule>
+          </Rules>
+        </ConceptTemplate>
+        <ConceptTemplate uuid="10000000-0000-0000-0001-000000000004" name="IfcRelAssociatesClassification" applicableSchema="IFC4" applicableEntity="IfcRelAssociatesClassification">
+          <Rules>
+            <AttributeRule RuleID="Code" AttributeName="Name">
+              <EntityRules>
+                <EntityRule EntityName="IfcLabel"/>
+              </EntityRules>
+            </AttributeRule>
+            <AttributeRule AttributeName="RelatingClassification">
+              <EntityRules>
+                <EntityRule EntityName="IfcClassificationReference">
+                  <AttributeRules>
+                    <AttributeRule AttributeName="ReferencedSource">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcClassification">
+                          <AttributeRules>
+                            <AttributeRule AttributeName="Source">
+                              <EntityRules>
+                                <EntityRule EntityName="IfcLabel"/>
+                              </EntityRules>
+                            </AttributeRule>
+                            <AttributeRule RuleID="Table" AttributeName="Name">
+                              <EntityRules>
+                                <EntityRule EntityName="IfcLabel"/>
+                              </EntityRules>
+                            </AttributeRule>
+                            <AttributeRule AttributeName="ReferenceTokens">
+                              <EntityRules>
+                                <EntityRule EntityName="IfcIdentifier"/>
+                              </EntityRules>
+                            </AttributeRule>
+                          </AttributeRules>
+                        </EntityRule>
+                      </EntityRules>
+                    </AttributeRule>
+                    <AttributeRule AttributeName="Identification">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcIdentifier"/>
+                      </EntityRules>
+                    </AttributeRule>
+                  </AttributeRules>
+                </EntityRule>
+              </EntityRules>
+            </AttributeRule>
+          </Rules>
+        </ConceptTemplate>
+        <ConceptTemplate uuid="10000000-0000-0000-0001-000000000005" name="IfcRelContainedInSpatialStructure" applicableSchema="IFC4" applicableEntity="IfcRelContainedInSpatialStructure">
+          <Rules>
+            <AttributeRule AttributeName="RelatingStructure">
+              <EntityRules>
+                <EntityRule EntityName="IfcSpatialStructureElement">
+                  <AttributeRules>
+                    <AttributeRule AttributeName="Name" RuleID="Name"/>
+                    <AttributeRule AttributeName="Description" RuleID="Desc"/>
+                    <AttributeRule AttributeName="IsDefinedBy">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcRelDefinesByProperties">
+                          <References IdPrefix="">
+                            <Template ref="10000000-0000-0000-0001-000000000001"/>
+                          </References>
+                        </EntityRule>
+                      </EntityRules>
+                    </AttributeRule>
+                    <AttributeRule AttributeName="HasAssociations">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcRelAssociatesClassification">
+                          <References>
+                            <Template ref="10000000-0000-0000-0001-000000000004"/>
+                          </References>
+                        </EntityRule>
+                      </EntityRules>
+                    </AttributeRule>
+                  </AttributeRules>
+                </EntityRule>
+              </EntityRules>
+            </AttributeRule>
+          </Rules>
+        </ConceptTemplate>
+        <ConceptTemplate uuid="10000000-0000-0000-0001-000000000006" name="IfcRelDecomposes" applicableSchema="IFC4" applicableEntity="IfcRelDecomposes">
+          <Rules>
+            <AttributeRule AttributeName="RelatingStructure">
+              <EntityRules>
+                <EntityRule EntityName="IfcProduct">
+                  <AttributeRules>
+                    <AttributeRule AttributeName="Name" RuleID="Name"/>
+                    <AttributeRule AttributeName="Description" RuleID="Desc"/>
+                    <AttributeRule AttributeName="IsDefinedBy">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcRelDefinesByProperties">
+                          <References IdPrefix="">
+                            <Template ref="10000000-0000-0000-0001-000000000001"/>
+                          </References>
+                        </EntityRule>
+                      </EntityRules>
+                    </AttributeRule>
+                    <AttributeRule AttributeName="HasAssociations">
+                      <EntityRules>
+                        <EntityRule EntityName="IfcRelAssociatesClassification">
+                          <References>
+                            <Template ref="10000000-0000-0000-0001-000000000004"/>
+                          </References>
+                        </EntityRule>
+                      </EntityRules>
+                    </AttributeRule>
+                  </AttributeRules>
+                </EntityRule>
+              </EntityRules>
+            </AttributeRule>
+          </Rules>
+        </ConceptTemplate>
+      </SubTemplates>
+    </ConceptTemplate>
+  </Templates>
+  <Views>
+    <ModelView uuid="00000013-0000-0000-0000-000000000013" name="mvdXML Export Example" applicableSchema="IFC4">
+      <Definitions>
+        <Definition>
+          <Body><![CDATA[This example is for testing the mvdXML export. It is a subset in terms of objects of the bSN guide.]]></Body>
+        </Definition>
+      </Definitions>
+      <ExchangeRequirements>
+        <ExchangeRequirement uuid="00000013-0000-0000-0000-000000000145" name="Romprogrammering : Detaljprosjekt" applicability="import">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[English]: Building Programming (PBie) : [English]: Coordinated design]]></Body>
+            </Definition>
+          </Definitions>
+        </ExchangeRequirement>
+        <ExchangeRequirement uuid="00000013-0000-0000-0000-000000000156" name="Koordineringsmodell og byggeplanlegging : Detaljprosjekt" applicability="import">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[English]: Coordination model and construction planning : [English]: Coordinated design]]></Body>
+            </Definition>
+          </Definitions>
+        </ExchangeRequirement>
+        <ExchangeRequirement uuid="00000013-0000-0000-0000-000000000194" name="Energi Analyse : Skisseprosjekt" applicability="import">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[English]: Energy Analysis : [English]: Outline conceptual design]]></Body>
+            </Definition>
+          </Definitions>
+        </ExchangeRequirement>
+      </ExchangeRequirements>
+      <Roots>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000014497" name="Reference : Pile common : 214 : Spunt" applicableRootEntity="IfcPile">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[Definition from IFC]: Reference ID for this specified type in this project (e.g. type 'A-1'). : [Definition from IFC]: Properties common to the definition of all occurrences of IfcPile. : Omfatter spuntvegger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="Set='PREFAB_STEEL';Property='PredefinedType';Value='PREFAB_STEEL'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="Set='PREFAB_STEEL';Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_Set='PREFAB_STEEL';T_Property='PredefinedType';T_Value='PREFAB_STEEL'"/>
+                    <TemplateRule Parameters="S_Set='PREFAB_STEEL';S_Property='PredefinedType';S_Value='PREFAB_STEEL'"/>
+                    <TemplateRule Parameters="A_Set='PREFAB_STEEL';A_Property='PredefinedType';A_Value='PREFAB_STEEL'"/>
+                    <TemplateRule Parameters="G_Set='PREFAB_STEEL';G_Property='PredefinedType';G_Value='PREFAB_STEEL'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000014497" name="Reference">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[[Definition from IFC]: Reference ID for this specified type in this project (e.g. type 'A-1'). : [Definition from IFC]: Properties common to the definition of all occurrences of IfcPile. : Omfatter spuntvegger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000145" requirement="mandatory"/>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000156" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='Pset_PileCommon';Property='Reference';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='Pset_PileCommon';Property='Reference';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='Pset_PileCommon';T_Property='Reference';"/>
+                      <TemplateRule Parameters="S_Set='Pset_PileCommon';S_Property='Reference';"/>
+                      <TemplateRule Parameters="A_Set='Pset_PileCommon';A_Property='Reference';"/>
+                      <TemplateRule Parameters="G_Set='Pset_PileCommon';G_Property='Reference';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='Pset_PileCommon';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='Pset_PileCommon';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='Pset_PileCommon';"/>
+                      <TemplateRule Parameters="S_Set='Pset_PileCommon';"/>
+                      <TemplateRule Parameters="A_Set='Pset_PileCommon';"/>
+                      <TemplateRule Parameters="G_Set='Pset_PileCommon';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000014498" name="Status : Pile common : 214 : Spunt" applicableRootEntity="IfcPile">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[Definition from IFC]: Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as "New" - element designed as new addition, "Existing" - element exists and remains, "Demolish" - element existed but is to be demolished,  "Temporary" - element will exists only temporary (like a temporary support structure). : [Definition from IFC]: Properties common to the definition of all occurrences of IfcPile. : Omfatter spuntvegger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="Set='PREFAB_STEEL';Property='PredefinedType';Value='PREFAB_STEEL'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="Set='PREFAB_STEEL';Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_Set='PREFAB_STEEL';T_Property='PredefinedType';T_Value='PREFAB_STEEL'"/>
+                    <TemplateRule Parameters="S_Set='PREFAB_STEEL';S_Property='PredefinedType';S_Value='PREFAB_STEEL'"/>
+                    <TemplateRule Parameters="A_Set='PREFAB_STEEL';A_Property='PredefinedType';A_Value='PREFAB_STEEL'"/>
+                    <TemplateRule Parameters="G_Set='PREFAB_STEEL';G_Property='PredefinedType';G_Value='PREFAB_STEEL'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000014498" name="Status">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[[Definition from IFC]: Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as "New" - element designed as new addition, "Existing" - element exists and remains, "Demolish" - element existed but is to be demolished,  "Temporary" - element will exists only temporary (like a temporary support structure). : [Definition from IFC]: Properties common to the definition of all occurrences of IfcPile. : Omfatter spuntvegger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000145" requirement="mandatory"/>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000156" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='Pset_PileCommon';Property='Status';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='Pset_PileCommon';Property='Status';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='Pset_PileCommon';T_Property='Status';"/>
+                      <TemplateRule Parameters="S_Set='Pset_PileCommon';S_Property='Status';"/>
+                      <TemplateRule Parameters="A_Set='Pset_PileCommon';A_Property='Status';"/>
+                      <TemplateRule Parameters="G_Set='Pset_PileCommon';G_Property='Status';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='Pset_PileCommon';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='Pset_PileCommon';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='Pset_PileCommon';"/>
+                      <TemplateRule Parameters="S_Set='Pset_PileCommon';"/>
+                      <TemplateRule Parameters="A_Set='Pset_PileCommon';"/>
+                      <TemplateRule Parameters="G_Set='Pset_PileCommon';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000014947" name="Acoustic rating : Wall common : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[Definition from IFC]: Acoustic rating for this object. It is provided according to the national building code. It indicates the sound transmission resistance of this object by an index ratio (instead of providing full sound absorbtion values). : [Definition from IFC]: Properties common to the definition of all occurrences of IfcWall and IfcWallStandardCase. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000014947" name="Acoustic rating">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[[Definition from IFC]: Acoustic rating for this object. It is provided according to the national building code. It indicates the sound transmission resistance of this object by an index ratio (instead of providing full sound absorbtion values). : [Definition from IFC]: Properties common to the definition of all occurrences of IfcWall and IfcWallStandardCase. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000145" requirement="mandatory"/>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000156" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='Pset_WallCommon';Property='AcousticRating';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='Pset_WallCommon';Property='AcousticRating';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='Pset_WallCommon';T_Property='AcousticRating';"/>
+                      <TemplateRule Parameters="S_Set='Pset_WallCommon';S_Property='AcousticRating';"/>
+                      <TemplateRule Parameters="A_Set='Pset_WallCommon';A_Property='AcousticRating';"/>
+                      <TemplateRule Parameters="G_Set='Pset_WallCommon';G_Property='AcousticRating';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='Pset_WallCommon';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='Pset_WallCommon';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='Pset_WallCommon';"/>
+                      <TemplateRule Parameters="S_Set='Pset_WallCommon';"/>
+                      <TemplateRule Parameters="A_Set='Pset_WallCommon';"/>
+                      <TemplateRule Parameters="G_Set='Pset_WallCommon';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000014948" name="Combustible : Wall common : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[Definition from IFC]: Indication whether the object is made from combustible material (TRUE) or not (FALSE). : [Definition from IFC]: Properties common to the definition of all occurrences of IfcWall and IfcWallStandardCase. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000014948" name="Combustible">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[[Definition from IFC]: Indication whether the object is made from combustible material (TRUE) or not (FALSE). : [Definition from IFC]: Properties common to the definition of all occurrences of IfcWall and IfcWallStandardCase. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000145" requirement="mandatory"/>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000156" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='Pset_WallCommon';Property='Combustible';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='Pset_WallCommon';Property='Combustible';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='Pset_WallCommon';T_Property='Combustible';"/>
+                      <TemplateRule Parameters="S_Set='Pset_WallCommon';S_Property='Combustible';"/>
+                      <TemplateRule Parameters="A_Set='Pset_WallCommon';A_Property='Combustible';"/>
+                      <TemplateRule Parameters="G_Set='Pset_WallCommon';G_Property='Combustible';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='Pset_WallCommon';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='Pset_WallCommon';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='Pset_WallCommon';"/>
+                      <TemplateRule Parameters="S_Set='Pset_WallCommon';"/>
+                      <TemplateRule Parameters="A_Set='Pset_WallCommon';"/>
+                      <TemplateRule Parameters="G_Set='Pset_WallCommon';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000014949" name="Compartmentation : Wall common : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[Definition from IFC]: Indication whether the object is designed to serve as a fire compartmentation (TRUE) or not (FALSE). : [Definition from IFC]: Properties common to the definition of all occurrences of IfcWall and IfcWallStandardCase. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000014949" name="Compartmentation">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[[Definition from IFC]: Indication whether the object is designed to serve as a fire compartmentation (TRUE) or not (FALSE). : [Definition from IFC]: Properties common to the definition of all occurrences of IfcWall and IfcWallStandardCase. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000145" requirement="mandatory"/>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000156" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='Pset_WallCommon';Property='Compartmentation';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='Pset_WallCommon';Property='Compartmentation';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='Pset_WallCommon';T_Property='Compartmentation';"/>
+                      <TemplateRule Parameters="S_Set='Pset_WallCommon';S_Property='Compartmentation';"/>
+                      <TemplateRule Parameters="A_Set='Pset_WallCommon';A_Property='Compartmentation';"/>
+                      <TemplateRule Parameters="G_Set='Pset_WallCommon';G_Property='Compartmentation';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='Pset_WallCommon';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='Pset_WallCommon';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='Pset_WallCommon';"/>
+                      <TemplateRule Parameters="S_Set='Pset_WallCommon';"/>
+                      <TemplateRule Parameters="A_Set='Pset_WallCommon';"/>
+                      <TemplateRule Parameters="G_Set='Pset_WallCommon';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000014959" name="Gross footprint area : Qto_ wall base quantities : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[Definition from IFC]: Area of the wall as viewed by a ground floor view, not taking any wall modifications (like recesses) into account. It is also referred to as the foot print of the wall. : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000014959" name="Gross footprint area">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[[Definition from IFC]: Area of the wall as viewed by a ground floor view, not taking any wall modifications (like recesses) into account. It is also referred to as the foot print of the wall. : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000145" requirement="mandatory"/>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000156" requirement="mandatory"/>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000194" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='BaseQuantities';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='BaseQuantities';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="S_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="A_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="G_Set='BaseQuantities';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000014960" name="Gross side area : Qto_ wall base quantities : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[Definition from IFC]: Area of the wall as viewed by an elevation view of the middle plane of the wall.  It does not take into account any wall modifications (such as openings).  : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000014960" name="Gross side area">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[[Definition from IFC]: Area of the wall as viewed by an elevation view of the middle plane of the wall.  It does not take into account any wall modifications (such as openings).  : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000145" requirement="mandatory"/>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000156" requirement="mandatory"/>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000194" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='BaseQuantities';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='BaseQuantities';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="S_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="A_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="G_Set='BaseQuantities';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000014961" name="Gross volume : Qto_ wall base quantities : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[Definition from IFC]: Volume of the wall, without taking into account the openings and the connection geometry. : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000014961" name="Gross volume">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[[Definition from IFC]: Volume of the wall, without taking into account the openings and the connection geometry. : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000145" requirement="mandatory"/>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000156" requirement="mandatory"/>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000194" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='BaseQuantities';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='BaseQuantities';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="S_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="A_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="G_Set='BaseQuantities';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000014962" name="Gross weight : Qto_ wall base quantities : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[Definition from IFC]: Total gross weight of the wall, without add-on parts, not taking into account possible processing features (cut-out's, etc.) or openings and recesses. : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000014962" name="Gross weight">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[[Definition from IFC]: Total gross weight of the wall, without add-on parts, not taking into account possible processing features (cut-out's, etc.) or openings and recesses. : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000194" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='BaseQuantities';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='BaseQuantities';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="S_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="A_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="G_Set='BaseQuantities';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000014963" name="Height : Qto_ wall base quantities : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[Definition from IFC]: Total nominal height of the wall. It should only be provided, if it is constant along the wall path.  : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000014963" name="Height">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[[Definition from IFC]: Total nominal height of the wall. It should only be provided, if it is constant along the wall path.  : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000194" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='BaseQuantities';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='BaseQuantities';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="S_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="A_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="G_Set='BaseQuantities';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000014964" name="Length : Qto_ wall base quantities : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[Definition from IFC]: Total nominal length of the wall along the wall center line (even if different to the wall path). : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000014964" name="Length">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[[Definition from IFC]: Total nominal length of the wall along the wall center line (even if different to the wall path). : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000194" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='BaseQuantities';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='BaseQuantities';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="S_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="A_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="G_Set='BaseQuantities';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000014965" name="Net footprint area : Qto_ wall base quantities : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[Definition from IFC]: Area of the wall as viewed by a ground floor view, taking all wall modifications (like recesses) into account. It is also referred to as the foot print of the wall.  : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000014965" name="Net footprint area">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[[Definition from IFC]: Area of the wall as viewed by a ground floor view, taking all wall modifications (like recesses) into account. It is also referred to as the foot print of the wall.  : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000194" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='BaseQuantities';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='BaseQuantities';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="S_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="A_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="G_Set='BaseQuantities';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000014966" name="Net side area : Qto_ wall base quantities : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[Definition from IFC]: Area of the wall as viewed by an elevation view of the middle plane. It does take into account all wall modifications (such as openings).  : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000014966" name="Net side area">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[[Definition from IFC]: Area of the wall as viewed by an elevation view of the middle plane. It does take into account all wall modifications (such as openings).  : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000194" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='BaseQuantities';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='BaseQuantities';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="S_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="A_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="G_Set='BaseQuantities';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000014967" name="Net volume : Qto_ wall base quantities : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[Definition from IFC]: Volume of the wall, after subtracting the openings and after considering the connection geometry.  : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000014967" name="Net volume">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[[Definition from IFC]: Volume of the wall, after subtracting the openings and after considering the connection geometry.  : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000194" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='BaseQuantities';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='BaseQuantities';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="S_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="A_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="G_Set='BaseQuantities';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000014968" name="Net weight : Qto_ wall base quantities : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[Definition from IFC]: Total net weight of the wall, without add-on parts, taking into account possible processing features (cut-out's, etc.) or openings and recesses. : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000014968" name="Net weight">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[[Definition from IFC]: Total net weight of the wall, without add-on parts, taking into account possible processing features (cut-out's, etc.) or openings and recesses. : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000194" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='BaseQuantities';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='BaseQuantities';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="S_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="A_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="G_Set='BaseQuantities';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000014969" name="Width : Qto_ wall base quantities : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[[Definition from IFC]: Total nominal width (or thickness) of the wall measured perpendicular to the wall path. It should only be provided, if it is constant along the wall path. : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000014969" name="Width">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[[Definition from IFC]: Total nominal width (or thickness) of the wall measured perpendicular to the wall path. It should only be provided, if it is constant along the wall path. : [Definition from IFC]: Base quantities that are common to the definition of all occurrences of walls. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000194" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='BaseQuantities';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='BaseQuantities';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="S_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="A_Set='BaseQuantities';"/>
+                      <TemplateRule Parameters="G_Set='BaseQuantities';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000015792" name="Klassifikasjonskoden : Klassifikasjon : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Klassifikasjonskoden :  : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000015793" name="Klassifikasjonssystemet : Klassifikasjon : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Klassifikasjonssystemet :  : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000015794" name="Klassifikasjonssystemets tittel : Klassifikasjon : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Klassifikasjonssystemets tittel :  : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000015795" name="Kodebeskrivelse : Klassifikasjon : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Kodebeskrivelse :  : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000015797" name="Beskrivende navn : Navnekonvensjon : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Logisk beskrivelse av objekttypen f.eks. den oppbygging. : NS 8360 BIM Objekter navnekonvensjon. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000015798" name="Objekttypenavn : Navnekonvensjon : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Norsk standard syntaks og typekoder for typenavngivning. Syntaks og typekoder er maskinlesbar for alle applikasjoner som støtter "NS 8360 BIM Objekter" : NS 8360 BIM Objekter navnekonvensjon. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000015800" name="GS1 Serie GTIN nummer (SGTIN) : Produktmerking : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[GS1 Serie GTIN nummer (SGTIN) : Merking av produkter med enten GS1s type og serienummer eller alternativt merkesystem. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000015801" name="GS1 Serienummer : Produktmerking : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[GS1 Serienummer : Merking av produkter med enten GS1s type og serienummer eller alternativt merkesystem. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000015801" name="GS1 Serienummer">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[GS1 Serienummer : Merking av produkter med enten GS1s type og serienummer eller alternativt merkesystem. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000156" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='Pset_ManufacturerOccurrence';Property='SerialNumber';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='Pset_ManufacturerOccurrence';Property='SerialNumber';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='Pset_ManufacturerOccurrence';T_Property='SerialNumber';"/>
+                      <TemplateRule Parameters="S_Set='Pset_ManufacturerOccurrence';S_Property='SerialNumber';"/>
+                      <TemplateRule Parameters="A_Set='Pset_ManufacturerOccurrence';A_Property='SerialNumber';"/>
+                      <TemplateRule Parameters="G_Set='Pset_ManufacturerOccurrence';G_Property='SerialNumber';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000015802" name="GTIN : Produktmerking : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[GTIN : Merking av produkter med enten GS1s type og serienummer eller alternativt merkesystem. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000015802" name="GTIN">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[GTIN : Merking av produkter med enten GS1s type og serienummer eller alternativt merkesystem. : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000156" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='Pset_ManufacturerTypeInformation';Property='GlobalTradeItemNumber';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='Pset_ManufacturerTypeInformation';Property='GlobalTradeItemNumber';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='Pset_ManufacturerTypeInformation';T_Property='GlobalTradeItemNumber';"/>
+                      <TemplateRule Parameters="S_Set='Pset_ManufacturerTypeInformation';S_Property='GlobalTradeItemNumber';"/>
+                      <TemplateRule Parameters="A_Set='Pset_ManufacturerTypeInformation';A_Property='GlobalTradeItemNumber';"/>
+                      <TemplateRule Parameters="G_Set='Pset_ManufacturerTypeInformation';G_Property='GlobalTradeItemNumber';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000015804" name="Komponentgruppe, forekomst : TFM Forekomst : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Komponentgruppe, forekomst :  : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000015804" name="Komponentgruppe, forekomst">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Komponentgruppe, forekomst :  : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000156" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='TFM11_Komponent';Property='FkKompGruppe';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='TFM11_Komponent';Property='FkKompGruppe';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='TFM11_Komponent';T_Property='FkKompGruppe';"/>
+                      <TemplateRule Parameters="S_Set='TFM11_Komponent';S_Property='FkKompGruppe';"/>
+                      <TemplateRule Parameters="A_Set='TFM11_Komponent';A_Property='FkKompGruppe';"/>
+                      <TemplateRule Parameters="G_Set='TFM11_Komponent';G_Property='FkKompGruppe';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000015805" name="Lokalisering, forekomst, bygning : TFM Forekomst : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Lokalisering, forekomst, bygning :  : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000015805" name="Lokalisering, forekomst, bygning">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Lokalisering, forekomst, bygning :  : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000156" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='TFM11_Komponent';Property='FkLokBygning';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='TFM11_Komponent';Property='FkLokBygning';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='TFM11_Komponent';T_Property='FkLokBygning';"/>
+                      <TemplateRule Parameters="S_Set='TFM11_Komponent';S_Property='FkLokBygning';"/>
+                      <TemplateRule Parameters="A_Set='TFM11_Komponent';A_Property='FkLokBygning';"/>
+                      <TemplateRule Parameters="G_Set='TFM11_Komponent';G_Property='FkLokBygning';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+        <ConceptRoot uuid="00000013-0000-0000-2000-000000015807" name="Komponentgruppe, type : TFM Type : 214 : Avstivende vegg" applicableRootEntity="IfcWall">
+          <Definitions>
+            <Definition>
+              <Body><![CDATA[Komponentgruppe, type :  : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="00000000-0000-0000-0001-000000000001"/>
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="PredefinedType='SHEAR'"/>
+                <TemplateRule Parameters="Table='PredefinedType';Code='SHEAR'"/>
+                <TemplateRule Parameters="By='PredefinedType';Group='SHEAR'"/>
+                <TemplateRule Parameters="Property='PredefinedType';Value='SHEAR'"/>
+                <TemplateRules operator="and">
+                  <TemplateRules operator="nor">
+                    <TemplateRule Parameters="PredefinedType"/>
+                    <TemplateRule Parameters="Table='PredefinedType'"/>
+                    <TemplateRule Parameters="By='PredefinedType'"/>
+                    <TemplateRule Parameters="Property='PredefinedType';"/>
+                  </TemplateRules>
+                  <TemplateRules operator="or">
+                    <TemplateRule Parameters="T_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="T_Table='PredefinedType';T_Code='SHEAR'"/>
+                    <TemplateRule Parameters="T_Property='PredefinedType';T_Value='SHEAR'"/>
+                    <TemplateRule Parameters="S_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="S_Table='PredefinedType';S_Code='SHEAR'"/>
+                    <TemplateRule Parameters="S_By='PredefinedType';S_Group='SHEAR'"/>
+                    <TemplateRule Parameters="S_Property='PredefinedType';S_Value='SHEAR'"/>
+                    <TemplateRule Parameters="A_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="A_Table='PredefinedType';A_Code='SHEAR'"/>
+                    <TemplateRule Parameters="A_By='PredefinedType';A_Group='SHEAR'"/>
+                    <TemplateRule Parameters="A_Property='PredefinedType';A_Value='SHEAR'"/>
+                    <TemplateRule Parameters="G_PredefinedType='SHEAR'"/>
+                    <TemplateRule Parameters="G_Table='PredefinedType';G_Code='SHEAR'"/>
+                    <TemplateRule Parameters="G_Property='PredefinedType';G_Value='SHEAR'"/>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="00000013-0000-0000-0000-000000015807" name="Komponentgruppe, type">
+              <Definitions>
+                <Definition>
+                  <Body lang="en"><![CDATA[Komponentgruppe, type :  : Omfatter andre avstivninger både permanente og midlertidige).]]></Body>
+                </Definition>
+              </Definitions>
+              <Template ref="00000000-0000-0000-0001-000000000001"/>
+              <Requirements>
+                <Requirement applicability="import" exchangeRequirement="00000013-0000-0000-0000-000000000156" requirement="mandatory"/>
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='TFM11_Type';Property='TypeKompGruppe';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='TFM11_Type';Property='TypeKompGruppe';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='TFM11_Type';T_Property='TypeKompGruppe';"/>
+                      <TemplateRule Parameters="S_Set='TFM11_Type';S_Property='TypeKompGruppe';"/>
+                      <TemplateRule Parameters="A_Set='TFM11_Type';A_Property='TypeKompGruppe';"/>
+                      <TemplateRule Parameters="G_Set='TFM11_Type';G_Property='TypeKompGruppe';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="Set='TFM11_Type';"/>
+                  <TemplateRules operator="and">
+                    <TemplateRules operator="nor">
+                      <TemplateRule Parameters="Set='TFM11_Type';"/>
+                    </TemplateRules>
+                    <TemplateRules operator="or">
+                      <TemplateRule Parameters="T_Set='TFM11_Type';"/>
+                      <TemplateRule Parameters="S_Set='TFM11_Type';"/>
+                      <TemplateRule Parameters="A_Set='TFM11_Type';"/>
+                      <TemplateRule Parameters="G_Set='TFM11_Type';"/>
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+      </Roots>
+    </ModelView>
+  </Views>
+</mvdXML>
