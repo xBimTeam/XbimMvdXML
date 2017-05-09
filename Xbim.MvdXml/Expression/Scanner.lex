@@ -4,12 +4,10 @@
 %visibility internal
 
 %{
-	//all the user code is in XbimQueryScanerHelper
-
+	//all the user code is in Helper
 %}
  
 %%
-
 %{
 		
 %}
@@ -61,13 +59,12 @@
 "size" |
 "unique"							{  return ((int)Tokens.METRICTEXT); }
 
-METRICTEXT
-
 "("		{  return ('('); }
 ")"		{  return (')'); }
 "."		{  return ('.'); }
 ","		{  return (','); }
 "_"		{  return ('_'); }
+"\""	{  return ((int)Tokens.DOUBLEQUOTE); }
 
 "["		{  return ((int)Tokens.SQBR_OPEN); }
 "]"		{  return ((int)Tokens.SQBR_CLOSE); }
@@ -85,5 +82,3 @@ METRICTEXT
 %}
 /* --------------------------------------------------- */
 %%
-
-

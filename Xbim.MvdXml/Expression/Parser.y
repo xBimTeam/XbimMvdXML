@@ -28,15 +28,12 @@
 %token UNKNOWN
 
 /* operators */
-%token  OP_AND
-%token  OP_OR
-%token  OP_XOR
-
-/* comp operators  */
-%token  OP_LESS_THAN_OR_EQUAL
+%token OP_AND
+%token OP_OR
+%token OP_XOR
 
 /* Keywords  */
-%token AS_NAME
+%token OP_EQUAL 				
 %token OP_NOT_EQUAL 				
 %token OP_GREATER_THAN 			
 %token OP_GREATER_THAN_OR_EQUAL 	
@@ -46,30 +43,36 @@
 /* Others */
 
 %token METRICTEXT
+%token SQBR_OPEN
+%token SQBR_CLOSE
+%token DOUBLEQUOTE
 
 %%
 expression
-	: booleanExpression
+	: booleanExpressions
+	;
+
+booleanExpressions
+	: booleanExpressions logical_interconnection booleanExpression
+	| booleanExpression 
 	;
 
 booleanExpression
-	: booleanExpression logical_interconnection boolean_term
-	| boolean_term 
-	;
-
-boolean_term
 	: evaluable operator evaluable
-	| '(' boolean_expression ')';
+	| '(' booleanExpressions ')';
 evaluable
 	: parameter 
 	| parameter metric
 	| value;
 
+parameter
+	: STRING;
+
 metric
 	: SQBR_OPEN METRICTEXT SQBR_CLOSE;
 
 value
-	: FALSE 	| TRUE	| UNKNOWN	| INTEGER	| DOUBLE 	| STRING;
+	: FALSE 	| TRUE	| UNKNOWN	| INTEGER	| DOUBLE 	| DOUBLEQUOTE STRING DOUBLEQUOTE;
 	
 logical_interconnection
 	: OP_AND 	| OP_OR 	| OP_XOR;	
