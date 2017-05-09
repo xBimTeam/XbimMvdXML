@@ -135,16 +135,40 @@
       <Link>Properties\SharedFileVersionInfo.cs</Link>
     </Compile>
     <Compile Include="MvdXml\mvdXML.cs" />
+    <Compile Include="Expression\Extensions.cs" />
+    <Compile Include="Expression\FilterCondition.cs" />
+    <Compile Include="Expression\FilterStep.cs" />
+    <Compile Include="Expression\FollowStep.cs" />
+    <Compile Include="Expression\MissingProperty.cs" />
+    <Compile Include="Expression\Parser.cs" />
+    <Compile Include="Expression\ParserHelper.cs" />
+    <Compile Include="Expression\QueryException.cs" />
+    <Compile Include="Expression\QueryingEnvironment.cs" />
+    <Compile Include="Expression\Scanner.cs" />
+    <Compile Include="Expression\ScannerHelper.cs" />
+    <Compile Include="Expression\SelectionRequest.cs" />
+    <Compile Include="Expression\SelectionResultCache.cs" />
+    <Compile Include="Expression\SelectionStep.cs" />
+    <Compile Include="Expression\ShiftReduceParserCode.cs" />
     <Compile Include="Schema\mvdXML_V1_1.cs" />
     <Compile Include="Integrity\MvdXmlIntegrityReporter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Expression\gplex.pdf" />
+    <None Include="Expression\gppg.pdf" />
+    <None Include="Expression\makeparser.bat" />
+    <None Include="Expression\Parser.y" />
+    <None Include="Expression\Scanner.lex" />
     <None Include="Schema\mvdXML_V1.1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="XbimOpenSourceKeyFile.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Expression\gplex.exe" />
+    <Content Include="Expression\gppg.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
