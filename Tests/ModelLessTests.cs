@@ -7,18 +7,33 @@ namespace Tests
     public class ModelLessTests
     {
         [TestMethod]
-        public void CandParseQueryStrings()
+        public void CanParseParameterEqualsNumber()
         {
-            Test("");
+            //Test("a = b");
+            //Test("a = true");
+            Test("a = 20");
+            //Test("Fail", false);
         }
-        
-        private void Test(string testingString)
+
+        [TestMethod]
+        public void CanParse()
+        {
+            //Test("a = b");
+            //Test("a = true");
+            Test("a = 20");
+            Test("a = 'string'");
+            Test("a = 12.4");
+            //Test("Fail", false);
+        }
+
+        private void Test(string testingString, bool expectValid = true)
         {
             var scanner = new Scanner();
             var parser = new Parser(scanner, null);
             scanner.SetSource(testingString, 0);
+            
             var res = parser.Parse();
-            Assert.IsTrue(res, "Parser did not succeed on [" + testingString + "]");
+            Assert.AreEqual(res, expectValid, "Unexpected result on [" + testingString + "]");
         }
     }
 }

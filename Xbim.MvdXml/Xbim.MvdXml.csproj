@@ -155,20 +155,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
-    <None Include="Expression\gplex.pdf" />
-    <None Include="Expression\gppg.pdf" />
-    <None Include="Expression\makeparser.bat" />
     <None Include="Expression\Parser.y" />
+    <None Include="packages.config" />
     <None Include="Expression\Scanner.lex" />
     <None Include="Schema\mvdXML_V1.1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="XbimOpenSourceKeyFile.snk" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Expression\gplex.exe" />
-    <Content Include="Expression\gppg.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

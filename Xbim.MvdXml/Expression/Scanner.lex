@@ -4,10 +4,11 @@
 %visibility internal
 
 %{
-	//all the user code is in Helper
+	//all the user code is in XbimQueryScanerHelper
 %}
  
 %%
+
 %{
 		
 %}
@@ -17,64 +18,28 @@
 [\n]		 {} 
 [\r]         {} 
 [\0]+		 {} 
-\/\/[^\r\n]* {}   /*One line comment*/
 
 /* ********************** Operators ************************** */
 
-"="	|
-"equals" |
-"is" |
-"is equal to"					{  return ((int)Tokens.OP_EQUAL); }
+"="		{  return ((int)Tokens.OP_EQ); }
+"!="	{ return ((int)Tokens.OP_NEQ); }
+">"		{  return ((int)Tokens.OP_GT); }
+"<"		{  return ((int)Tokens.OP_LT); }
+">=" 	{  return ((int)Tokens.OP_GTE); }
+"<=" 	{  return ((int)Tokens.OP_LTQ); }
+"&"		{  return ((int)Tokens.OP_AND); }
+"|"		{  return ((int)Tokens.OP_OR); }
+					 
 
-"!=" |
-"is not equal to" |
-"is not" |
-"does not equal" |
-"doesn't equal"					{ return ((int)Tokens.OP_NOT_EQUAL); }
+/* ********************     components        ****************** */
+// when adding items here you need to consider the behaviour of the ScannerHelper.SetValue() 
 
-">" |
-"is greater than"				{  return ((int)Tokens.OP_GREATER_THAN); }
-
-"<"	|
-"is less than"					{  return ((int)Tokens.OP_LESS_THAN); }
-
-">=" |
-"is greater than or equal to"	{  return ((int)Tokens.OP_GREATER_THAN_OR_EQUAL); }
-
-"<=" |
-"is less than or equal to"		{  return ((int)Tokens.OP_LESS_THAN_OR_EQUAL); }
-
-"&" |
-";" |
-"and"							{  return ((int)Tokens.OP_AND); }
-
-"|" |
-"or"							{  return ((int)Tokens.OP_OR); }
-
-"|" |
-"xor"							{  return ((int)Tokens.OP_OR); }
-
-"value" |
-"type" |
-"size" |
-"unique"							{  return ((int)Tokens.METRICTEXT); }
-
-"("		{  return ('('); }
-")"		{  return (')'); }
-"."		{  return ('.'); }
-","		{  return (','); }
-"_"		{  return ('_'); }
-"\""	{  return ((int)Tokens.DOUBLEQUOTE); }
-
-"["		{  return ((int)Tokens.SQBR_OPEN); }
-"]"		{  return ((int)Tokens.SQBR_CLOSE); }
-
-/* ********************     values        ****************** */
+[a-z]+[a-z0-9_]*		{ return (int)SetValue(Tokens.ID); }
 [\-\+]?[0-9]+	    {  return (int)SetValue(Tokens.INTEGER); }
 [\-\+]?[0-9]*[\.][0-9]*	|
 [\-\+\.0-9][\.0-9]+E[\-\+0-9][0-9]* { return (int)SetValue(Tokens.DOUBLE); }
-[\"]([\000\011-\041\043-\176\200-\377]|[\042][\042])*[\"] |
-[a-z]+[a-z0-9_\.]*		{ return (int)SetValue(Tokens.STRING); }
+[\047]+([\040-\046\050-\176\200-\377]|[\047][\047])*[\047]+ { return (int)SetValue(Tokens.STRING); }
+
 
 /* -----------------------  Epilog ------------------- */
 %{
@@ -82,3 +47,5 @@
 %}
 /* --------------------------------------------------- */
 %%
+
+

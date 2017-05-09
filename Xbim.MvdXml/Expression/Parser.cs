@@ -4,9 +4,9 @@
 
 // GPPG version 1.5.0
 // Machine:  C10200216
-// DateTime: 09/05/2017 12:11:30
+// DateTime: 09/05/2017 17:42:10
 // UserName: sgmk2
-// Input file <Parser.y - 09/05/2017 12:05:37>
+// Input file <Parser.y - 09/05/2017 17:42:02>
 
 // options: conflicts lines gplex conflicts listing
 
@@ -14,15 +14,15 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using QUT.Xbim.Gppg;
 using System.Linq.Expressions;
 
 namespace Xbim.MvdXml.Expression
 {
-internal enum Tokens {error=47,EOF=48,
-    INTEGER=49,DOUBLE=50,STRING=51,BOOLEAN=52,NAMESPACED_VARIABLE_NAME=53,VARIABLE_NAME=54,
-    OP_EQ=55,OP_NEQ=56,OP_GT=57,OP_LT=58,OP_GTE=59,OP_LTQ=60,
-    OP_LIKE=61,OP_AND=62,OP_OR=63,FOLLOW=64,SELECT=65,WHERE=66,
-    AS_NAME=67};
+internal enum Tokens {
+    error=1,EOF=2,INTEGER=3,DOUBLE=4,ID=5,STRING=6,
+    OP_EQ=7,OP_NEQ=8,OP_GT=9,OP_LT=10,OP_GTE=11,OP_LTQ=12,
+    OP_LIKE=13,OP_AND=14,OP_OR=15};
 
 internal partial struct ValueType
 #line 13 "Parser.y"
@@ -40,6 +40,8 @@ internal partial struct ValueType
 #line 19 "Parser.y"
 		public object val;
 #line 20 "Parser.y"
+		public Tokens token;
+#line 21 "Parser.y"
 	  }
 // Abstract base class for GPLEX scanners
 internal abstract class ScanBase : AbstractScanner<ValueType,LexLocation> {
@@ -60,91 +62,55 @@ internal class ScanObj {
 
 internal partial class Parser: ShiftReduceParser<ValueType, LexLocation>
 {
-  // Verbatim content from Parser.y - 09/05/2017 12:05:37
+  // Verbatim content from Parser.y - 09/05/2017 17:42:02
 #line 2 "Parser.y"
 	
-  // End verbatim content from Parser.y - 09/05/2017 12:05:37
+  // End verbatim content from Parser.y - 09/05/2017 17:42:02
 
 #pragma warning disable 649
   private static Dictionary<int, string> aliasses;
 #pragma warning restore 649
-  private static Rule[] rules = new Rule[26];
-  private static State[] states = new State[42];
+  private static Rule[] rules = new Rule[15];
+  private static State[] states = new State[18];
   private static string[] nonTerms = new string[] {
-      "functions", "$accept", "function", "following", "selecting", "filtering", 
-      "selectArgs", "selectArg", "conditions", "condition", "op_compare", };
+      "condition", "$accept", "leftTerm", "op_compare", "rightTerm", };
 
   static Parser() {
-    states[0] = new State(new int[]{64,6,65,11,66,22},new int[]{-1,1,-3,41,-4,5,-5,10,-6,21});
-    states[1] = new State(new int[]{48,2,46,3});
+    states[0] = new State(new int[]{5,17},new int[]{-1,1,-3,3});
+    states[1] = new State(new int[]{2,2});
     states[2] = new State(-1);
-    states[3] = new State(new int[]{64,6,65,11,66,22},new int[]{-3,4,-4,5,-5,10,-6,21});
-    states[4] = new State(-2);
-    states[5] = new State(-4);
-    states[6] = new State(new int[]{40,7});
-    states[7] = new State(new int[]{51,8});
-    states[8] = new State(new int[]{41,9});
+    states[3] = new State(new int[]{9,10,10,11,11,12,12,13,7,14,8,15,13,16},new int[]{-4,4});
+    states[4] = new State(new int[]{5,6,4,7,3,8,6,9},new int[]{-5,5});
+    states[5] = new State(-2);
+    states[6] = new State(-4);
+    states[7] = new State(-5);
+    states[8] = new State(-6);
     states[9] = new State(-7);
-    states[10] = new State(-5);
-    states[11] = new State(new int[]{40,12});
-    states[12] = new State(new int[]{51,17},new int[]{-7,13,-8,20});
-    states[13] = new State(new int[]{41,14,44,15});
-    states[14] = new State(-8);
-    states[15] = new State(new int[]{51,17},new int[]{-8,16});
-    states[16] = new State(-9);
-    states[17] = new State(new int[]{67,18,41,-12,44,-12});
-    states[18] = new State(new int[]{51,19});
-    states[19] = new State(-11);
-    states[20] = new State(-10);
-    states[21] = new State(-6);
-    states[22] = new State(new int[]{40,23});
-    states[23] = new State(new int[]{51,28},new int[]{-9,24,-10,40});
-    states[24] = new State(new int[]{41,25,62,26});
-    states[25] = new State(-13);
-    states[26] = new State(new int[]{51,28},new int[]{-10,27});
-    states[27] = new State(-14);
-    states[28] = new State(new int[]{57,33,58,34,59,35,60,36,55,37,56,38,61,39},new int[]{-11,29});
-    states[29] = new State(new int[]{49,30,50,31,51,32});
-    states[30] = new State(-16);
-    states[31] = new State(-17);
-    states[32] = new State(-18);
-    states[33] = new State(-19);
-    states[34] = new State(-20);
-    states[35] = new State(-21);
-    states[36] = new State(-22);
-    states[37] = new State(-23);
-    states[38] = new State(-24);
-    states[39] = new State(-25);
-    states[40] = new State(-15);
-    states[41] = new State(-3);
+    states[10] = new State(-8);
+    states[11] = new State(-9);
+    states[12] = new State(-10);
+    states[13] = new State(-11);
+    states[14] = new State(-12);
+    states[15] = new State(-13);
+    states[16] = new State(-14);
+    states[17] = new State(-3);
 
     for (int sNo = 0; sNo < states.Length; sNo++) states[sNo].number = sNo;
 
-    rules[1] = new Rule(-2, new int[]{-1,48});
-    rules[2] = new Rule(-1, new int[]{-1,46,-3});
-    rules[3] = new Rule(-1, new int[]{-3});
-    rules[4] = new Rule(-3, new int[]{-4});
-    rules[5] = new Rule(-3, new int[]{-5});
-    rules[6] = new Rule(-3, new int[]{-6});
-    rules[7] = new Rule(-4, new int[]{64,40,51,41});
-    rules[8] = new Rule(-5, new int[]{65,40,-7,41});
-    rules[9] = new Rule(-7, new int[]{-7,44,-8});
-    rules[10] = new Rule(-7, new int[]{-8});
-    rules[11] = new Rule(-8, new int[]{51,67,51});
-    rules[12] = new Rule(-8, new int[]{51});
-    rules[13] = new Rule(-6, new int[]{66,40,-9,41});
-    rules[14] = new Rule(-9, new int[]{-9,62,-10});
-    rules[15] = new Rule(-9, new int[]{-10});
-    rules[16] = new Rule(-10, new int[]{51,-11,49});
-    rules[17] = new Rule(-10, new int[]{51,-11,50});
-    rules[18] = new Rule(-10, new int[]{51,-11,51});
-    rules[19] = new Rule(-11, new int[]{57});
-    rules[20] = new Rule(-11, new int[]{58});
-    rules[21] = new Rule(-11, new int[]{59});
-    rules[22] = new Rule(-11, new int[]{60});
-    rules[23] = new Rule(-11, new int[]{55});
-    rules[24] = new Rule(-11, new int[]{56});
-    rules[25] = new Rule(-11, new int[]{61});
+    rules[1] = new Rule(-2, new int[]{-1,2});
+    rules[2] = new Rule(-1, new int[]{-3,-4,-5});
+    rules[3] = new Rule(-3, new int[]{5});
+    rules[4] = new Rule(-5, new int[]{5});
+    rules[5] = new Rule(-5, new int[]{4});
+    rules[6] = new Rule(-5, new int[]{3});
+    rules[7] = new Rule(-5, new int[]{6});
+    rules[8] = new Rule(-4, new int[]{9});
+    rules[9] = new Rule(-4, new int[]{10});
+    rules[10] = new Rule(-4, new int[]{11});
+    rules[11] = new Rule(-4, new int[]{12});
+    rules[12] = new Rule(-4, new int[]{7});
+    rules[13] = new Rule(-4, new int[]{8});
+    rules[14] = new Rule(-4, new int[]{13});
   }
 
   protected override void Initialize() {
@@ -159,64 +125,36 @@ internal partial class Parser: ShiftReduceParser<ValueType, LexLocation>
 #pragma warning disable 162, 1522
     switch (action)
     {
-      case 7: // following -> FOLLOW, '(', STRING, ')'
-#line 62 "Parser.y"
-{Following(ValueStack[ValueStack.Depth-2].strVal);}
+      case 2: // condition -> leftTerm, op_compare, rightTerm
+#line 43 "Parser.y"
+{SetCondition(ValueStack[ValueStack.Depth-3], ((Tokens)(ValueStack[ValueStack.Depth-2].val)), ValueStack[ValueStack.Depth-1]);}
         break;
-      case 8: // selecting -> SELECT, '(', selectArgs, ')'
-#line 66 "Parser.y"
-{Selecting();}
-        break;
-      case 11: // selectArg -> STRING, AS_NAME, STRING
-#line 75 "Parser.y"
-{SetVar(ValueStack[ValueStack.Depth-3].strVal, ValueStack[ValueStack.Depth-1].strVal);}
-        break;
-      case 12: // selectArg -> STRING
-#line 76 "Parser.y"
-{SetVar(ValueStack[ValueStack.Depth-1].strVal);}
-        break;
-      case 13: // filtering -> WHERE, '(', conditions, ')'
-#line 80 "Parser.y"
-{Filtering();}
-        break;
-      case 16: // condition -> STRING, op_compare, INTEGER
-#line 89 "Parser.y"
-{SetCondition(ValueStack[ValueStack.Depth-3].strVal, ((Tokens)(ValueStack[ValueStack.Depth-2].val)), ValueStack[ValueStack.Depth-1].strVal);}
-        break;
-      case 17: // condition -> STRING, op_compare, DOUBLE
-#line 90 "Parser.y"
-{SetCondition(ValueStack[ValueStack.Depth-3].strVal, ((Tokens)(ValueStack[ValueStack.Depth-2].val)), ValueStack[ValueStack.Depth-1].strVal);}
-        break;
-      case 18: // condition -> STRING, op_compare, STRING
-#line 91 "Parser.y"
-{SetCondition(ValueStack[ValueStack.Depth-3].strVal, ((Tokens)(ValueStack[ValueStack.Depth-2].val)), ValueStack[ValueStack.Depth-1].strVal);}
-        break;
-      case 19: // op_compare -> OP_GT
-#line 95 "Parser.y"
+      case 8: // op_compare -> OP_GT
+#line 57 "Parser.y"
 {CurrentSemanticValue.val = Tokens.OP_GT;}
         break;
-      case 20: // op_compare -> OP_LT
-#line 96 "Parser.y"
+      case 9: // op_compare -> OP_LT
+#line 58 "Parser.y"
 {CurrentSemanticValue.val = Tokens.OP_LT;}
         break;
-      case 21: // op_compare -> OP_GTE
-#line 97 "Parser.y"
+      case 10: // op_compare -> OP_GTE
+#line 59 "Parser.y"
 {CurrentSemanticValue.val = Tokens.OP_GTE;}
         break;
-      case 22: // op_compare -> OP_LTQ
-#line 98 "Parser.y"
+      case 11: // op_compare -> OP_LTQ
+#line 60 "Parser.y"
 {CurrentSemanticValue.val = Tokens.OP_LTQ;}
         break;
-      case 23: // op_compare -> OP_EQ
-#line 99 "Parser.y"
+      case 12: // op_compare -> OP_EQ
+#line 61 "Parser.y"
 {CurrentSemanticValue.val = Tokens.OP_EQ;}
         break;
-      case 24: // op_compare -> OP_NEQ
-#line 100 "Parser.y"
+      case 13: // op_compare -> OP_NEQ
+#line 62 "Parser.y"
 {CurrentSemanticValue.val = Tokens.OP_NEQ;}
         break;
-      case 25: // op_compare -> OP_LIKE
-#line 101 "Parser.y"
+      case 14: // op_compare -> OP_LIKE
+#line 63 "Parser.y"
 {CurrentSemanticValue.val = Tokens.OP_LIKE;}
         break;
     }

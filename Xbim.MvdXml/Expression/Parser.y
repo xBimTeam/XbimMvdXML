@@ -8,7 +8,7 @@
 %visibility internal
 %using System.Linq.Expressions
 
-%start expression
+%start condition
 
 %union{
 		public string strVal;
@@ -17,66 +17,50 @@
 		public bool boolVal;
 		public Type typeVal;
 		public object val;
+		public Tokens token;
 	  }
 
-
+/* basic blocs */
 %token	INTEGER	
 %token	DOUBLE	
+%token	ID
 %token	STRING	
-%token FALSE
-%token TRUE
-%token UNKNOWN
 
 /* operators */
-%token OP_AND
-%token OP_OR
-%token OP_XOR
-
-/* Keywords  */
-%token OP_EQUAL 				
-%token OP_NOT_EQUAL 				
-%token OP_GREATER_THAN 			
-%token OP_GREATER_THAN_OR_EQUAL 	
-%token OP_LESS_THAN 				
-%token OP_LESS_THAN_OR_EQUAL
-
-/* Others */
-
-%token METRICTEXT
-%token SQBR_OPEN
-%token SQBR_CLOSE
-%token DOUBLEQUOTE
+%token  OP_EQ			/*is equal, equals, is, =*/
+%token  OP_NEQ			/*is not equal, is not, !=*/
+%token  OP_GT			/*is greater than, >*/
+%token  OP_LT			/*is lower than, <*/
+%token  OP_GTE			/*is greater than or equal, >=*/
+%token  OP_LTQ			/*is lower than or equal, <=*/
+%token  OP_LIKE			/*like, contains*/
+%token  OP_AND
+%token  OP_OR
 
 %%
-expression
-	: booleanExpressions
+
+condition	
+	: leftTerm op_compare rightTerm					{SetCondition($1, ((Tokens)($2.val)), $3);}
 	;
 
-booleanExpressions
-	: booleanExpressions logical_interconnection booleanExpression
-	| booleanExpression 
+leftTerm
+	: ID;
+
+rightTerm
+	: ID
+	| DOUBLE
+	| INTEGER
+	| STRING;
+
+
+op_compare
+	: OP_GT			{$$.val = Tokens.OP_GT;}
+    | OP_LT			{$$.val = Tokens.OP_LT;}
+    | OP_GTE		{$$.val = Tokens.OP_GTE;}
+    | OP_LTQ		{$$.val = Tokens.OP_LTQ;}
+	| OP_EQ			{$$.val = Tokens.OP_EQ;}
+	| OP_NEQ		{$$.val = Tokens.OP_NEQ;}
+	| OP_LIKE		{$$.val = Tokens.OP_LIKE;}
 	;
-
-booleanExpression
-	: evaluable operator evaluable
-	| '(' booleanExpressions ')';
-evaluable
-	: parameter 
-	| parameter metric
-	| value;
-
-parameter
-	: STRING;
-
-metric
-	: SQBR_OPEN METRICTEXT SQBR_CLOSE;
-
-value
-	: FALSE 	| TRUE	| UNKNOWN	| INTEGER	| DOUBLE 	| DOUBLEQUOTE STRING DOUBLEQUOTE;
-	
-logical_interconnection
-	: OP_AND 	| OP_OR 	| OP_XOR;	
-operator
-	: OP_EQUAL								{$$.val = Tokens.OP_EQUAL;}	| OP_NOT_EQUAL 							{$$.val = Tokens.OP_NOT_EQUAL;}	| OP_GREATER_THAN 						{$$.val = Tokens.OP_GREATER_THAN;}	| OP_GREATER_THAN_OR_EQUAL 				{$$.val = Tokens.OP_GREATER_THAN_OR_EQUAL;}	| OP_LESS_THAN 							{$$.val = Tokens.OP_LESS_THAN;}	| OP_LESS_THAN_OR_EQUAL;				{$$.val = Tokens.OP_LESS_THAN_OR_EQUAL;}	;
 	
 %%

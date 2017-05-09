@@ -28,7 +28,7 @@ namespace Xbim.MvdXml.Expression
         private Tokens SetValue(Tokens type = Tokens.STRING)
         {
             yylval.strVal = yytext;
-
+            yylval.token = type;
             switch (type)
             {
                 case Tokens.INTEGER:
@@ -46,7 +46,7 @@ namespace Xbim.MvdXml.Expression
                         
                     }
                     break;
-                default:
+                case Tokens.STRING:
                     if (yytext.StartsWith("'") && yytext.EndsWith("'"))
                     {
                         var val = yytext.Substring(1, yytext.Length - 2);
@@ -64,6 +64,12 @@ namespace Xbim.MvdXml.Expression
                         yylval.strVal = yytext;
                     }
                     return Tokens.STRING;
+                case Tokens.ID:
+                    yylval.strVal = yytext;
+                    
+                    return Tokens.ID;
+                default:
+                    throw  new NotImplementedException("SetValueFunction needs to be updated.");
             }
             return Tokens.STRING;
         }
