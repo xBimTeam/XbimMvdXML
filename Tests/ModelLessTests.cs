@@ -7,23 +7,24 @@ namespace Tests
     public class ModelLessTests
     {
         [TestMethod]
-        public void CanParseParameterEqualsNumber()
+        public void CanParseOne()
         {
             //Test("a = b");
             //Test("a = true");
-            Test("a = 20");
+            Test("a[value] = 20");
+                
             //Test("Fail", false);
         }
 
         [TestMethod]
         public void CanParse()
         {
-            //Test("a = b");
-            //Test("a = true");
+            Test("a = b");
+            Test("a = true");
             Test("a = 20");
             Test("a = 'string'");
             Test("a = 12.4");
-            //Test("Fail", false);
+            Test("Fail", false);
         }
 
         private void Test(string testingString, bool expectValid = true)

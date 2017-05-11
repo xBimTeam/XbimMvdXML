@@ -29,6 +29,14 @@
 "<=" 	{  return ((int)Tokens.OP_LTQ); }
 "&"		{  return ((int)Tokens.OP_AND); }
 "|"		{  return ((int)Tokens.OP_OR); }
+
+
+/* ********************** Operators ************************** */
+
+"\133"		{  return ((int)Tokens.SQBR_LEFT); }
+"\135"		{  return ((int)Tokens.SQBR_RIGHT); }
+
+
 					 
 
 /* ********************     components        ****************** */
@@ -39,6 +47,8 @@
 [\-\+]?[0-9]*[\.][0-9]*	|
 [\-\+\.0-9][\.0-9]+E[\-\+0-9][0-9]* { return (int)SetValue(Tokens.DOUBLE); }
 [\047]+([\040-\046\050-\176\200-\377]|[\047][\047])*[\047]+ { return (int)SetValue(Tokens.STRING); }
+
+// when adding items here you need to consider the behaviour of the ScannerHelper.SetValue() 
 
 
 /* -----------------------  Epilog ------------------- */

@@ -37,6 +37,11 @@
 %token  OP_AND
 %token  OP_OR
 
+/* operators */
+
+%token  SQBR_LEFT
+%token  SQBR_RIGHT
+
 %%
 
 condition	
@@ -44,7 +49,11 @@ condition
 	;
 
 leftTerm
-	: ID;
+	: ID
+	| ID metric
+	;
+
+metric 	: SQBR_LEFT ID SQBR_RIGHT;
 
 rightTerm
 	: ID
