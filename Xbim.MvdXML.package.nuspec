@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>Xbim.MvdXML</id>
-    <version>4.0.1-V0002</version>
+    <version>4.0.1-V0003</version>
     <title>Xbim.MvdXML</title>
     <authors>xBIM team</authors>
     <owners>xBIM team</owners>
@@ -15,7 +15,7 @@
     <language>en-GB</language>
     <tags>BIM, IFC, MvdXML, BuildingSMART, Model Validation</tags>
     <dependencies>
-      <dependency id="Xbim.Essentials" version="4.0.28-V017" />
+      <dependency id="Xbim.Essentials" version="4.0.28-V021" />
     </dependencies>
   </metadata>
   <files>
