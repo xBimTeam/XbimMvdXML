@@ -14,15 +14,42 @@ namespace Xbim.MvdXml.DataManagement
         private static readonly Regex NameAndSelectorRegex = new Regex(@"(?<varName>[^\[]+)(\[(?<valSelector>.+?)\])?");
 
         public string VariableName;
-        public ValueSelectorEnum VariableValueSelector;
+        public MetricEnum VariableValueSelector;
 
-        public enum ValueSelectorEnum
+        /// <summary>
+        /// Sepcifies the value of interest of an identifier.
+        /// See buildingSMART - mvdMXL v1.1 specification document, page 30.
+        /// </summary>
+        public enum MetricEnum
         {
-            Error, // this can be tested to see if the parsing was successful
+            /// <summary>
+            /// this can be tested to see if the parsing was successful
+            /// </summary>
+            Error, // 
+            /// <summary>
+            /// Indicates the value of the attribute 
+            /// </summary>
             Value,
+            /// <summary>
+            /// Indicates the type of the value assigned to the attribute (STRING). 
+            /// </summary>
             Type,
+            /// <summary>
+            /// Boolean value returning (Value != null).
+            /// Not formally defined in the documentation.
+            /// </summary>
             Exists,
+            /// <summary>
+            /// Indicates the size of a collection or STRING (INTEGER). 
+            /// </summary>
             Size
+        }
+
+        internal DataIndicator(string parameter, string metricValue)
+        {
+            VariableName = parameter;
+            if (!Enum.TryParse(metricValue, out VariableValueSelector))
+                VariableValueSelector = MetricEnum.Error;
         }
 
         public DataIndicator(string stringValue)
@@ -34,21 +61,21 @@ namespace Xbim.MvdXml.DataManagement
                 if (!string.IsNullOrEmpty(v.Groups["valSelector"].Value))
                 {
                     if (!Enum.TryParse(v.Groups["valSelector"].Value, out VariableValueSelector))
-                        VariableValueSelector = ValueSelectorEnum.Error;
+                        VariableValueSelector = MetricEnum.Error;
                     return;
                 }
-                VariableValueSelector = ValueSelectorEnum.Value;
+                VariableValueSelector = MetricEnum.Value;
                 return;
             }
             VariableName = "Undefined";
-            VariableValueSelector = ValueSelectorEnum.Error;
+            VariableValueSelector = MetricEnum.Error;
         }
 
         public string ColumnName => GetColumnName(VariableName, VariableValueSelector);
 
-        internal static string GetColumnName(string variableName, ValueSelectorEnum variableSelector)
+        internal static string GetColumnName(string variableName, MetricEnum variableSelector)
         {
-            if (variableSelector == ValueSelectorEnum.Value)
+            if (variableSelector == MetricEnum.Value)
                 return variableName;
             return variableName + "__" + variableSelector;
             // return variableName + "." + variableSelector; // fails at visualisation

@@ -27,8 +27,20 @@
 "<"		{  return ((int)Tokens.OP_LT); }
 ">=" 	{  return ((int)Tokens.OP_GTE); }
 "<=" 	{  return ((int)Tokens.OP_LTQ); }
-"&"		{  return ((int)Tokens.OP_AND); }
-"|"		{  return ((int)Tokens.OP_OR); }
+
+/* ********************** logical_interconnection ************************** */
+
+"&" | 
+";" | 
+"AND"  {  return ((int)Tokens.LI_AND); }
+
+"|"	| 
+"OR"  {  return ((int)Tokens.LI_OR); }
+
+"XOR"  {  return ((int)Tokens.LI_XOR); }
+"NAND"  {  return ((int)Tokens.LI_NAND); }
+"NOR"  {  return ((int)Tokens.LI_NOR); }
+"NXOR"  {  return ((int)Tokens.LI_NXOR); }
 
 
 /* ********************** Operators ************************** */
@@ -36,8 +48,6 @@
 "\133"		{  return ((int)Tokens.SQBR_LEFT); }
 "\135"		{  return ((int)Tokens.SQBR_RIGHT); }
 
-
-					 
 
 /* ********************     components        ****************** */
 // when adding items here you need to consider the behaviour of the ScannerHelper.SetValue() 

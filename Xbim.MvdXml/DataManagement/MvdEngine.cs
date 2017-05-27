@@ -312,7 +312,7 @@ namespace Xbim.MvdXml.DataManagement
                     continue;
                 }
                 // set the value
-                if (dataIndicators.Requires(storageName, DataIndicator.ValueSelectorEnum.Value))
+                if (dataIndicators.Requires(storageName, DataIndicator.MetricEnum.Value))
                 {
                     DataFragment tF;
                     if (value is IEnumerable<object>)
@@ -327,17 +327,17 @@ namespace Xbim.MvdXml.DataManagement
 
                 // set the type
                 //
-                if (dataIndicators.Requires(storageName, DataIndicator.ValueSelectorEnum.Type))
+                if (dataIndicators.Requires(storageName, DataIndicator.MetricEnum.Type))
                 {
-                    var storName = DataIndicator.GetColumnName(storageName, DataIndicator.ValueSelectorEnum.Type);            
+                    var storName = DataIndicator.GetColumnName(storageName, DataIndicator.MetricEnum.Type);            
                     tmp.Add( new DataFragment(storName, value.GetType().Name));
                 }
 
                 // set the Size
                 //
-                if (dataIndicators.Requires(storageName, DataIndicator.ValueSelectorEnum.Size))
+                if (dataIndicators.Requires(storageName, DataIndicator.MetricEnum.Size))
                 {
-                    var storName = DataIndicator.GetColumnName(storageName, DataIndicator.ValueSelectorEnum.Size);
+                    var storName = DataIndicator.GetColumnName(storageName, DataIndicator.MetricEnum.Size);
                     
                     if (value is IEnumerable<object>)
                     {
@@ -353,9 +353,9 @@ namespace Xbim.MvdXml.DataManagement
                 // set Existence
                 // ReSharper disable once InvertIf // for symmetry in code
                 //
-                if (dataIndicators.Requires(storageName, DataIndicator.ValueSelectorEnum.Exists))
+                if (dataIndicators.Requires(storageName, DataIndicator.MetricEnum.Exists))
                 {
-                    var storName = DataIndicator.GetColumnName(storageName, DataIndicator.ValueSelectorEnum.Exists);
+                    var storName = DataIndicator.GetColumnName(storageName, DataIndicator.MetricEnum.Exists);
                     var storValue = value != null;
                     if (value != null)
                     {

@@ -6,7 +6,7 @@ namespace Xbim.MvdXml.DataManagement
     // todo: this class could need renaming and documentation
     public class DataIndicatorLookup
     {
-        private readonly Dictionary<string, List<DataIndicator.ValueSelectorEnum>> _fastIndicators;
+        private readonly Dictionary<string, List<DataIndicator.MetricEnum>> _fastIndicators;
 
         public string ToString()
         {
@@ -22,7 +22,7 @@ namespace Xbim.MvdXml.DataManagement
 
         public DataIndicatorLookup(IEnumerable<DataIndicator> dataIndicators)
         {
-            _fastIndicators = new Dictionary<string, List<DataIndicator.ValueSelectorEnum>>();
+            _fastIndicators = new Dictionary<string, List<DataIndicator.MetricEnum>>();
             foreach (var indicator in dataIndicators)
             {
                 if (_fastIndicators.ContainsKey(indicator.VariableName))
@@ -33,7 +33,7 @@ namespace Xbim.MvdXml.DataManagement
                 }
                 else
                 {
-                    _fastIndicators.Add(indicator.VariableName, new List<DataIndicator.ValueSelectorEnum>() { indicator.VariableValueSelector });
+                    _fastIndicators.Add(indicator.VariableName, new List<DataIndicator.MetricEnum>() { indicator.VariableValueSelector });
                 }
             }
         }
@@ -44,10 +44,10 @@ namespace Xbim.MvdXml.DataManagement
         /// <param name="values"></param>
         public DataIndicatorLookup(params string[] values)
         {
-            _fastIndicators = new Dictionary<string, List<DataIndicator.ValueSelectorEnum>>();
+            _fastIndicators = new Dictionary<string, List<DataIndicator.MetricEnum>>();
             foreach (var value in values)
             {
-                _fastIndicators.Add(value, new List<DataIndicator.ValueSelectorEnum>() {DataIndicator.ValueSelectorEnum.Value });
+                _fastIndicators.Add(value, new List<DataIndicator.MetricEnum>() {DataIndicator.MetricEnum.Value });
             }
         }
 
@@ -56,7 +56,7 @@ namespace Xbim.MvdXml.DataManagement
             return _fastIndicators.ContainsKey(storageName);
         }
 
-        public bool Requires(string storageName, DataIndicator.ValueSelectorEnum value)
+        public bool Requires(string storageName, DataIndicator.MetricEnum value)
         {
             return _fastIndicators.ContainsKey(storageName)
                 && _fastIndicators[storageName].Contains(value);
