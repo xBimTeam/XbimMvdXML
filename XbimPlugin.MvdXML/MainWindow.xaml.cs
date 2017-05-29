@@ -35,7 +35,7 @@ namespace XbimPlugin.MvdXML
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    [XplorerUiElement(PluginWindowUiContainerEnum.LayoutAnchorable, PluginWindowActivation.OnLoad, "MvdXML")]
+    [XplorerUiElement(PluginWindowUiContainerEnum.LayoutAnchorable, PluginWindowActivation.OnMenu, "MvdXML")]
     public partial class MainWindow : IXbimXplorerPluginWindow
     {
         private static readonly ILog Log = LogManager.GetLogger("XbimPlugin.MvdXML.MainWindow");
