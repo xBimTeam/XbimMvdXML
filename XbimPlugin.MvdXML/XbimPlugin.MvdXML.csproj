@@ -141,6 +141,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ModelExtraction\Extractor.cs" />
     <Compile Include="RequiredValidationRule.cs" />
     <Compile Include="TextHighliter.cs" />
     <Compile Include="Viewing\ConcepGrouping.cs" />

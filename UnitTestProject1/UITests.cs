@@ -27,7 +27,7 @@ namespace Tests
             var g = new ConceptRootGrouping(groups) {GroupOrder = ConceptRootGrouping.GroupOrderMode.TopAtBack};
             foreach (var child in g.GetChildren())
             {
-                Debug.WriteLine(child.ToString());
+                // Debug.WriteLine(child.ToString());
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -29,6 +30,7 @@ using Xbim.Presentation.LayerStyling;
 using Xbim.Ifc;
 using Xbim.Common.Metadata;
 using Xbim.MvdXml.Integrity;
+using XbimPlugin.MvdXML.ModelExtraction;
 
 namespace XbimPlugin.MvdXML
 {
@@ -271,11 +273,11 @@ namespace XbimPlugin.MvdXML
             switch (e.Property.Name)
             {
                 case "Selection":
-                    Debug.WriteLine(e.Property.Name + @" changed");
+                    // Debug.WriteLine(e.Property.Name + @" changed");
                     window.RefreshReport();
                     break;
                 case "Model":
-                    Debug.WriteLine(e.Property.Name + @" changed");
+                    // Debug.WriteLine(e.Property.Name + @" changed");
                     window.WorkerEnsureStop();
                     if (window.Doc != null)
                     {
@@ -600,7 +602,7 @@ namespace XbimPlugin.MvdXML
                         foreach (var cpt in validRoot.Concepts)
                         {
                             var rep = ReportConcept(cpt, ent);
-                            if (!ConfigShowResult(rep))
+                            if (!ConfigShowResult(_validShowResults, rep))
                                 continue;
                             yield return rep;
                         }
@@ -609,7 +611,7 @@ namespace XbimPlugin.MvdXML
             }
         }
         
-        private ReportResult ReportRequirementRequirement(RequirementsRequirement requirementsRequirement, IPersistEntity entity)
+        private static ReportResult ReportRequirementRequirement(RequirementsRequirement requirementsRequirement, IPersistEntity entity)
         {
             var testResult = requirementsRequirement.Test(entity);
             
@@ -635,7 +637,7 @@ namespace XbimPlugin.MvdXML
             foreach (var cpt2 in croot.Concepts)
             {
                 var rep = ReportConcept(cpt2, entity);
-                if (!ConfigShowResult(rep))
+                if (!ConfigShowResult(_validShowResults, rep))
                     continue;
                 yield return rep;
             }
@@ -712,9 +714,9 @@ namespace XbimPlugin.MvdXML
 
         private HashSet<ConceptTestResult> _validShowResults = new HashSet<ConceptTestResult>();
 
-        private bool ConfigShowResult(ReportResult result)
+        private static bool ConfigShowResult(HashSet<ConceptTestResult> requiredSet, ReportResult result)
         {
-            return _validShowResults.Contains(result.TestResult);
+            return requiredSet.Contains(result.TestResult);
         }
 
         private void ChangeShowFilter(object sender, SelectionChangedEventArgs e)
@@ -819,14 +821,10 @@ namespace XbimPlugin.MvdXML
             }
             catch (Exception ex)
             {
-                Debug.Write(ex.Message);
+                // Log.Error(ex.Message, ex);
             }
         }
-
-
-       
-       
-
+        
         private void SaveColors(object sender, RoutedEventArgs e)
         {
             var tmpCol = new XbimColour(
@@ -1072,11 +1070,53 @@ namespace XbimPlugin.MvdXML
                     continue;
                 }
 
+                commandMatch = Regex.Match(cmd, @"^strip *(?<what>(model))*$", RegexOptions.IgnoreCase);
+                if (commandMatch.Success)
+                {
+                    var what = commandMatch.Groups["what"].Value.ToLowerInvariant();
+                    if (what == "model")
+                    {
+                        th.Append("Attempting to extract model, this might take long.", Brushes.Blue);
+                        th.DropInto(TxtOut.Document);
+                        th = new TextHighliter();
+                        // setup the processing id capture delegate
+                        _identifiedItems = new ConcurrentDictionary<IPersistEntity, int>();
+                        Doc.OnProcessing += DocOnOnProcessing;
+
+                        // now execute the call
+                        var selectedConcepts = SelectedConcepts();
+                        var selectedExchReq = SelectedExchangeRequirements();
+                        var selectedIfcClasses = SelectedIfcClasses();
+                        if (!selectedConcepts.Any() && !selectedExchReq.Any() && !selectedIfcClasses.Any())
+                            return;
+                        var entities = _xpWindow.DrawingControl.Selection.ToList();
+                        if (!entities.Any())
+                        {
+                            entities = Model?.Instances?.ToList();
+                        }
+
+                        // the function is launched with no backgroundworker
+                        PerformReport(selectedConcepts, selectedExchReq, selectedIfcClasses, entities, Doc);
+
+                        // remove the hook
+                        Doc.OnProcessing -= DocOnOnProcessing;
+
+                        Extractor.Extract(Model as IfcStore, new HashSet<IPersistEntity>(_identifiedItems.Keys));
+                        th.Append($"Strip command completed, attempting to extract {_identifiedItems.Keys.Count} entities.", Brushes.Black);
+                        th.DropInto(TxtOut.Document);
+                        continue;
+                    }
+                    th.Append($"== Strip command. Unknown parameter \"{what}\". Nothing done.", Brushes.Red);
+                    th.DropInto(TxtOut.Document);
+                    continue;
+                }
+
                 commandMatch = Regex.Match(cmd, @"^help$", RegexOptions.IgnoreCase);
                 if (commandMatch.Success)
                 {
                     th.AppendFormat("Commands:");
                     th.AppendFormat("- Check <UUID|Variables|All>");
+                    th.AppendFormat("- Strip <Model>");
                     th.AppendFormat("- Clear <Cache>");
                     th.DropInto(TxtOut.Document);
                     continue;
@@ -1085,6 +1125,19 @@ namespace XbimPlugin.MvdXML
                 th.Append($"Commands not understood: \"{cmd}\".", Brushes.Red);
                 th.DropInto(TxtOut.Document);
             }
+        }
+
+        private ConcurrentDictionary<IPersistEntity, int> _identifiedItems;
+
+        private void DocOnOnProcessing(MvdEngine engine, EntityProcessingEventArgs args)
+        {
+            if (args.EventType != EntityProcessingEventArgs.ProcessingEvent.ProcessRuleTree)
+                return;
+
+            _identifiedItems.AddOrUpdate(
+                args.Entity,
+                entity => 1,
+                (entity, i) => i + 1);
         }
 
         private void cmdRun(object sender, RoutedEventArgs e)

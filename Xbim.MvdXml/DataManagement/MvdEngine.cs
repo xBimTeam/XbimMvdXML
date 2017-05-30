@@ -10,12 +10,10 @@ using Xbim.Common.Metadata;
 // todo: and how it does relate to Xbim.MvdXml.Validation
 namespace Xbim.MvdXml.DataManagement
 {
-    internal delegate void ClearCacheHandler();
-
-    /// <summary>
+/// <summary>
     /// MvdEngine manages the execution of MvdXml logic on models.
     /// </summary>
-    public class MvdEngine
+    public partial class MvdEngine
     {
         private static readonly ILog Log = LogManager.GetLogger("Xbim.MvdXml.DataManagement.MvdEngine");
 
@@ -24,11 +22,6 @@ namespace Xbim.MvdXml.DataManagement
         // and another class to deal with the caching of results attached with a model
 
         private readonly IModel _model;
-
-        /// <summary>
-        /// Elements in the the mvd tree will subscribe to this in order to be notified when a ClearCache event is requested.
-        /// </summary>
-        internal event ClearCacheHandler RequestClearCache;
 
         /// <summary>
         /// Removes all cacher results from the validation
@@ -193,6 +186,7 @@ namespace Xbim.MvdXml.DataManagement
         /// <returns></returns>
         public DataTable GetData(IPersistEntity entity, ConceptTemplate template, IEnumerable<DataIndicator> dataIndicators)
         {
+            // prepare the datatable
             var dt = new DataTable();
             var indicators = dataIndicators as DataIndicator[] ?? dataIndicators.ToArray();
             foreach (var dataIndicator in indicators)
@@ -200,12 +194,12 @@ namespace Xbim.MvdXml.DataManagement
                 var c = new DataColumn(dataIndicator.ColumnName);
                 dt.Columns.Add(c);
             }
-
+            
+            // get the data from the model
             var fastIndicators = new DataIndicatorLookup(indicators);
-            // template.DebugTemplateTree();
-
-            // when ending row or going deeper it fills row
             var vls = GetAttributes(template, entity, fastIndicators, "");
+
+            // Now populate the datatable
             vls?.Populate(dt);
             
             return dt;
@@ -239,10 +233,14 @@ namespace Xbim.MvdXml.DataManagement
             return  DataFragment.Combine(fragments);
         }
 
+     
+
         // this is only internal for testing purposes; it should be private otherwise...
         // is there a way to do that?
         internal DataFragment ProcessRuleTree(IPersistEntity entity, DataIndicatorLookup dataIndicators, AttributeRule[] rules, string prefix)
         {
+            OnProcessing?.Invoke(this, new EntityProcessingEventArgs(entity, EntityProcessingEventArgs.ProcessingEvent.ProcessRuleTree));
+
             // todo: xxx review return value logic
             var f = new List<DataFragment>();
 
@@ -291,6 +289,9 @@ namespace Xbim.MvdXml.DataManagement
         
         private DataFragment ExtractRulesValues(IPersistEntity entity, DataIndicatorLookup dataIndicators, AttributeRule[] rules, string prefix)
         {
+            OnProcessing?.Invoke(this, 
+                new EntityProcessingEventArgs(entity, EntityProcessingEventArgs.ProcessingEvent.ExtractRulesValues));
+            
             var tmp = new List<DataFragment>();            
             if (rules == null)
                 return null;

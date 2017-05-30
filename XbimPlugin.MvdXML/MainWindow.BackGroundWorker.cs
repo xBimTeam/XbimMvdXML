@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -8,6 +9,7 @@ using Xbim.Common;
 using Xbim.Common.Metadata;
 using Xbim.MvdXml;
 using Xbim.MvdXml.DataManagement;
+using XbimPlugin.MvdXML.Viewing;
 
 // todo: there's scope for moving/refactoring this class to the mvdxml dll, to establish some model validation 
 // and reporting functions
@@ -16,13 +18,13 @@ namespace XbimPlugin.MvdXML
 {
     public partial class MainWindow
     {
-        BackgroundWorker _backgroundTester = new BackgroundWorker();
+        private BackgroundWorker _backgroundTester = new BackgroundWorker();
 
         private bool _backgroundScheduleRestart;
 
         private void RequestUpdateReport()
         {
-            if (_backgroundTester.IsBusy)
+            if (_backgroundTester != null && _backgroundTester.IsBusy)
             {
                 WorkerRequestCancel();
                 _backgroundScheduleRestart = true;
@@ -35,15 +37,15 @@ namespace XbimPlugin.MvdXML
 
         private void ToggleUpdate(object sender, RoutedEventArgs e)
         {
-            if (_backgroundTester.IsBusy)
-                WorkerRequestCancel();
-            else
+            if (_backgroundTester == null || !_backgroundTester.IsBusy)
                 WorkerStart();
+            else
+                WorkerRequestCancel();
         }
 
         private void WorkerRequestCancel()
         {
-            _backgroundTester.CancelAsync();
+            _backgroundTester?.CancelAsync();
             ToggleActivityButton.IsEnabled = false;
         }
 
@@ -91,18 +93,25 @@ namespace XbimPlugin.MvdXML
                 WorkerSupportsCancellation = true,
                 WorkerReportsProgress = true
             };
+            
             _backgroundTester.DoWork +=
-                (obj, ea) => GetReport(obj, ea, selectedConcepts, selectedExchReq, selectedIfcClasses, entities, Doc);
+                (obj, ea) => PerformReport(selectedConcepts, selectedExchReq, selectedIfcClasses, entities, Doc, obj, ea, TestResults, _backgroundTester, _validShowResults);
             _backgroundTester.ProgressChanged += bw_ProgressChanged;
             _backgroundTester.RunWorkerCompleted += bw_RunWorkerCompleted;
             _backgroundTester.RunWorkerAsync();
         }
 
+      
+
         private void WorkerEnsureStop()
         {
-            if (!_backgroundTester.IsBusy)
-                return;
-            WorkerRequestCancel();
+            _backgroundScheduleRestart = false;
+            if (_backgroundTester != null)
+            {
+                if (!_backgroundTester.IsBusy)
+                    return;
+                WorkerRequestCancel();
+            }
             _backgroundScheduleRestart = false;
         }
 
@@ -112,6 +121,9 @@ namespace XbimPlugin.MvdXML
             ToggleActivityButton.Background = Brushes.DarkGray;
             TestProgress.Value = 0;
             ToggleActivityButton.IsEnabled = true;
+
+            _backgroundTester?.Dispose();
+            _backgroundTester = null;
             if (_backgroundScheduleRestart)
                 WorkerStart();
         }
@@ -123,20 +135,22 @@ namespace XbimPlugin.MvdXML
 
         // todo: this needs to be reviewed, while trying to ensure a responsive UI.
         // private void GetReport(object sender, DoWorkEventArgs e)
-        private void GetReport(object sender,
-            // ReSharper disable once UnusedParameter.Local
-            DoWorkEventArgs ea,
-            HashSet<Concept> selectedConcepts,
+        private void PerformReport(HashSet<Concept> selectedConcepts,
             HashSet<ModelViewExchangeRequirement> selectedExchReq,
             HashSet<ExpressType> selectedIfcClasses,
             List<IPersistEntity> entities,
-            MvdEngine doc)
+            MvdEngine doc,
+            object sender = null,
+            // ReSharper disable once UnusedParameter.Local
+            DoWorkEventArgs ea = null,
+            ObservableCollection<ReportResult> destinationResultCollection = null,
+            BackgroundWorker reportingWorker = null,
+            HashSet<ConceptTestResult> requiredReportingSet = null
+            )
         {
             var bw = sender as BackgroundWorker;
-            if (bw == null)
-                return;
             // var report = new List<ReportResult>();
-            var report = TestResults;
+            
 
             var entitiesInQueue = entities.Count;
             double itemsDone = 0;
@@ -166,7 +180,7 @@ namespace XbimPlugin.MvdXML
                         continue;
                     foreach (var concept in suitableRoot.Concepts)
                     {
-                        if (bw.CancellationPending)
+                        if (bw != null && bw.CancellationPending)
                             return;
                         if (concept.Requirements == null)
                             continue;
@@ -191,21 +205,23 @@ namespace XbimPlugin.MvdXML
                 {
                     foreach (var requirementsRequirement in todo)
                     {
-
                         itemsDone++;
                         var thisProgress = Convert.ToInt32(itemsDone/queueEstimate*100);
                         if (lastReported != thisProgress)
                         {
-                            _backgroundTester.ReportProgress(thisProgress);
+                            reportingWorker?.ReportProgress(thisProgress);
                             lastReported = thisProgress;
                         }
 
-                        if (bw.CancellationPending)
+                        if (bw != null && bw.CancellationPending)
                             return;
                         var result = ReportRequirementRequirement(requirementsRequirement, entity);
-                        if (!ConfigShowResult(result))
+
+                        if ( destinationResultCollection == null)
                             continue;
-                        AddOnUi(report, result);
+                        if (!ConfigShowResult(requiredReportingSet, result))
+                            continue;
+                        AddOnUi(destinationResultCollection, result);
                     }
                 }
                 catch (Exception ex)
