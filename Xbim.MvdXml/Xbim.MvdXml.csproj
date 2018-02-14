@@ -158,9 +158,9 @@
     <None Include="Expression\Parser.y" />
     <None Include="packages.config" />
     <None Include="Expression\Scanner.lex" />
-    <None Include="Schema\mvdXML_V1.1.xsd">
+    <EmbeddedResource Include="Schema\mvdXML_V1.1.xsd">
       <SubType>Designer</SubType>
-    </None>
+    </EmbeddedResource>
     <None Include="XbimOpenSourceKeyFile.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

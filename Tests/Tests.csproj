@@ -114,6 +114,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DataFragmentsTests.cs" />
+    <Compile Include="GrammarTests.cs" />
     <Compile Include="IoTests.cs" />
     <Compile Include="ModelLessTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -125,6 +126,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="FromNN\mvdXMLsimpleexample.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GrammarTesting\GrammarTests.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="TestFiles\mvdXMLExportExample.mvdxml-7.xml">

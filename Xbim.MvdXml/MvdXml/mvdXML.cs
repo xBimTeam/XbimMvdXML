@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 using log4net;
 using Xbim.MvdXml.DataManagement;
@@ -196,10 +200,75 @@ namespace Xbim.MvdXml
             /// </summary>
             InvalidNameSpace,
             /// <summary>
+            /// The file has schema issues.
+            /// </summary>
+            InvalidSchema,
+            /// <summary>
             /// The node cannot be loaded because of an undetected reason.
             /// </summary>
-            Unexpected
+            Unexpected,
         }
+
+        private class MyCustomResolver : XmlUrlResolver
+        {
+            private const string MYRESOURCENAMESPACE = "MyNamespace.{0}";
+            private Assembly resourceAssembly = null;
+
+            public MyCustomResolver(Assembly resourceAssembly)
+            {
+                if (resourceAssembly == null)
+                    throw new ArgumentNullException("resourceAssembly must not be null");
+                this.resourceAssembly = resourceAssembly;
+            }
+
+            override public object GetEntity(Uri absoluteUri, string role, Type ofObjectToReturn)
+            {
+                if (absoluteUri.IsFile)
+                {
+                    string file = Path.GetFileName(absoluteUri.AbsolutePath);
+                    Stream stream = resourceAssembly.GetManifestResourceStream(
+                        String.Format(MYRESOURCENAMESPACE, file));
+                    return stream;
+                }
+                return null;
+            }
+        }
+
+        public static CompatibilityResult TestSchemaAdherence(string fileName)
+        {
+
+            var a = Assembly.GetExecutingAssembly();
+            var stream = a.GetManifestResourceStream("Xbim.MvdXml.Schema.mvdXML_V1.1.xsd");
+
+            var x = XmlSchema.Read(stream, new ValidationEventHandler(SchemaValidationEventHandler));
+
+            //x.Compile(
+            //    new ValidationEventHandler(SchemaValidationEventHandler),
+            //    new MyCustomResolver(a));
+
+            //schemas.Add(x);
+            XmlSchemaSet schemas = new XmlSchemaSet();
+            schemas.Add(x);
+
+            XDocument doc1 = XDocument.Load(fileName);
+
+            bool errors = false;
+            doc1.Validate(schemas, (sender, e) =>
+            {
+                Debug.WriteLine(e.Message);
+                errors = true;
+            }, true);
+
+            if (errors)
+                return CompatibilityResult.InvalidSchema;
+            return  CompatibilityResult.NoProblem;
+        }
+
+        private static void SchemaValidationEventHandler(object sender, ValidationEventArgs e)
+        {
+           
+        }
+
 
         /// <summary>
         /// Evaluates the compatility of a candidate mvdXML file with the current schema

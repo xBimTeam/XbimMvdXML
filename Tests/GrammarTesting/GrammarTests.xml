@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mvdXML uuid="8a70d456-c609-4ef7-b496-b92fd1e12796" name="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://buildingsmart-tech.org/mvdXML/mvdXML1-1 ../schema/mvdXML_V1-1d.xsd" xmlns="http://buildingsmart-tech.org/mvdXML/mvdXML1-1" >
+	<Templates>
+		<ConceptTemplate uuid="36984334-3ac8-4e59-85a6-f68d65e379c7" name="Object Properties" code="" applicableSchema="IFC4" applicableEntity="IfcObject">
+			<SubTemplates>
+				<ConceptTemplate uuid="5c252c86-5bff-4372-9a27-b794069f9fbb" name="Property Sets for Objects and Types" applicableSchema="IFC4" applicableEntity="IfcObject">
+					<Rules>
+						<AttributeRule RuleID="PredefinedType" AttributeName="PredefinedType"/>
+						<AttributeRule AttributeName="IsDefinedBy">
+							<EntityRules>
+								<EntityRule EntityName="IfcRelDefinesByProperties">
+									<AttributeRules>
+										<AttributeRule AttributeName="RelatingPropertyDefinition">
+											<EntityRules>
+												<EntityRule EntityName="IfcPropertySet">
+													<References IdPrefix="O.">
+														<Template ref="7c4c45c5-7ba9-4e19-b473-3e97093b3e0d"/>
+													</References>
+												</EntityRule>
+											</EntityRules>
+										</AttributeRule>
+									</AttributeRules>
+								</EntityRule>
+							</EntityRules>
+						</AttributeRule>
+						<AttributeRule AttributeName="IsTypedBy">
+							<EntityRules>
+								<EntityRule EntityName="IfcRelDefinesByType">
+									<AttributeRules>
+										<AttributeRule AttributeName="RelatingType">
+											<EntityRules>
+												<EntityRule EntityName="IfcTypeObject">
+													<AttributeRules>
+														<AttributeRule AttributeName="HasPropertySets">
+															<EntityRules>
+																<EntityRule EntityName="IfcPropertySet">
+																	<References IdPrefix="T.">
+																		<Template ref="7c4c45c5-7ba9-4e19-b473-3e97093b3e0d"/>
+																	</References>
+																</EntityRule>
+															</EntityRules>
+														</AttributeRule>
+													</AttributeRules>
+												</EntityRule>
+											</EntityRules>
+										</AttributeRule>
+									</AttributeRules>
+								</EntityRule>
+							</EntityRules>
+						</AttributeRule>
+					</Rules>
+				</ConceptTemplate>
+			</SubTemplates>
+		</ConceptTemplate>
+		<ConceptTemplate uuid="a322fdd7-cd28-4ea7-8797-f6cf124ab3d6" name="Partial Templates" applicableSchema="IFC4">
+			<SubTemplates>
+				<ConceptTemplate uuid="88b4aaa9-0925-447c-b009-fe357b7c754e" name="Properties" code="" applicableSchema="IFC4" applicableEntity="IfcSimpleProperty">
+					<Rules>
+						<AttributeRule RuleID="PName" AttributeName="Name">
+							<EntityRules>
+								<EntityRule EntityName="IfcIdentifier"/>
+							</EntityRules>
+						</AttributeRule>
+						<AttributeRule AttributeName="Description">
+							<EntityRules>
+								<EntityRule EntityName="IfcText"/>
+							</EntityRules>
+						</AttributeRule>
+					</Rules>
+					<SubTemplates>
+						<ConceptTemplate uuid="6655f6d0-29a8-47b8-8f3d-c9fce9c9a620" name="Single Value" applicableSchema="IFC4" applicableEntity="IfcPropertySingleValue">
+							<Rules>
+								<AttributeRule RuleID="PName" AttributeName="Name">
+									<EntityRules>
+										<EntityRule EntityName="IfcIdentifier"/>
+									</EntityRules>
+								</AttributeRule>
+								<AttributeRule AttributeName="Description">
+									<EntityRules>
+										<EntityRule EntityName="IfcText"/>
+									</EntityRules>
+								</AttributeRule>
+								<AttributeRule RuleID="PSingleValue" AttributeName="NominalValue">
+									<EntityRules>
+										<EntityRule EntityName="IfcValue"/>
+									</EntityRules>
+								</AttributeRule>
+							</Rules>
+						</ConceptTemplate>
+						<ConceptTemplate uuid="c148a099-c351-43a8-9266-5f3de0b45a95" name="Enumerated Value" applicableSchema="IFC4" applicableEntity="IfcPropertyEnumeratedValue">
+							<Rules>
+								<AttributeRule RuleID="PName" AttributeName="Name">
+									<EntityRules>
+										<EntityRule EntityName="IfcIdentifier"/>
+									</EntityRules>
+								</AttributeRule>
+								<AttributeRule AttributeName="Description">
+									<EntityRules>
+										<EntityRule EntityName="IfcText"/>
+									</EntityRules>
+								</AttributeRule>
+								<AttributeRule RuleID="PEnumValue" AttributeName="EnumerationValues">
+									<EntityRules>
+										<EntityRule EntityName="IfcValue"/>
+									</EntityRules>
+								</AttributeRule>
+								<AttributeRule AttributeName="EnumerationReference">
+									<EntityRules>
+										<EntityRule EntityName="IfcPropertyEnumeration">
+											<AttributeRules>
+												<AttributeRule RuleID="PEnumRefName" AttributeName="Name">
+													<EntityRules>
+														<EntityRule EntityName="IfcLabel"/>
+													</EntityRules>
+												</AttributeRule>
+											</AttributeRules>
+										</EntityRule>
+									</EntityRules>
+								</AttributeRule>
+							</Rules>
+						</ConceptTemplate>
+					</SubTemplates>
+				</ConceptTemplate>
+				<ConceptTemplate uuid="7c4c45c5-7ba9-4e19-b473-3e97093b3e0d" name="Property Sets" code="" applicableSchema="IFC4" applicableEntity="IfcPropertySet">
+					<Rules>
+						<AttributeRule RuleID="PsetName" AttributeName="Name">
+							<EntityRules>
+								<EntityRule EntityName="IfcLabel"/>
+							</EntityRules>
+						</AttributeRule>
+						<AttributeRule AttributeName="Description">
+							<EntityRules>
+								<EntityRule EntityName="IfcText"/>
+							</EntityRules>
+						</AttributeRule>
+						<AttributeRule AttributeName="HasProperties">
+							<EntityRules>
+								<EntityRule EntityName="IfcPropertySingleValue">
+									<References>
+										<Template ref="6655f6d0-29a8-47b8-8f3d-c9fce9c9a620"/>
+									</References>
+								</EntityRule>
+								<EntityRule EntityName="IfcPropertyEnumeratedValue">
+									<References>
+										<Template ref="c148a099-c351-43a8-9266-5f3de0b45a95"/>
+									</References>
+								</EntityRule>
+							</EntityRules>
+						</AttributeRule>
+					</Rules>
+				</ConceptTemplate>
+			</SubTemplates>
+		</ConceptTemplate>
+	</Templates>
+	<Views>
+		<ModelView uuid="72dad5df-6f61-49f2-ba8c-baccf24a6ce5" name="Grammar" applicableSchema="IFC4" code="Nah">
+			<ExchangeRequirements>
+				<ExchangeRequirement uuid="ae70f764-938b-4cf7-9814-c29a47f56b0e" name="design phase coordination" code="LPh 3a" applicability="export">
+				</ExchangeRequirement>
+			</ExchangeRequirements>
+			<Roots>
+				<ConceptRoot uuid="0e93f597-f5e1-475b-87a7-eb007993a50d" name="CrGrammarTesting" applicableRootEntity="IfcWall">
+					<ApplicabilityRules>
+						<Template ref="5c252c86-5bff-4372-9a27-b794069f9fbb"/>						
+						<TemplateRules operator="and">
+						  <TemplateRule Parameters="O.PsetName='Pset_WallCommon' and O.PName='IsExternal'"/>						
+						</TemplateRules>
+					</ApplicabilityRules>
+					<Concepts>
+						<!-- Test #1 -->
+						<Concept uuid="983ddc5d-c0c8-47c9-8491-97add7677139" name="330 load bearing external walls required to have property 'FireRating'">
+							<Template ref="5c252c86-5bff-4372-9a27-b794069f9fbb"/>
+							<Requirements>
+								<Requirement applicability="export" exchangeRequirement="ae70f764-938b-4cf7-9814-c29a47f56b0e" requirement="mandatory"/>
+							</Requirements>
+							<TemplateRules operator="or">
+								<TemplateRule Parameters="O.PsetName='Pset_WallCommon' and O.PName='FireRating'"/>
+							</TemplateRules>
+						</Concept>
+					</Concepts>
+				</ConceptRoot>
+			</Roots>
+		</ModelView>
+	</Views>
+</mvdXML>
