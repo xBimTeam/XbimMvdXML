@@ -31,7 +31,7 @@ namespace Xbim.MvdXml.DataManagement
         internal static IEnumerable<MvdPropertyRuleValue> GetValues(string storageString)
         {
             var vals = new List<MvdPropertyRuleValue>();
-            var parts = storageString.Split(new[] { " AND ", ";" }, StringSplitOptions.RemoveEmptyEntries);
+            var parts = storageString.Split(new[] { " And ", " and ", " AND ", ";" }, StringSplitOptions.RemoveEmptyEntries);
            
             foreach (var part in parts)
             {

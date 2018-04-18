@@ -195,3 +195,4 @@ Xbim.Geometry.Engine[0-9]*.dll
 */ClickOnce/
 *.xBIM
 SharedFileVersionInfo.cs
+.vs/

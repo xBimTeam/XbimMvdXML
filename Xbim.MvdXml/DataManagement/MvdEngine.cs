@@ -399,11 +399,10 @@ namespace Xbim.MvdXml.DataManagement
         
         internal DataFragment FillEntities(EntityRule[] rules, IPersistEntity entity, DataIndicatorLookup dataIndicators, string prefix)
         {
-            // todo: review the return logic; 
             
-            // 
             if (entity == null)
                 return null;
+            var tmp = new List<DataFragment>();
             foreach (var entityRule in rules)
             {
                 // it's probably safe to assume that if we are here then the whole schema is the same of the element we are using
@@ -425,16 +424,21 @@ namespace Xbim.MvdXml.DataManagement
                     var refTemplate = Mvd.GetConceptTemplate(entityRule.References.Template.@ref);
                     if (!string.IsNullOrEmpty(entityRule.References.IdPrefix))
                         tPrefix += entityRule.References.IdPrefix;
-                    // todo: xxx this is wrong! what about the following rules?
+                    
                     var t = GetAttributes(refTemplate, entity, dataIndicators, tPrefix);
-                    return t;
+                    tmp.Add(t);
                 }
                 else if (entityRule.AttributeRules != null)
                 {
-                    // todo: xxx this is wrong! what about the following rules?
+                    
                     // rules nested directly
-                    return GetAttributes(entityRule.AttributeRules.AttributeRule, entity, dataIndicators, prefix);
+                    var t = GetAttributes(entityRule.AttributeRules.AttributeRule, entity, dataIndicators, prefix);
+                    tmp.Add(t);
                 }
+            }
+            if (tmp.Any())
+            {
+                return DataFragment.Combine(tmp);
             }
             return null;
         }
