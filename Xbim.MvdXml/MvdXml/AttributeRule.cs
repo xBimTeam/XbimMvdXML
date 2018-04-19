@@ -4,7 +4,7 @@ using log4net;
 // ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
-    public partial class AttributeRule: IReference
+    public partial class AttributeRule: IReference, IRule
     {
         private static readonly ILog Log = LogManager.GetLogger("Xbim.MvdXml.AttributeRule");
 
@@ -47,6 +47,8 @@ namespace Xbim.MvdXml
         /// </summary>
         [System.Xml.Serialization.XmlIgnore()]
         public ConceptTemplate ParentConceptTemplate { get; private set; }
+
+        public string Name => AttributeName;
 
         internal void SetParent(ConceptTemplate conceptTemplate)
         {

@@ -287,7 +287,7 @@ namespace Xbim.MvdXml.DataManagement
             return DataFragment.Combine(f);
         }
         
-        private DataFragment ExtractRulesValues(IPersistEntity entity, DataIndicatorLookup dataIndicators, AttributeRule[] rules, string prefix)
+        private DataFragment ExtractRulesValues(IPersistEntity entity, DataIndicatorLookup dataIndicators, IEnumerable<IRule> rules, string prefix)
         {
             OnProcessing?.Invoke(this, 
                 new EntityProcessingEventArgs(entity, EntityProcessingEventArgs.ProcessingEvent.ExtractRulesValues));
@@ -304,14 +304,21 @@ namespace Xbim.MvdXml.DataManagement
                 var storageName = prefix + attributeRule.RuleID;
                 if (!dataIndicators.Contains(storageName))
                     continue;
-                ExpressMetaProperty retProp;
-                var value = GetFieldValue(entity, attributeRule.AttributeName, out retProp);
-                if (retProp == null)
+
+                // entityRules are already on the right element, attribute rules have to select it
+                object value = entity;
+                if (attributeRule is AttributeRule)
                 {
-                    // propery not found in class... ignore
-                    // 
-                    continue;
+                    ExpressMetaProperty retProp;
+                    value = GetFieldValue(entity, attributeRule.Name, out retProp);
+                    if (retProp == null)
+                    {
+                        // propery not found in class... ignore
+                        // 
+                        continue;
+                    }
                 }
+                
                 // set the value
                 if (dataIndicators.Requires(storageName, DataIndicator.ValueSelectorEnum.Value))
                 {
@@ -399,10 +406,10 @@ namespace Xbim.MvdXml.DataManagement
         
         internal DataFragment FillEntities(EntityRule[] rules, IPersistEntity entity, DataIndicatorLookup dataIndicators, string prefix)
         {
-            
             if (entity == null)
                 return null;
-            var tmp = new List<DataFragment>();
+            var retFragments = new List<DataFragment>();
+
             foreach (var entityRule in rules)
             {
                 // it's probably safe to assume that if we are here then the whole schema is the same of the element we are using
@@ -414,6 +421,13 @@ namespace Xbim.MvdXml.DataManagement
                 if (!filterType.NonAbstractSubTypes.Contains(entity.ExpressType))
                     continue;
 
+                var thisRuleFragments = new List<DataFragment>();
+
+                // get data at this level
+                var t1 = ExtractRulesValues(entity, dataIndicators, entityRule.Yield(), prefix);
+                if (t1 != null)
+                    thisRuleFragments.Add(t1);
+                
                 if (entityRule.References != null)
                 {
                     // need to resolve reference
@@ -426,19 +440,23 @@ namespace Xbim.MvdXml.DataManagement
                         tPrefix += entityRule.References.IdPrefix;
                     
                     var t = GetAttributes(refTemplate, entity, dataIndicators, tPrefix);
-                    tmp.Add(t);
+                    thisRuleFragments.Add(t);
                 }
                 else if (entityRule.AttributeRules != null)
                 {
-                    
                     // rules nested directly
                     var t = GetAttributes(entityRule.AttributeRules.AttributeRule, entity, dataIndicators, prefix);
-                    tmp.Add(t);
+                    thisRuleFragments.Add(t);
+                }
+
+                if (thisRuleFragments.Any())
+                {
+                    retFragments.Add(DataFragment.Combine(thisRuleFragments));
                 }
             }
-            if (tmp.Any())
+            if (retFragments.Any())
             {
-                return DataFragment.Combine(tmp);
+                return DataFragment.Combine(retFragments);
             }
             return null;
         }

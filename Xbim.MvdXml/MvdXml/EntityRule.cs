@@ -3,13 +3,15 @@
 // ReSharper disable once CheckNamespace 
 namespace Xbim.MvdXml
 {
-    public partial class EntityRule: IReference
+    public partial class EntityRule: IReference, IRule
     {
         /// <summary>
         /// Allows the navigation of the xml tree to the Parent
         /// </summary>
         [System.Xml.Serialization.XmlIgnore()]
         public ConceptTemplate ParentConceptTemplate;
+
+        public string Name => EntityName;
 
         internal void SetParent(ConceptTemplate conceptTemplate)
         {

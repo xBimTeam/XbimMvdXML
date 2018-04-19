@@ -86,6 +86,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataManagement\Ext.cs" />
     <Compile Include="DataManagement\Mathematics.cs" />
     <Compile Include="DataManagement\ConceptExtensions.cs" />
     <Compile Include="DataManagement\ConceptTestResult.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="MvdXml\EntityRuleAttributeRules.cs" />
     <Compile Include="MvdXml\ExchangeRequirement.cs" />
     <Compile Include="MvdXml\IReference.cs" />
+    <Compile Include="MvdXml\IRule.cs" />
     <Compile Include="MvdXml\ITemplateRule.cs" />
     <Compile Include="MvdXml\IUnique.cs" />
     <Compile Include="MvdXml\ModelView.cs" />
