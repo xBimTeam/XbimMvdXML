@@ -168,7 +168,7 @@ namespace XbimPlugin.MvdXML
                         selectedIfcClasses.Any(
                             classesToTest =>
                                 classesToTest == thisEntityExpressType ||
-                                classesToTest.SubTypes.Contains(thisEntityExpressType));
+                                classesToTest.NonAbstractSubTypes.Contains(thisEntityExpressType));
                     if (!needTest)
                         continue;
                 }

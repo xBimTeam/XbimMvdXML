@@ -101,7 +101,7 @@ namespace XbimPlugin.MvdXML
             if (_selectedIfcClasses.Any())
             {
                 // if no one of the selected classes contains the element type in the subtypes skip entity
-                if (!_selectedIfcClasses.Any(classToTest => classToTest == thisEntityExpressType || classToTest.SubTypes.Contains(thisEntityExpressType)))
+                if (!_selectedIfcClasses.Any(classToTest => classToTest == thisEntityExpressType || classToTest.NonAbstractSubTypes.Contains(thisEntityExpressType)))
                     return LayerGroup.Null;
             }
             
