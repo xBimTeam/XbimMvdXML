@@ -26,7 +26,7 @@ namespace Xbim.MvdXml.DataManagement
             return $"{DataIndicator}{DataComparison}{DataValue}";
         }
 
-        private static readonly Regex Re = new Regex(@" *(?<varDI>.+?) *(?<cmpRule>[!=\<\>])+ *(?<varVal>.*) *");
+        private static readonly Regex Re = new Regex(@" *(?<varDI>.+?) *(?<cmpRule>[!=\<\>]+) *(?<varVal>.*) *");
 
         internal static IEnumerable<MvdPropertyRuleValue> GetValues(string storageString)
         {
