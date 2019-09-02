@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Linq;
-using log4net;
 
 // ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
     public  partial class ModelView : IUnique, IReference
     {
-        private static readonly ILog Log = LogManager.GetLogger("Xbim.MvdXml.RequirementsRequirement");
+        private static readonly ILogger Log = Common.XbimLogging.CreateLogger<RequirementsRequirement>();
 
         private readonly HashSet<string> _failedLookupMessages = new HashSet<string>();
 
@@ -54,7 +54,7 @@ namespace Xbim.MvdXml
             if (_failedLookupMessages.Contains(exchangeRequirementUuid))
                 return null;
             _failedLookupMessages.Add(exchangeRequirementUuid);
-            Log.Error($"UUID '{exchangeRequirementUuid}' cannot be found in exchange requirements of ModelView '{uuid}'.");
+            Log.LogError($"UUID '{exchangeRequirementUuid}' cannot be found in exchange requirements of ModelView '{uuid}'.");
             return null;
         }
 

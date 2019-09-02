@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Data;
 using System.Xml.Serialization;
-using log4net;
 using Xbim.Common;
 using Xbim.MvdXml.DataManagement;
 
@@ -11,7 +11,7 @@ namespace Xbim.MvdXml
 {
     public partial class ConceptRootApplicability : IReference
     {
-        private static readonly ILog Log = LogManager.GetLogger("Xbim.MvdXml.ConceptRootApplicability");
+        private static readonly ILogger Log = XbimLogging.CreateLogger<ConceptRootApplicability>();
 
         /// <summary>
         /// Allows the navigation of the xml tree 
@@ -54,7 +54,7 @@ namespace Xbim.MvdXml
                 }
                 _conceptTemplate = ModelView.ParentMvdXml.GetConceptTemplate(Template.@ref);
                 if (_conceptTemplate == null)
-                    Log.Error($"Error conceptTemplate {Template.@ref} not found in applicability for {_parentConceptRoot.uuid}.");
+                    Log.LogError($"Error conceptTemplate {Template.@ref} not found in applicability for {_parentConceptRoot.uuid}.");
                 return _conceptTemplate;
             }
         }

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using log4net;
 using Xbim.Common;
 
 // ReSharper disable once CheckNamespace
@@ -9,7 +9,7 @@ namespace Xbim.MvdXml
 {
     public partial class ConceptTemplate : IUnique, IReference
     {
-        private static readonly ILog Log = LogManager.GetLogger("Xbim.MvdXml.CncptTemplate");
+        private static readonly ILogger Log = Common.XbimLogging.CreateLogger<ConceptTemplate>();
 
         /// <summary>
         /// Returns a string that represents the current object.
@@ -58,7 +58,7 @@ namespace Xbim.MvdXml
 
             if (applicableEntity.Length != applicableSchema.Length)
             {
-                Log.Error($"Applicability array lenght mismatch in ConceptTemplate {uuid}.");
+                Log.LogError($"Applicability array lenght mismatch in ConceptTemplate {uuid}.");
                 return false;
             }
 
@@ -102,7 +102,7 @@ namespace Xbim.MvdXml
         internal void DebugTemplateTree(int indentation = 0, string prefix = "")
         {
             var ind = new string('\t', indentation);
-            Log.Debug($"{ind}{ToString()}");
+            Log.LogDebug($"{ind}{ToString()}");
             foreach (var rule in Rules)
             {
                 rule.DebugTree(indentation, prefix);

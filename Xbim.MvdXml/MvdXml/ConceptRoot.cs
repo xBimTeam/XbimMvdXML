@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using log4net;
 using Xbim.Common;
 
 // ReSharper disable once CheckNamespace
@@ -9,7 +9,7 @@ namespace Xbim.MvdXml
 {
     public  partial class ConceptRoot : IUnique, IReference
     {
-        private static readonly ILog Log = LogManager.GetLogger("XbimMvdXml.ConceptRoot.ConceptRoot");
+        private static readonly ILogger Log = Xbim.Common.XbimLogging.CreateLogger<ConceptRoot>();
 
         /// <summary>
         /// Returns a string that represents the current object.
@@ -60,7 +60,7 @@ namespace Xbim.MvdXml
             }
             catch (Exception ex)
             {
-                Log.Error($"applicableRootEntity {applicableRootEntity} not recognised in ConceptRoot '{name}' (uuid: {uuid})", ex);
+                Log.LogError(ex, $"applicableRootEntity {applicableRootEntity} not recognised in ConceptRoot '{name}' (uuid: {uuid})");
                 return false;
             }
 

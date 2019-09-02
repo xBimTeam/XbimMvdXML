@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using log4net;
-using Xbim.Common;
-using Xbim.Common.Metadata;
+﻿using Xbim.Common;
 
 // todo: we need to decide if the namespace Xbim.MvdXml.DataManagement makes sense
 // todo: and how it does relate to Xbim.MvdXml.Validation

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using log4net;
 using Xbim.MvdXml.DataManagement;
 
 // ReSharper disable once CheckNamespace
@@ -28,8 +28,8 @@ namespace Xbim.MvdXml
             }
             catch (Exception ex)
             {
-                var log = LogManager.GetLogger("Xbim.MvdXml.TemplateRulesTemplateRule");
-                log.Error($"Problem in parameters field \"{Parameters}\" for templaterule (Description: \"{Description}\").", ex);
+                var log = Common.XbimLogging.CreateLogger<TemplateRulesTemplateRule>();
+                log.LogError(ex, $"Problem in parameters field \"{Parameters}\" for templaterule (Description: \"{Description}\").");
                 return false;
             }
         }

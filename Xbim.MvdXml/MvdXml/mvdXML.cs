@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
-using log4net;
 using Xbim.MvdXml.DataManagement;
 
 // ReSharper disable once CheckNamespace
@@ -13,7 +13,7 @@ namespace Xbim.MvdXml
     // ReSharper disable once InconsistentNaming
     public partial class mvdXML: IUnique, IReference
     {
-        private static readonly ILog Log = LogManager.GetLogger("Xbim.MvdXml.mvdXML");
+        private static readonly ILogger Log = Common.XbimLogging.CreateLogger<mvdXML>();
 
         private static XmlSerializer _serializer;
         
@@ -57,6 +57,43 @@ namespace Xbim.MvdXml
         {
             var ser = (mvdXML) (Serializer.Deserialize(xreader));
             return ser;
+        }
+
+        /// <summary>
+        /// Writes MVD definitions to mvdXML file.
+        /// </summary>
+        /// <param name="stream">Target stream</param>
+        public void Serialize(Stream stream)
+        {
+            Serializer.Serialize(stream, this);
+        }
+
+        /// <summary>
+        /// Writes MVD definitions to mvdXML file.
+        /// </summary>
+        public void Serialize(TextWriter writer)
+        {
+            Serializer.Serialize(writer, this);
+        }
+
+        /// <summary>
+        /// Writes MVD definitions to mvdXML file.
+        /// </summary>
+        public void Serialize(XmlWriter writer)
+        {
+            Serializer.Serialize(writer, this);
+        }
+
+        public void Save(string path)
+        {
+            using (var writer = XmlWriter.Create(path, new XmlWriterSettings
+            {
+                Indent = true,
+                IndentChars = "  "
+            }))
+            {
+                Serialize(writer);
+            }
         }
 
         /// <summary>
@@ -110,16 +147,16 @@ namespace Xbim.MvdXml
                 var comp = TestCompatibility(fileName);
                 if (comp == CompatibilityResult.InvalidNameSpace)
                 {
-                    Log.Info($"Attempt to fix namespace in xml file [{fileName}].");
+                    Log.LogInformation($"Attempt to fix namespace in xml file [{fileName}].");
                     var newName = Path.GetTempFileName();
                     if (FixNamespace(fileName, newName))
                     {
-                        Log.Info($"Succesfully fixed namespace in xml file [{fileName}].");
+                        Log.LogInformation($"Succesfully fixed namespace in xml file [{fileName}].");
                         return LoadFromFile(newName, false);
                     }
                     else
                     {
-                        Log.Error($"Attempt to fix namespace in invalid xml file [{fileName}] failed.");
+                        Log.LogError($"Attempt to fix namespace in invalid xml file [{fileName}] failed.");
                     }
                 }
             }
@@ -165,7 +202,7 @@ namespace Xbim.MvdXml
             var found = _conceptTemplates.TryGetValue(refUuid, out ret) ;
             if (found || _notifiedMissingUuid)
                 return ret;
-            Log.Error("Some UUID references could not be found in the file. Run integrity tests for details.");
+            Log.LogError("Some UUID references could not be found in the file. Run integrity tests for details.");
             _notifiedMissingUuid = true;
             return null;
         }
@@ -242,7 +279,7 @@ namespace Xbim.MvdXml
             }
             catch (Exception ex)
             {
-                Log.Error("Error cought while attempting namespace fix", ex);
+                Log.LogError("Error cought while attempting namespace fix", ex);
                 return false;
             }
         }
