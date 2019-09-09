@@ -15,6 +15,7 @@
     <RepositoryUrl>https://github.com/xBimTeam/XbimMvdXML</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>BIM, IFC, MVD, mvdxml, model checking, model validation, buildingSMART</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Xbim.Ifc" Version="5.1.267" />

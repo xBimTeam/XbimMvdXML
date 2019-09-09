@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
+using System.Xml.Serialization;
 using Xbim.Ifc4.Kernel;
 using Xbim.Ifc4.MeasureResource;
 using Xbim.Ifc4.PropertyResource;
@@ -20,6 +21,13 @@ namespace Tests
     [DeploymentItem("Schema")]
     public class MvdCreation
     {
+        //[TestMethod]
+        //public void OperatorEnumTest()
+        //{
+        //    var rules = new TemplateRules { }
+        //    var serialiser = new XmlSerializer(typeof(TemplateRules));
+        //}
+
         [TestMethod]
         public void CreateValidationMvdFile()
         {

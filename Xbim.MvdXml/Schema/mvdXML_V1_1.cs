@@ -120,6 +120,7 @@ namespace Xbim.MvdXml {
             }
             set {
                 this.statusField = value;
+                statusFieldSpecified = true;
             }
         }
         
@@ -295,6 +296,7 @@ namespace Xbim.MvdXml {
             }
             set {
                 this.statusField = value;
+                this.statusFieldSpecified = true;
             }
         }
         
@@ -960,6 +962,7 @@ namespace Xbim.MvdXml {
             }
             set {
                 this.statusField = value;
+                this.statusFieldSpecified = true;
             }
         }
         
@@ -1079,6 +1082,7 @@ namespace Xbim.MvdXml {
             }
             set {
                 this.applicabilityField = value;
+                this.applicabilityFieldSpecified = true;
             }
         }
         
@@ -1175,13 +1179,14 @@ namespace Xbim.MvdXml {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttributeAttribute("operator")]
         public TemplateRulesOperator @operator {
             get {
                 return this.operatorField;
             }
             set {
                 this.operatorField = value;
+                this.operatorSpecified = true;
             }
         }
         
@@ -1415,6 +1420,7 @@ namespace Xbim.MvdXml {
             }
             set {
                 this.statusField = value;
+                this.statusFieldSpecified = true;
             }
         }
         
@@ -1607,7 +1613,7 @@ namespace Xbim.MvdXml {
                 return this.uuidField;
             }
             set {
-                this.uuidField = value;
+                this.uuidField = value?.ToLowerInvariant() ;
             }
         }
         
@@ -1652,6 +1658,7 @@ namespace Xbim.MvdXml {
             }
             set {
                 this.statusField = value;
+                this.statusFieldSpecified = true;
             }
         }
         
@@ -1762,6 +1769,7 @@ namespace Xbim.MvdXml {
             }
             set {
                 this.applicabilityField = value;
+                this.applicabilityFieldSpecified = true;
             }
         }
         
@@ -1828,6 +1836,7 @@ namespace Xbim.MvdXml {
             }
             set {
                 this.statusField = value;
+                this.statusFieldSpecified = true;
             }
         }
         
@@ -1929,6 +1938,7 @@ namespace Xbim.MvdXml {
             }
             set {
                 this.categoryField = value;
+                this.categoryFieldSpecified = true;
             }
         }
         
