@@ -8,7 +8,7 @@ namespace Xbim.MvdXml.DataManagement
     {
         private readonly Dictionary<string, List<DataIndicator.ValueSelectorEnum>> _fastIndicators;
 
-        public string ToString()
+        public override string ToString()
         {
             var sb = new StringBuilder();
             foreach (var fastIndicator in _fastIndicators)
