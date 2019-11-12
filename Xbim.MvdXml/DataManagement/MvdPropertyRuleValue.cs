@@ -27,11 +27,16 @@ namespace Xbim.MvdXml.DataManagement
         }
 
         private static readonly Regex Re = new Regex(@" *(?<varDI>.+?) *(?<cmpRule>[!=\<\>]+) *(?<varVal>.*) *");
+        private static readonly Regex ReOper = new Regex(@"( OR | AND | XOR | NOR | NAND | NXOR )", RegexOptions.IgnoreCase);
 
         internal static IEnumerable<MvdPropertyRuleValue> GetValues(string storageString)
         {
             var vals = new List<MvdPropertyRuleValue>();
-            var parts = storageString.Split(new[] { " And ", " and ", " AND ", ";" }, StringSplitOptions.RemoveEmptyEntries);
+            var parts = ReOper.Split(storageString)
+                .Where(p => !ReOper.IsMatch(p))
+                .Select(p => p.Trim())
+                .Where(p => !string.IsNullOrWhiteSpace(p))
+                .ToArray();
            
             foreach (var part in parts)
             {
@@ -54,9 +59,39 @@ namespace Xbim.MvdXml.DataManagement
 
         public static string BuildSql(string storageString, DataTable tableOfReference)
         {
-            var pars = GetValues(storageString);
-            var lst = pars.Select(mvdPropertyRuleValue => mvdPropertyRuleValue.ToSql(tableOfReference)).ToList();
-            return string.Join(" AND ", lst);
+            var parts = ReOper.Split(storageString)
+                .Where(p => !ReOper.IsMatch(p))
+                .Select(p => p.Trim())
+                .Where(p => !string.IsNullOrWhiteSpace(p))
+                .ToArray();
+            var operators = ReOper.Matches(storageString);
+
+            if (parts.Length != operators.Count + 1)
+                throw new Exception("Invalid sytnax");
+
+            var result = new StringBuilder();
+
+            for (int i = 0; i < parts.Length; i++)
+            {
+                var part = parts[i];
+                var v = Re.Match(part);
+                if (v.Success)
+                {
+                    var rv = new MvdPropertyRuleValue(
+                        v.Groups["varDI"].Value,
+                        v.Groups["varVal"].Value,
+                        v.Groups["cmpRule"].Value
+                        );
+                    result.Append(rv.ToSql(tableOfReference));
+
+                    if (i < operators.Count)
+                    {
+                        result.Append(operators[i].Value.ToUpperInvariant());
+                    }
+                }
+            }
+
+            return result.ToString();
         }
 
         private string ToSql(DataTable tableOfReference)
