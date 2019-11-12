@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xbim.MvdXml;
 using Xbim.MvdXml.DataManagement;
 using Xbim.Ifc;
+using Xbim.Ifc4.SharedBldgElements;
 
 namespace Tests
 {
@@ -38,5 +39,27 @@ namespace Tests
             
             model.Close();
         }
+
+
+        [TestMethod]
+        [DeploymentItem(@"TestFiles")]
+        public void MinimalWindowTest()
+        {
+            var model = IfcStore.Open(@"MinimalWindow.ifc");
+            var mvd = mvdXML.LoadFromFile(@"MinimalWindow.mvdXML");
+            
+            var doc = new MvdEngine(mvd, model);
+            var conceptRoot = doc.ConceptRoots.FirstOrDefault();
+            var window = model.Instances.FirstOrDefault<IfcWindow>();
+
+            Assert.IsNotNull(conceptRoot);
+            Assert.IsNotNull(window);
+            var app = conceptRoot.AppliesTo(window);
+            Assert.IsTrue(app, "Applicability not matched");
+
+            var result = conceptRoot.Concepts.FirstOrDefault().Test(window, Concept.ConceptTestMode.Raw);
+            Assert.AreEqual(ConceptTestResult.Pass, result);
+        }
+
     }
 }

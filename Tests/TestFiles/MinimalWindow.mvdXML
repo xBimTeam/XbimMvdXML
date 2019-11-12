@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mvdXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" uuid="2bf81db1-a098-4bf2-bb47-5eb772c9a946" name="LOIN Representation" xmlns="http://buildingsmart-tech.org/mvd/XML/1.1">
+  <Templates>
+    <ConceptTemplate uuid="17367edd-3fbc-4677-b319-55f59221d47b" name="Property Sets and Classification References for Objects and Types" applicableSchema="IFC4" applicableEntity="IfcObject">
+      <Rules>
+        <AttributeRule AttributeName="IsDefinedBy">
+          <EntityRules>
+            <EntityRule EntityName="IfcRelDefinesByProperties">
+              <AttributeRules>
+                <AttributeRule AttributeName="RelatingPropertyDefinition">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcPropertySet">
+                      <References IdPrefix="O_">
+                        <Template ref="1976e6cb-5433-4a98-bc91-55c371bf04d8" />
+                      </References>
+                    </EntityRule>
+                  </EntityRules>
+                </AttributeRule>
+              </AttributeRules>
+            </EntityRule>
+          </EntityRules>
+        </AttributeRule>
+        <AttributeRule AttributeName="IsTypedBy">
+          <EntityRules>
+            <EntityRule EntityName="IfcRelDefinesByType">
+              <AttributeRules>
+                <AttributeRule AttributeName="RelatingType">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcTypeObject">
+                      <AttributeRules>
+                        <AttributeRule AttributeName="HasPropertySets">
+                          <EntityRules>
+                            <EntityRule EntityName="IfcPropertySet">
+                              <References IdPrefix="T_">
+                                <Template ref="1976e6cb-5433-4a98-bc91-55c371bf04d8" />
+                              </References>
+                            </EntityRule>
+                          </EntityRules>
+                        </AttributeRule>
+                        <AttributeRule AttributeName="HasAssociations">
+                          <EntityRules>
+                            <EntityRule EntityName="IfcRelAssociatesClassification">
+                              <References IdPrefix="T_">
+                                <Template ref="81045f46-b65c-48fe-8460-bbb636cf4568" />
+                              </References>
+                            </EntityRule>
+                          </EntityRules>
+                        </AttributeRule>
+                      </AttributeRules>
+                    </EntityRule>
+                  </EntityRules>
+                </AttributeRule>
+              </AttributeRules>
+            </EntityRule>
+          </EntityRules>
+        </AttributeRule>
+        <AttributeRule AttributeName="HasAssociations">
+          <EntityRules>
+            <EntityRule EntityName="IfcRelAssociatesClassification">
+              <References IdPrefix="O_">
+                <Template ref="81045f46-b65c-48fe-8460-bbb636cf4568" />
+              </References>
+            </EntityRule>
+          </EntityRules>
+        </AttributeRule>
+      </Rules>
+    </ConceptTemplate>
+    <ConceptTemplate uuid="81045f46-b65c-48fe-8460-bbb636cf4568" name="Classification reference" applicableSchema="IFC4" applicableEntity="IfcRelAssociatesClassification" isPartial="true">
+      <Rules>
+        <AttributeRule AttributeName="RelatingClassification">
+          <EntityRules>
+            <EntityRule EntityName="IfcClassificationReference">
+              <AttributeRules>
+                <AttributeRule AttributeName="Name" RuleID="CRefName">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcLabel" />
+                  </EntityRules>
+                </AttributeRule>
+                <AttributeRule AttributeName="Identification" RuleID="CRefId">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcIdentifier" />
+                  </EntityRules>
+                </AttributeRule>
+              </AttributeRules>
+            </EntityRule>
+          </EntityRules>
+        </AttributeRule>
+      </Rules>
+    </ConceptTemplate>
+    <ConceptTemplate uuid="a193a365-7fcb-4419-a66c-9cb4555b70fb" name="Single value" applicableSchema="IFC4" applicableEntity="IfcPropertySingleValue" isPartial="true">
+      <Rules>
+        <AttributeRule AttributeName="NominalValue" RuleID="PSingleValue">
+          <EntityRules>
+            <EntityRule EntityName="IfcValue" />
+          </EntityRules>
+        </AttributeRule>
+      </Rules>
+    </ConceptTemplate>
+    <ConceptTemplate uuid="94a2b9ac-8f81-4a83-ac30-42a0843a4cb0" name="Reference value" applicableSchema="IFC4" applicableEntity="IfcPropertyReferenceValue" isPartial="true">
+      <Rules>
+        <AttributeRule AttributeName="PropertyReference">
+          <EntityRules>
+            <EntityRule EntityName="IfcDocumentReference">
+              <AttributeRules>
+                <AttributeRule AttributeName="Name" RuleID="PRefDocName">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcLabel" />
+                  </EntityRules>
+                </AttributeRule>
+                <AttributeRule AttributeName="Description" RuleID="PRefDocDescription">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcText" />
+                  </EntityRules>
+                </AttributeRule>
+              </AttributeRules>
+            </EntityRule>
+            <EntityRule EntityName="IfcClassificationReference">
+              <AttributeRules>
+                <AttributeRule AttributeName="Name" RuleID="PRefClassificationName">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcLabel" />
+                  </EntityRules>
+                </AttributeRule>
+                <AttributeRule AttributeName="Description" RuleID="PRefClassificationDescription">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcText" />
+                  </EntityRules>
+                </AttributeRule>
+                <AttributeRule AttributeName="Identification" RuleID="PRefClassificationIdentifier">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcIdentifier" />
+                  </EntityRules>
+                </AttributeRule>
+              </AttributeRules>
+            </EntityRule>
+            <EntityRule EntityName="IfcOrganization">
+              <AttributeRules>
+                <AttributeRule AttributeName="Name" RuleID="PRefOrgName">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcLabel" />
+                  </EntityRules>
+                </AttributeRule>
+                <AttributeRule AttributeName="Description" RuleID="PRefOrgDescription">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcText" />
+                  </EntityRules>
+                </AttributeRule>
+                <AttributeRule AttributeName="Identification" RuleID="PRefOrgIdentification">
+                  <EntityRules>
+                    <EntityRule EntityName="IfcIdentifier" />
+                  </EntityRules>
+                </AttributeRule>
+              </AttributeRules>
+            </EntityRule>
+          </EntityRules>
+        </AttributeRule>
+      </Rules>
+    </ConceptTemplate>
+    <ConceptTemplate uuid="f1f4bad5-806e-407a-a41d-a7fe501084f5" name="Property" applicableSchema="IFC4" applicableEntity="IfcProperty" isPartial="true">
+      <Rules>
+        <AttributeRule AttributeName="Name" RuleID="PName">
+          <EntityRules>
+            <EntityRule EntityName="IfcIdentifier" />
+          </EntityRules>
+        </AttributeRule>
+        <AttributeRule AttributeName="Description" RuleID="PDescription">
+          <EntityRules>
+            <EntityRule EntityName="IfcText" />
+          </EntityRules>
+        </AttributeRule>
+      </Rules>
+    </ConceptTemplate>
+    <ConceptTemplate uuid="1976e6cb-5433-4a98-bc91-55c371bf04d8" name="Property Sets" applicableSchema="IFC4" applicableEntity="IfcPropertySet" isPartial="true">
+      <Rules>
+        <AttributeRule AttributeName="Name" RuleID="PsetName">
+          <EntityRules>
+            <EntityRule EntityName="IfcLabel" />
+          </EntityRules>
+        </AttributeRule>
+        <AttributeRule AttributeName="Description" RuleID="PsetDescription">
+          <EntityRules>
+            <EntityRule EntityName="IfcText" />
+          </EntityRules>
+        </AttributeRule>
+        <AttributeRule AttributeName="HasProperties">
+          <EntityRules>
+            <EntityRule EntityName="IfcProperty">
+              <References>
+                <Template ref="f1f4bad5-806e-407a-a41d-a7fe501084f5" />
+              </References>
+            </EntityRule>
+            <EntityRule EntityName="IfcPropertySingleValue">
+              <References>
+                <Template ref="a193a365-7fcb-4419-a66c-9cb4555b70fb" />
+              </References>
+            </EntityRule>
+            <EntityRule EntityName="IfcPropertyReferenceValue">
+              <References>
+                <Template ref="94a2b9ac-8f81-4a83-ac30-42a0843a4cb0" />
+              </References>
+            </EntityRule>
+          </EntityRules>
+        </AttributeRule>
+      </Rules>
+    </ConceptTemplate>
+  </Templates>
+  <Views>
+    <ModelView uuid="e43dde34-0d55-40c2-aaa1-a0699c0f6967" name="LOIN Representation" code="LOIN" applicableSchema="IFC4">
+      <Definitions>
+        <Definition>
+          <Body>Requirements defined using LOIN, represented as validation MVD</Body>
+        </Definition>
+      </Definitions>
+      <ExchangeRequirements>
+        <ExchangeRequirement applicability="export" uuid="cf1135b3-9ce2-4f20-a558-55000e3b9435" name="Client-Preliminary design-Handoved">
+          <Definitions>
+            <Definition>
+              <Body>Actor: Client, Milestone: Preliminary design, Reason: Handoved</Body>
+            </Definition>
+          </Definitions>
+        </ExchangeRequirement>
+      </ExchangeRequirements>
+      <Roots>
+        <ConceptRoot uuid="53eff172-2b6f-4fe0-bbaf-677ca30d7a17" name="Window" applicableRootEntity="IfcObject">
+          <Definitions>
+            <Definition>
+              <Body>Window is a building element used to controll light flow into the space</Body>
+            </Definition>
+          </Definitions>
+          <Applicability>
+            <Template ref="17367edd-3fbc-4677-b319-55f59221d47b" />
+            <TemplateRules operator="or">
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="O_CRefName[Value]='E456.789.12' OR O_CRefId[Value]='E456.789.12'" />
+                <TemplateRule Parameters="T_CRefName[Value]='E456.789.12' OR T_CRefId[Value]='E456.789.12'" />
+              </TemplateRules>
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="O_CRefName[Value]='Window' OR O_CRefId[Value]='Window'" />
+                <TemplateRule Parameters="T_CRefName[Value]='Window' OR T_CRefId[Value]='Window'" />
+              </TemplateRules>
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="O_PName[Value]='Classification' AND O_PSingleValue[Value]=E456.789.12" />
+                <TemplateRules operator="and">
+                  <TemplateRule Parameters="T_PName[Value]='Classification' AND T_PSingleValue[Value]=E456.789.12" />
+                  <TemplateRules operator="not">
+                    <TemplateRule Parameters="O_PName[Value]='Classification'" />
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+              <TemplateRules operator="or">
+                <TemplateRule Parameters="O_PName[Value]='Classification' AND O_PSingleValue[Value]=Window" />
+                <TemplateRules operator="and">
+                  <TemplateRule Parameters="T_PName[Value]='Classification' AND T_PSingleValue[Value]=Window" />
+                  <TemplateRules operator="not">
+                    <TemplateRule Parameters="O_PName[Value]='Classification'" />
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+              <TemplateRules operator="or">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="O_PName[Value]='Classification' AND O_PRefClassificationName[Value]=E456.789.12" />
+                  <TemplateRules operator="and">
+                    <TemplateRule Parameters="T_PName[Value]='Classification' AND T_PRefClassificationName[Value]=E456.789.12" />
+                    <TemplateRules operator="not">
+                      <TemplateRule Parameters="O_PName[Value]='Classification'" />
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="O_PName[Value]='Classification' AND O_PRefClassificationIdentifier[Value]=E456.789.12" />
+                  <TemplateRules operator="and">
+                    <TemplateRule Parameters="T_PName[Value]='Classification' AND T_PRefClassificationIdentifier[Value]=E456.789.12" />
+                    <TemplateRules operator="not">
+                      <TemplateRule Parameters="O_PName[Value]='Classification'" />
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+              <TemplateRules operator="or">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="O_PName[Value]='Classification' AND O_PRefClassificationName[Value]=Window" />
+                  <TemplateRules operator="and">
+                    <TemplateRule Parameters="T_PName[Value]='Classification' AND T_PRefClassificationName[Value]=Window" />
+                    <TemplateRules operator="not">
+                      <TemplateRule Parameters="O_PName[Value]='Classification'" />
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="O_PName[Value]='Classification' AND O_PRefClassificationIdentifier[Value]=Window" />
+                  <TemplateRules operator="and">
+                    <TemplateRule Parameters="T_PName[Value]='Classification' AND T_PRefClassificationIdentifier[Value]=Window" />
+                    <TemplateRules operator="not">
+                      <TemplateRule Parameters="O_PName[Value]='Classification'" />
+                    </TemplateRules>
+                  </TemplateRules>
+                </TemplateRules>
+              </TemplateRules>
+            </TemplateRules>
+          </Applicability>
+          <Concepts>
+            <Concept uuid="a25570a9-788c-49f3-9236-7e2561570ba2" name="Window">
+              <Definitions>
+                <Definition>
+                  <Body>Window is a building element used to controll light flow into the space</Body>
+                </Definition>
+              </Definitions>
+              <Template ref="17367edd-3fbc-4677-b319-55f59221d47b" />
+              <Requirements>
+                <Requirement exchangeRequirement="cf1135b3-9ce2-4f20-a558-55000e3b9435" requirement="mandatory" applicability="both" />
+              </Requirements>
+              <TemplateRules operator="and">
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="O_PsetName[Value]='FM Requirements' AND O_PName[Value]='Width' AND O_PSingleValue[Exists]=TRUE" />
+                  <TemplateRule Parameters="T_PsetName[Value]='FM Requirements' AND T_PName[Value]='Width' AND T_PSingleValue[Exists]=TRUE" />
+                </TemplateRules>
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="O_PsetName[Value]='FM Requirements' AND O_PName[Value]='Height' AND O_PSingleValue[Exists]=TRUE" />
+                  <TemplateRule Parameters="T_PsetName[Value]='FM Requirements' AND T_PName[Value]='Height' AND T_PSingleValue[Exists]=TRUE" />
+                </TemplateRules>
+                <TemplateRules operator="or">
+                  <TemplateRule Parameters="O_PsetName[Value]='FM Requirements' AND O_PName[Value]='BarCode' AND O_PSingleValue[Exists]=TRUE" />
+                  <TemplateRule Parameters="T_PsetName[Value]='FM Requirements' AND T_PName[Value]='BarCode' AND T_PSingleValue[Exists]=TRUE" />
+                </TemplateRules>
+              </TemplateRules>
+            </Concept>
+          </Concepts>
+        </ConceptRoot>
+      </Roots>
+    </ModelView>
+  </Views>
+</mvdXML>
