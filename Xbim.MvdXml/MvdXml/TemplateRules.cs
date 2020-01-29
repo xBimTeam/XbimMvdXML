@@ -61,6 +61,8 @@ namespace Xbim.MvdXml
         {
             var ind = ((ITemplateRule)this).RecursiveProperiesRuleValues();
             var all = ind?.Select(x => x.DataIndicator);
+            if (all == null)
+                return new List<DataIndicator>();
             return all.Distinct().ToList() 
                 ?? new List<DataIndicator>();
         }
