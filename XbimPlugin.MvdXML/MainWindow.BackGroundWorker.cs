@@ -226,7 +226,7 @@ namespace XbimPlugin.MvdXML
                 }
                 catch (Exception ex)
                 {
-                    Log.Error($"Error processing entity #{entity.EntityLabel}.", ex);
+                    // Log.Error($"Error processing entity #{entity.EntityLabel}.", ex);
                 }
             }
         }

@@ -38,7 +38,7 @@ namespace XbimPlugin.MvdXML.ModelExtraction
             };
 
 
-            using (var iModel = IfcStore.Create(model.IfcSchemaVersion, XbimStoreType.InMemoryModel))
+            using (var iModel = IfcStore.Create(model.SchemaVersion, Xbim.IO.XbimStoreType.InMemoryModel))
             {
                 using (var txn = iModel.BeginTransaction("Insert copy"))
                 {
