@@ -29,7 +29,7 @@ namespace Xbim.MvdXml
             catch (Exception ex)
             {
                 var log = Common.XbimLogging.CreateLogger<TemplateRulesTemplateRule>();
-                log.LogError(ex, $"Problem in parameters field \"{Parameters}\" for templaterule (Description: \"{Description}\").");
+                log.LogError($"Problem in parameters field \"{Parameters}\" for templaterule (Description: \"{Description}\").", ex);
                 return false;
             }
         }

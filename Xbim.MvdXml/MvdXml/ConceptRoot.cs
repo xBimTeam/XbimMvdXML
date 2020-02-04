@@ -60,7 +60,7 @@ namespace Xbim.MvdXml
             }
             catch (Exception ex)
             {
-                Log.LogError(ex, $"applicableRootEntity {applicableRootEntity} not recognised in ConceptRoot '{name}' (uuid: {uuid})");
+                Log.LogError($"applicableRootEntity {applicableRootEntity} not recognised in ConceptRoot '{name}' (uuid: {uuid})", ex);
                 return false;
             }
 

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>XbimPlugin.MvdXML</id>
-    <version>4.0.1-V0011</version>
+    <version>5.1.0-V001</version>
     <title>XbimPlugin.MvdXML</title>
     <authors>xBIM team</authors>
     <owners>xBIM team</owners>
@@ -15,10 +15,9 @@
     <language>en-GB</language>
     <!-- the XplorerPlugin tag is used to identify plugins available for donwload from XbimXplorer-->
     <tags>MvdXML, XplorerPlugin</tags>
-    <!-- dependencies need to be worked out, at this stage they will be ignored during install -->
+    <!-- dependencies are used to determine the compatibiliy with the xplorer version... chose carefully -->
     <dependencies>
-      <dependency id="Xbim.WindowsUI" version="4.0.12-V0069" />
-      <dependency id="Xbim.Essentials" version="4.0.30-V033" />
+      <dependency id="Xbim.WindowsUI" version="[5.1.177-develop, 6)" />
     </dependencies>
   </metadata>
   <files>
