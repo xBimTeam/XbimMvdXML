@@ -25,8 +25,7 @@ namespace XbimPlugin.MvdXML
 
         private static WpfMeshGeometry3D PrepareMesh(XbimColour col)
         {
-            var matRed = new WpfMaterial();
-            matRed.CreateMaterial(col);
+            var matRed = new WpfMaterial(col);
             var mg = new WpfMeshGeometry3D(matRed, matRed);
             return mg;
         }
@@ -161,7 +160,7 @@ namespace XbimPlugin.MvdXML
             _colourNa = nonApplicable;
         }
         
-        void ILayerStyler.SetFederationEnvironment(IReferencedModel refModel)
+        public void SetFederationEnvironment(IReferencedModel refModel)
         {
             
         }

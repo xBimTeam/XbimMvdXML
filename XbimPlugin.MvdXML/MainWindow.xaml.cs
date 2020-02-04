@@ -30,6 +30,7 @@ using Xbim.Ifc;
 using Xbim.Common.Metadata;
 using Xbim.MvdXml.Integrity;
 using XbimPlugin.MvdXML.ModelExtraction;
+using Microsoft.Extensions.Logging;
 
 namespace XbimPlugin.MvdXML
 {
@@ -39,7 +40,7 @@ namespace XbimPlugin.MvdXML
     [XplorerUiElement(PluginWindowUiContainerEnum.LayoutAnchorable, PluginWindowActivation.OnMenu, "MvdXML")]
     public partial class MainWindow : IXbimXplorerPluginWindow
     {
-        
+        private static readonly ILogger Log = Xbim.Common.XbimLogging.CreateLogger<MvdEngine>();
 
         public MainWindow()
         {
@@ -159,7 +160,7 @@ namespace XbimPlugin.MvdXML
         private static void NotifyError(string msg, Exception ex)
         {
             // log directly; ex is changed by the loop below.
-            // Log.Error(msg, ex);
+            Log.LogError(msg, ex);
 
             // attempt to produce a richer UI feedback.
             var sb = new StringBuilder();
@@ -820,7 +821,7 @@ namespace XbimPlugin.MvdXML
             }
             catch (Exception ex)
             {
-                // Log.Error(ex.Message, ex);
+                Log.LogError(ex.Message, ex);
             }
         }
         

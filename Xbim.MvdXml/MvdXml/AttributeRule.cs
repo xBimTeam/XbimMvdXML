@@ -9,7 +9,7 @@ namespace Xbim.MvdXml
         private static readonly ILogger Log = Xbim.Common.XbimLogging.CreateLogger<AttributeRule>();
 
         /// <summary>
-        /// Logs debug information about the tree in Log4Net.
+        /// Logs debug information about the tree.
         /// </summary>
         /// <param name="indentation">the level of indentation of the current branch</param>
         /// <param name="prefix">prefix for variable names</param>

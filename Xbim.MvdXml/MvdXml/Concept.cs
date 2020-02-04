@@ -2,17 +2,13 @@
 using System.Data;
 using System.Linq;
 using System.Xml.Serialization;
-//using log4net;
 using Xbim.MvdXml.DataManagement;
 using Xbim.Common;
 
-// ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
     public  partial class Concept : IUnique, IReference
     {
-        // private static readonly ILog Log = LogManager.GetLogger("Xbim.XbimMvdXml.Concept");
-
         /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
@@ -158,9 +154,6 @@ namespace Xbim.MvdXml
                             ? ConceptTestResult.Pass
                             : ConceptTestResult.Fail;
                     }
-//#if DEBUG
-//                    Log.Debug($"Concept {uuid} testing {mode} returning {ret}");
-//#endif
                     _dicCacheRaw.Add(entityLabel, ret);
                     break;
                 // ReSharper disable once RedundantCaseLabel // for readability of code.
@@ -169,9 +162,6 @@ namespace Xbim.MvdXml
                     if (_dicCacheWithReq.TryGetValue(entityLabel, out hasIt))
                         return hasIt;
                     ret = (ConceptTestResult)Requirements.Select(x => (int)x.Test(ent)).DefaultIfEmpty(0).Max();
-//#if DEBUG
-//                    Log.Debug($"Concept {uuid} testing {mode} returning {ret}");
-//#endif
                     _dicCacheWithReq.Add(entityLabel, ret);
                     break;
             }

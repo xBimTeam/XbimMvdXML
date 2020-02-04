@@ -77,7 +77,7 @@ namespace XbimPlugin.MvdXML.Viewing
                     case ConceptTestResult.Fail:
                         return Brushes.Red;
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        return Brushes.Black;
                 }                
             }
         }

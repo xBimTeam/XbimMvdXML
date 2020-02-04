@@ -10,13 +10,14 @@ using Xbim.Common.Metadata;
 using Xbim.MvdXml;
 using Xbim.MvdXml.DataManagement;
 using XbimPlugin.MvdXML.Viewing;
+using Microsoft.Extensions.Logging;
 
 // todo: there's scope for moving/refactoring this class to the mvdxml dll, to establish some model validation 
 // and reporting functions
 
 namespace XbimPlugin.MvdXML
 {
-    public partial class MainWindow
+    public partial class MainWindow: IDisposable
     {
         private BackgroundWorker _backgroundTester = new BackgroundWorker();
 
@@ -226,7 +227,7 @@ namespace XbimPlugin.MvdXML
                 }
                 catch (Exception ex)
                 {
-                    // Log.Error($"Error processing entity #{entity.EntityLabel}.", ex);
+                    Log.LogError($"Error processing entity #{entity.EntityLabel}.", ex);
                 }
             }
         }
@@ -236,5 +237,44 @@ namespace XbimPlugin.MvdXML
             Action<T> addMethod = collection.Add;
             Application.Current.Dispatcher.BeginInvoke(addMethod, item);
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects).
+                    _backgroundTester.Dispose();
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+                // TODO: set large fields to null.
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+        // ~MainWindow()
+        // {
+        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+        //   Dispose(false);
+        // }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above.
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
+
+
     }
 }
