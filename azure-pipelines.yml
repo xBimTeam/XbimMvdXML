@@ -113,6 +113,13 @@ steps:
     publishFeedCredentials: 'MyGetDev'
     versioningScheme: byEnvVar
     versionEnvVar: packageversion
+    
+- task:NuGetCommand@2
+  displayName: 'Create plugin's nupkg to upload'
+    command: pack
+    packagesToPack: 'XbimPlugin.MvdXML.plugin.nuspec'
+    packDestination: $(Build.ArtifactStagingDirectory)
+  
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish artifacts'

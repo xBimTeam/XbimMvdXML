@@ -2,12 +2,12 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>XbimPlugin.MvdXML</id>
-    <version>5.1.107-develop</version>
+    <version>$packageversion$</version>
     <title>XbimPlugin.MvdXML</title>
     <authors>xBIM team</authors>
     <owners>xBIM team</owners>
-    <licenseUrl>http://xbim.codeplex.com/license</licenseUrl>
-    <projectUrl>http://xbim.codeplex.com/</projectUrl>
+    <license type="expression">CDDL-1.1</license>
+    <projectUrl>https://github.com/xBimTeam/XbimMvdXML</projectUrl>
     <iconUrl>http://download-codeplex.sec.s-msft.com/Download?ProjectName=xbim&amp;DownloadId=373774&amp;Build=20335</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Integration with Xplorer UI for MvdXML model validation.</description>
@@ -15,7 +15,7 @@
     <language>en-GB</language>
     <!-- the XplorerPlugin tag is used to identify plugins available for donwload from XbimXplorer-->
     <tags>MvdXML, XplorerPlugin</tags>
-    <!-- dependencies are used to determine the compatibiliy with the xplorer version... chose carefully -->
+    <!-- dependencies are used to determine the compatibiliy with the xplorer version... choose carefully -->
     <dependencies>
       <dependency id="Xbim.WindowsUI" version="[5.1.177-develop, 6)" />
     </dependencies>
