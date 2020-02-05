@@ -127,7 +127,7 @@ steps:
 
 ## Next attempt following https://docs.microsoft.com/en-us/nuget/reference/msbuild-targets#packing-using-a-nuspec
 ## I suspect I need to restore the project first but not sure how to do that.
-- script: msbuild -t:pack XbimPlugin.MvdXML/XbimPlugin.MvdXML.csproj /p:PackageVersion=$(packageversion) p:NuspecFile=XbimPlugin.MvdXML.plugin.nuspec
+- script: msbuild -t:pack XbimPlugin.MvdXML/XbimPlugin.MvdXML.csproj /p:NuspecFile=XbimPlugin.MvdXML.plugin.nuspec
    displayName: 'XbimPlugin.MvdXML - packing'
 
 - task: PublishBuildArtifacts@1
