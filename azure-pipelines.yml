@@ -114,6 +114,10 @@ steps:
     versioningScheme: byEnvVar
     versionEnvVar: packageversion
 
+# Xplorer plugin 
+- script: dotnet pack XbimPlugin.MvdXML/XbimPlugin.MvdXML.csproj -c Release -o $(Build.BinariesDirectory) /p:PackageVersion=$(packageversion) p:NuspecFile=XbimPlugin.MvdXML.plugin.nuspec
+  displayName: 'Xbim.MvdXml - packing'
+
 - task: PublishBuildArtifacts@1
   displayName: 'Publish artifacts'
     
