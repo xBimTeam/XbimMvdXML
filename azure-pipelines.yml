@@ -118,15 +118,17 @@ steps:
 
 ## tried the following code following inspiration from: https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-pack
 ## but resulted in 
-## MSBUILD : error MSB1008: Only one project can be specified, for error in missing slash, trying again but probably dotnet will not work on old msproj format
+## MSBUILD : error MSB1008: Only one project can be specified, for error in missing slash, 
+## trying again but with correct slash resulted in 
+## error MSB4057: The target "pack" does not exist in the project
 ##
-- script: dotnet pack XbimPlugin.MvdXML/XbimPlugin.MvdXML.csproj -c Release -o $(Build.BinariesDirectory) /p:PackageVersion=$(packageversion) /p:NuspecFile=XbimPlugin.MvdXML.plugin.nuspec
-  displayName: 'XbimPlugin.MvdXML - packing'
-
-## Next attempt following https://docs.microsoft.com/en-us/nuget/reference/msbuild-targets#packing-using-a-nuspec
-## - script: msbuild -t:pack XbimPlugin.MvdXML/XbimPlugin.MvdXML.csproj /p:PackageVersion=$(packageversion) p:NuspecFile=XbimPlugin.MvdXML.plugin.nuspec
+## - script: dotnet pack XbimPlugin.MvdXML/XbimPlugin.MvdXML.csproj -c Release -o $(Build.BinariesDirectory) /p:PackageVersion=$(packageversion) /p:NuspecFile=XbimPlugin.MvdXML.plugin.nuspec
 ##   displayName: 'XbimPlugin.MvdXML - packing'
 
+## Next attempt following https://docs.microsoft.com/en-us/nuget/reference/msbuild-targets#packing-using-a-nuspec
+## I suspect I need to restore the project first but not sure how to do that.
+- script: msbuild -t:pack XbimPlugin.MvdXML/XbimPlugin.MvdXML.csproj /p:PackageVersion=$(packageversion) p:NuspecFile=XbimPlugin.MvdXML.plugin.nuspec
+   displayName: 'XbimPlugin.MvdXML - packing'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish artifacts'
