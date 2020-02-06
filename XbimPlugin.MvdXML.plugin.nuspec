@@ -8,7 +8,7 @@
     <owners>xBIM team</owners>
     <license type="expression">CDDL-1.1</license>
     <projectUrl>https://github.com/xBimTeam/XbimMvdXML</projectUrl>
-    <iconUrl>http://download-codeplex.sec.s-msft.com/Download?ProjectName=xbim&amp;DownloadId=373774&amp;Build=20335</iconUrl>
+    <icon>Icon.png</icon>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>Integration with Xplorer UI for MvdXML model validation.</description>
     <summary>.</summary>
@@ -17,11 +17,14 @@
     <tags>MvdXML, XplorerPlugin</tags>
     <!-- dependencies are used to determine the compatibiliy with the xplorer version... choose carefully -->
     <dependencies>
-      <dependency id="Xbim.WindowsUI" version="[5.1.177-develop, 6)" />
+		<group targetFramework="net45">
+			<dependency id="Xbim.WindowsUI" version="[5.1.177-develop, 6)" />
+		</group>
     </dependencies>
   </metadata>
   <files>
     <file src="XbimPlugin.MvdXML\bin\Release\Xbim.MvdXml.dll" target="lib\net45\Xbim.MvdXml.dll" />
     <file src="XbimPlugin.MvdXML\bin\Release\XbimPlugin.MvdXML.exe" target="lib\net45\XbimPlugin.MvdXML.exe" />
+    <file src="Icon.png" target="Icon.png" />
   </files>
 </package>
