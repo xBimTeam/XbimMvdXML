@@ -114,7 +114,21 @@ steps:
     versioningScheme: byEnvVar
     versionEnvVar: packageversion
 
+##  ___ _           _      
+## | _ \ |_  _ __ _(_)_ _  
+## |  _/ | || / _` | | ' \ 
+## |_| |_|\_,_\__, |_|_||_|
+##            |___/        
+##
 ## Plugin preparation and publihing
+
+# nuget restore sln
+- task: NuGetCommand@2
+  displayName: 'NuGet restore solution'
+  inputs:
+    restoreSolution: '*.sln'
+    feedsToUse: config
+    nugetConfigPath: 'nuget.config'
 
 # build
 - task: VSBuild@1
