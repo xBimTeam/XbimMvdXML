@@ -126,7 +126,7 @@ steps:
 
 # nuget restore sln
 - task: NuGetCommand@2
-  displayName: 'NuGet restore solution'
+  displayName: 'Plugin - NuGet restore solution'
   inputs:
     restoreSolution: '*.sln'
     feedsToUse: config
@@ -134,7 +134,7 @@ steps:
 
 # build
 - task: VSBuild@1
-  displayName: 'Build solution'
+  displayName: 'Plugin - Build solution'
   inputs:
     solution: '*.sln' # the plugin project alone does not build.
     msbuildArgs: '/t:build'
@@ -143,13 +143,24 @@ steps:
 
 # Pack XplorerPlugin.Bcf with nuget and nuspec. 
 - task: NuGetCommand@2
-  displayName: 'NuGet plugin pack'
+  displayName: 'Plugin - NuGet pack'
   inputs:
     command: pack
     packagesToPack: 'XbimPlugin.MvdXML.plugin.nuspec'
     configuration: $(BuildConfiguration)
     versioningScheme: byEnvVar
     versionEnvVar: packageversion
+    
+# Publish plugin to custom myget service connection.
+- task: NuGetCommand@2
+  name: 'Plugin - MyGetPublishing_Plugin'
+  inputs:
+    command: push
+    nuGetFeedType: external
+    publishFeedCredentials: 'MyGetPlugins'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/XbimPlugin.*.nupkg;' # Required when command == Push
+    versioningScheme: byEnvVar
+    versionEnvVar: version
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish artifacts'
