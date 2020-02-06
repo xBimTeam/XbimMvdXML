@@ -120,14 +120,14 @@ steps:
 - task: VSBuild@1
   displayName: 'Build solution'
   inputs:
-    solution: 'XbimPlugin.MvdXML/XbimPlugin.MvdXML.csproj'
+    solution: '*.sln' # the plugin project alone does not build.
     msbuildArgs: '/t:build'
     platform: 'Any CPU'
     configuration: '$(BuildConfiguration)'
 
 # Pack XplorerPlugin.Bcf with nuget and nuspec. 
 - task: NuGetCommand@2
-  displayName: 'NuGet pack BCF_Plugin'
+  displayName: 'NuGet plugin pack'
   inputs:
     command: pack
     packagesToPack: 'XbimPlugin.MvdXML.plugin.nuspec'
