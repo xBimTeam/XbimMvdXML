@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net47</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net472</TargetFrameworks>
     <PackageId>Xbim.MvdXML</PackageId>
-    <Version>5.1.1</Version>
+    <Version>5.1.2</Version>
     <Authors>Claudio Benghi</Authors>
     <Company>xBIM Team</Company>
     <Product>Xbim.MvdXML</Product>
@@ -19,7 +19,7 @@
     <PackageIcon>Icon.png</PackageIcon>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Xbim.Ifc" Version="5.1.283-develop" />
+    <PackageReference Include="Xbim.Ifc" Version="5.1.329" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
