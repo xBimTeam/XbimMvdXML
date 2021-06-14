@@ -19,10 +19,12 @@
     <PackageIcon>Icon.png</PackageIcon>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Xbim.Ifc" Version="5.1.329" />
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Properties\**" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <PackageReference Include="Xbim.Ifc" Version="5.1.329" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Icon.png">
