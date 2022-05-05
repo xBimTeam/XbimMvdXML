@@ -27,7 +27,7 @@ namespace Tests
 
             var f4 = new DataFragment("ValueMulti", new List<object>() {"Multi1", "Multi2"});
             var lst3 = new List<DataFragment>() { ret2, f4 };
-            var ret3 = DataFragment.Combine(lst3);
+            _ = DataFragment.Combine(lst3);
         }
     }
 }

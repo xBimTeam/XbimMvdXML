@@ -164,5 +164,10 @@ namespace XbimPlugin.MvdXML
         {
             
         }
+
+        public void Clear()
+        {
+            
+        }
     }
 }

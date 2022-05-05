@@ -76,16 +76,12 @@ namespace Tests
 
             // can instantiate engine on model
             var engine = new MvdEngine(mvd, m);
-            
+            Assert.IsNotNull(engine);
 
             // m.Open(@"C:\Users\Bonghi\Desktop\str\FILE2015.xBIM");
             // var walls = m.Instances.OfType<IfcWallStandardCase>();
             // var wall = m.Instances[1973];
             var wall = m.Instances.OfType<IfcWallStandardCase>().FirstOrDefault();
-
-            // ReSharper disable once UnusedVariable
-            
-
             foreach (var view in mvd.Views)
             {
                 foreach (var conceptRoot in view.Roots)
