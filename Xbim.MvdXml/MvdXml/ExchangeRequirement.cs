@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 
-// ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
     public partial class ModelViewExchangeRequirement

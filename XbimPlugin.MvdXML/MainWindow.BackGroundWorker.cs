@@ -142,7 +142,6 @@ namespace XbimPlugin.MvdXML
             List<IPersistEntity> entities,
             MvdEngine doc,
             object sender = null,
-            // ReSharper disable once UnusedParameter.Local
             DoWorkEventArgs ea = null,
             ObservableCollection<ReportResult> destinationResultCollection = null,
             BackgroundWorker reportingWorker = null,
@@ -152,7 +151,6 @@ namespace XbimPlugin.MvdXML
             var bw = sender as BackgroundWorker;
             // var report = new List<ReportResult>();
             
-
             var entitiesInQueue = entities.Count;
             double itemsDone = 0;
             var lastReported = 0;

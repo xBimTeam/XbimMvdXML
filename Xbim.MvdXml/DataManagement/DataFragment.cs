@@ -111,10 +111,8 @@ namespace Xbim.MvdXml.DataManagement
                 {
                     // add the missing fields and expand the list values by the required size
                     var missingFields = p0.FieldNames.Except(FieldNames).ToArray();
-                    // ReSharper disable once PossibleMultipleEnumeration 
                     if (missingFields.Any())
                     {
-                        // ReSharper disable once PossibleMultipleEnumeration
                         FieldNames.AddRange(missingFields);
                         var addArray = new object[missingFields.Length];
                         foreach (var value in Values)

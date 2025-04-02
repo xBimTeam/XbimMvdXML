@@ -8,6 +8,7 @@ using Xbim.Common.Federation;
 using Xbim.Common.Geometry;
 using Xbim.Common.Metadata;
 using Xbim.Ifc;
+using Xbim.Ifc4.Interfaces;
 using Xbim.MvdXml;
 using Xbim.Presentation;
 using Xbim.Presentation.LayerStyling;
@@ -169,5 +170,10 @@ namespace XbimPlugin.MvdXML
         {
             
         }
-    }
+
+		public XbimScene<WpfMeshGeometry3D, WpfMaterial> BuildScene(IModel model, XbimMatrix3D modelTransform, ModelVisual3D opaqueShapes, ModelVisual3D transparentShapes, List<IPersistEntity> isolateInstances = null, List<IPersistEntity> hideInstances = null, List<Type> excludeTypes = null, List<IIfcGeometricRepresentationContext> selectContexts = null)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

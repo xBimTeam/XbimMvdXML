@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Linq;
+using Xbim.Common.Configuration;
 
-// ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
     public  partial class ModelView : IUnique, IReference
     {
-        private static readonly ILogger Log = Common.XbimLogging.CreateLogger<RequirementsRequirement>();
+        private static readonly ILogger Log = XbimServices.Current.CreateLogger<RequirementsRequirement>();
 
         private readonly HashSet<string> _failedLookupMessages = new HashSet<string>();
 
@@ -36,7 +36,6 @@ namespace Xbim.MvdXml
                     modelViewExchangeRequirement.SetParent(this);
                 }
             }
-            // ReSharper disable once InvertIf
             if (Roots != null)
             {
                 foreach (var root in Roots)

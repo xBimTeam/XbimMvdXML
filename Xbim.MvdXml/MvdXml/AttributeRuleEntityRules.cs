@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-// ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
     /// <summary>

@@ -2,7 +2,6 @@
 using System.Data;
 using Xbim.MvdXml.DataManagement;
 
-// ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
     /// <summary>

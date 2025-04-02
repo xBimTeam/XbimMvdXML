@@ -1,21 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <UseWindowsForms>true</UseWindowsForms>
+    <SupportedOSPlatform>Windows</SupportedOSPlatform>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>XbimOpenSourceKeyFile.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.Configuration" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
@@ -25,19 +18,19 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="Xbim.WindowsUI" Version="5.1.228" />
+    <PackageReference Include="Xbim.WindowsUI" Version="6.0.248-develop" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="mvdXML\MvdConcept.cs" />
-    <Compile Remove="mvdXML\MvdConceptERReference.cs" />
-    <Compile Remove="mvdXML\MvdConceptRoot.cs" />
-    <Compile Remove="mvdXML\MvdConceptTemplate.cs" />
-    <Compile Remove="mvdXML\MvdExchangeRequirement.cs" />
-    <Compile Remove="mvdXML\MVDNamedIdentifiedItem.cs" />
-    <Compile Remove="mvdXML\MvdPropertyRuleValue.cs" />
-    <Compile Remove="mvdXML\MvdRule.cs" />
-    <Compile Remove="mvdXML\MvdRulePropertySet.cs" />
-    <Compile Remove="mvdXML\MvdXMLDocument.cs" />
-    <Compile Remove="ValidationExtensions\IPersistIfcEntityExtension.cs" />
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 </Project>

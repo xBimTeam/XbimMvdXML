@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Xbim.Common;
+using Xbim.Common.Configuration;
 using Xbim.Common.Metadata;
 
 [assembly: InternalsVisibleTo("Tests")]
@@ -18,7 +19,7 @@ namespace Xbim.MvdXml.DataManagement
     /// </summary>
     public partial class MvdEngine
     {
-        private static readonly ILogger Log = Xbim.Common.XbimLogging.CreateLogger<MvdEngine>();
+        private static readonly ILogger Log = XbimServices.Current.CreateLogger<MvdEngine>();
 
         // todo: there's probably scope for removing the model from the mvdEngine
         // we could have a manager to resolve references and UUIDs within the mvdxml schema
@@ -115,7 +116,6 @@ namespace Xbim.MvdXml.DataManagement
                     modelView.SetParent(Mvd);
                 }
             }
-            // ReSharper disable once InvertIf
             if (Mvd.Templates != null)
             {
                 foreach (var template in Mvd.Templates)
@@ -360,7 +360,6 @@ namespace Xbim.MvdXml.DataManagement
                 }
 
                 // set Existence
-                // ReSharper disable once InvertIf // for symmetry in code
                 //
                 if (dataIndicators.Requires(storageName, DataIndicator.ValueSelectorEnum.Exists))
                 {
@@ -466,8 +465,9 @@ namespace Xbim.MvdXml.DataManagement
 
         internal Dictionary<string, ExpressMetaData> SchemaMetadatas => _metadatas ?? (_metadatas = new Dictionary<string, ExpressMetaData>
         {
-            {"ifc2x3", ExpressMetaData.GetMetadata(typeof(Ifc2x3.SharedBldgElements.IfcWall).Module)},
-            {"ifc4", ExpressMetaData.GetMetadata(typeof(Ifc4.SharedBldgElements.IfcWall).Module)}
+            {"ifc2x3", ExpressMetaData.GetMetadata(new Ifc2x3.EntityFactoryIfc2x3())},
+            {"ifc4", ExpressMetaData.GetMetadata(new Ifc4.EntityFactoryIfc4())},
+            {"ifc4x3", ExpressMetaData.GetMetadata(new Ifc4x3.EntityFactoryIfc4x3Add2())}
         });
 
         private static object GetFieldValue(IPersistEntity entity, string attributeName, out ExpressMetaProperty prop)

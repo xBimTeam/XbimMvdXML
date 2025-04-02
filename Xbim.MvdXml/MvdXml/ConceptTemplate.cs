@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xbim.Common;
+using Xbim.Common.Configuration;
 
-// ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
     public partial class ConceptTemplate : IUnique, IReference
     {
-        private static readonly ILogger Log = Common.XbimLogging.CreateLogger<ConceptTemplate>();
+        private static readonly ILogger Log = XbimServices.Current.CreateLogger<ConceptTemplate>();
 
         /// <summary>
         /// Returns a string that represents the current object.
@@ -67,7 +67,7 @@ namespace Xbim.MvdXml
                 if (string.IsNullOrEmpty(applicableEntity[i]) || string.IsNullOrEmpty(applicableSchema[i]) )
                     continue;
                 var filterType = ParentMvdXml.Engine.GetExpressType(applicableSchema[i], applicableEntity[i]);
-                return filterType.NonAbstractSubTypes.Contains(entity.ExpressType);
+                return filterType.NonAbstractSubTypes.Select(x=>x.ExpressName).Contains(entity.ExpressType.ExpressName);
             }
 
             return false; // if something is defined then assume no 
@@ -89,7 +89,6 @@ namespace Xbim.MvdXml
                     rule.SetParent(this);
                 }
             }
-            // ReSharper disable once InvertIf // for code symmetry
             if (SubTemplates != null)
             {
                 foreach (var subTemplate in SubTemplates)

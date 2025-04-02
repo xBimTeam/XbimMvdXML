@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Xml.Serialization;
 using Xbim.Common;
+using Xbim.Common.Configuration;
 using Xbim.MvdXml.DataManagement;
 
-
-// ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
     public partial class ConceptRootApplicability : IReference
     {
-        private static readonly ILogger Log = XbimLogging.CreateLogger<ConceptRootApplicability>();
+        private static readonly ILogger Log = XbimServices.Current.CreateLogger<ConceptRootApplicability>();
 
         /// <summary>
         /// Allows the navigation of the xml tree 

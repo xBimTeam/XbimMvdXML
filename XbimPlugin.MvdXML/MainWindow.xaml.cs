@@ -22,7 +22,6 @@ using Xbim.MvdXml;
 using Xbim.MvdXml.DataManagement;
 using Xbim.Presentation;
 using Xbim.Presentation.XplorerPluginSystem;
-using XbimPlugin.MvdXML.Properties;
 using XbimPlugin.MvdXML.Viewing;
 using Xbim.Common;
 using Xbim.Presentation.LayerStyling;
@@ -31,6 +30,8 @@ using Xbim.Common.Metadata;
 using Xbim.MvdXml.Integrity;
 using XbimPlugin.MvdXML.ModelExtraction;
 using Microsoft.Extensions.Logging;
+using XbimPlugin.MvdXML.Properties;
+using Xbim.Common.Configuration;
 
 namespace XbimPlugin.MvdXML
 {
@@ -40,7 +41,7 @@ namespace XbimPlugin.MvdXML
     [XplorerUiElement(PluginWindowUiContainerEnum.LayoutAnchorable, PluginWindowActivation.OnMenu, "MvdXML")]
     public partial class MainWindow : IXbimXplorerPluginWindow
     {
-        private static readonly ILogger Log = Xbim.Common.XbimLogging.CreateLogger<MvdEngine>();
+        private static readonly ILogger Log = XbimServices.Current.CreateLogger<MvdEngine>();
 
         public MainWindow()
         {
@@ -586,8 +587,6 @@ namespace XbimPlugin.MvdXML
             RequestUpdateReport();
         }
 
-        
-        // ReSharper disable once UnusedMember.Local
         private IEnumerable<ReportResult> ReportType(ExpressType iType)
         {
             if (Model == null)
@@ -630,7 +629,6 @@ namespace XbimPlugin.MvdXML
             return new ReportResult(requirementsRequirement.ParentConcept, entity, testResult, requirementsRequirement.GetExchangeRequirement() );
         }
         
-        // ReSharper disable once UnusedMember.Local
         private IEnumerable<ReportResult> ReportConceptRoot(ConceptRoot croot, IPersistEntity entity)
         {
             ReportTextBox.Text += $"ConceptRoot {croot.name} ({croot.uuid}) on #{entity.EntityLabel}\r\n";
@@ -749,7 +747,6 @@ namespace XbimPlugin.MvdXML
                         ConceptTestResult.Warning
                     };
                     break;
-                // ReSharper disable once RedundantCaseLabel
                 case "All":
                 default:
                     _validShowResults = new HashSet<ConceptTestResult>() {

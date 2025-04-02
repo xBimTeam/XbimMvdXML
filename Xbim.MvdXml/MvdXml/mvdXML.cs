@@ -5,15 +5,14 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
+using Xbim.Common.Configuration;
 using Xbim.MvdXml.DataManagement;
 
-// ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
-    // ReSharper disable once InconsistentNaming
     public partial class mvdXML: IUnique, IReference
     {
-        private static readonly ILogger Log = Common.XbimLogging.CreateLogger<mvdXML>();
+        private static readonly ILogger Log = XbimServices.Current.CreateLogger<mvdXML>();
 
         private static XmlSerializer _serializer;
         
@@ -279,7 +278,7 @@ namespace Xbim.MvdXml
             }
             catch (Exception ex)
             {
-                Log.LogError("Error cought while attempting namespace fix", ex);
+                Log.LogError(ex, "Error cought while attempting namespace fix");
                 return false;
             }
         }

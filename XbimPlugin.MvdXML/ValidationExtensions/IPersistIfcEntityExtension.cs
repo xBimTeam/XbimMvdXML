@@ -1,18 +1,17 @@
-﻿// #define SYSDEBUG
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-
+using Validation.mvdXML;
+using Xbim.Common;
 using Xbim.IO;
-using Xbim.XbimExtensions.Interfaces;
+
 
 namespace Validation.ValidationExtensions
 {
     public static class IPersistIfcEntityExtension
     {
-        public static bool PassesConceptRules(this IPersistIfcEntity Entity, MvdConcept cpt)
+        public static bool PassesConceptRules(this IPersistEntity Entity, MvdConcept cpt)
         {
             // if it's not applicable then it's a pass
             if (!cpt.AppliesTo(Entity))
@@ -90,15 +89,15 @@ namespace Validation.ValidationExtensions
         }
         
 
-        public static bool PassesRule(this IPersistIfc Entity, MvdRule DataNode, MvdPropertyRuleValue requirement = null, PassMode PassMode = PassMode.Undefined)
+        public static bool PassesRule(this IPersistEntity Entity, MvdRule DataNode, MvdPropertyRuleValue requirement = null, PassMode PassMode = PassMode.Undefined)
         {
             // todo: add controls for schema cardinality
             //
 
-            IfcType EntType = IfcMetaData.IfcType(Entity);
-#if SYSDEBUG
+            var EntType = Entity.ExpressType;
+
             Debug.WriteLine(string.Format("testing {0} for {1}", Entity.ToString(), DataNode.Type));
-#endif
+
             string RuleId = "";
             bool bEvaluateRule = false;
             if (DataNode.Properties.ContainsKey("RuleID") && requirement != null)
@@ -108,16 +107,16 @@ namespace Validation.ValidationExtensions
                 // here the property is evaluated.
                 if (bEvaluateRule)
                 {
-#if SYSDEBUG
+
                     Debug.Write("-- Evaluating");
-#endif
-                    if (Entity is IPersistIfcEntity)
+
+                    if (Entity is IPersistEntity)
                     {
-                        Debug.Write(string.Format("Req: {0} Ent: {1}{2}\r\n", requirement.Name, Math.Abs(((IPersistIfcEntity)Entity).EntityLabel), EntType));
+                        Debug.Write($"Req: {requirement.Name} Ent: {Entity.EntityLabel}{EntType}\r\n");
                     }
                     if (requirement.Prop == "Type")
                     {
-                        string cmpVal = IfcMetaData.IfcType(Entity).Name;
+                        string cmpVal = Entity.ExpressType.Name;
                         return (requirement.Val == cmpVal);
                     }
                 }
@@ -127,10 +126,10 @@ namespace Validation.ValidationExtensions
             if (DataNode.Type == "AttributeRule")
             {
                 string propName = DataNode.Properties["AttributeName"];
-                var prop = EntType.IfcProperties.Where(x => x.Value.PropertyInfo.Name == propName).FirstOrDefault().Value;
+                var prop = EntType.Properties.Where(x => x.Value.PropertyInfo.Name == propName).FirstOrDefault().Value;
                 if (prop == null) // otherwise test inverses
                 {
-                    prop = EntType.IfcInverses.Where(x => x.PropertyInfo.Name == propName).FirstOrDefault();
+                    prop = EntType.Properties.Where(x => x.Value.PropertyInfo.Name == propName).FirstOrDefault().Value;
                 }
                 if (prop == null)
                 {
@@ -166,9 +165,9 @@ namespace Validation.ValidationExtensions
                             return retVal;
                         }
                     }
-                    else if (requirement == null && propVal is IPersistIfc)
+                    else if (requirement == null && propVal is IPersistEntity)
                     {
-                        var v = (IPersistIfc)propVal;
+                        var v = (IPersistEntity)propVal;
                         bool AnyChildFail = false;
                         foreach (var nestedRule in DataNode.NestedRules)
                         {
@@ -184,20 +183,20 @@ namespace Validation.ValidationExtensions
                         return !AnyChildFail;
                     }
 
-                    if (prop.IfcAttribute.IsEnumerable)
+                    if (prop.EntityAttribute.IsEnumerable)
                     {
                         IEnumerable<object> propCollection = propVal as IEnumerable<object>;
                         if (propCollection == null)
                             return false;
                         foreach (var child in propCollection)
                         {
-                            if (child is IPersistIfc)
+                            if (child is IPersistEntity)
                             {
                                 // todo: this might actually have to return fail if any nested rule fail, not if the first passes.
                                 foreach (var nestedRule in DataNode.NestedRules)
                                 {
                                     Debug.Indent();
-                                    var loopret = ((IPersistIfc)child).PassesRule(nestedRule, requirement, PassMode);
+                                    var loopret = ((IPersistEntity)child).PassesRule(nestedRule, requirement, PassMode);
                                     Debug.Unindent();
                                     if (loopret)
                                         return true;
@@ -208,7 +207,7 @@ namespace Validation.ValidationExtensions
                     }
                     else
                     {
-                        IPersistIfc pe = propVal as IPersistIfc;
+                        IPersistEntity pe = propVal as IPersistEntity;
                         if (pe == null)
                         {
 #if SYSDEBUG
@@ -227,17 +226,16 @@ namespace Validation.ValidationExtensions
             else if (DataNode.Type == "EntityRule")
             {
                 string EName = DataNode.Properties["EntityName"];
-                IfcType ENameType = IfcMetaData.IfcType(EName.ToUpperInvariant());
-                if (ENameType != null)
+                var eNameType = Entity.Model.Metadata.ExpressType(EName.ToUpperInvariant());
+                if (eNameType != null)
                 {
                     // run type validation only if type matches
-                    if (!(ENameType == EntType || ENameType.NonAbstractSubTypes.Contains(EntType.Type)))
-                    {
-#if SYSDEBUG
-                        Debug.WriteLine("EntityRule failed: expected " + EName + " found: " + EntType.ToString());
-#endif
-                        return false;
-                    }
+                    // todo: restore
+                    //if (!(eNameType == EntType || eNameType.NonAbstractSubTypes.Contains(EntType.Type)))
+                    //{
+                    //    Debug.WriteLine("EntityRule failed: expected " + EName + " found: " + EntType.ToString());
+                    //    return false;
+                    //}
                     // if test is passed and no sub rules then return true
                     if (!DataNode.NestedRules.Any())
                         return true;

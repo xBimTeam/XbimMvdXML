@@ -2,7 +2,6 @@
 using Xbim.Common;
 using Xbim.MvdXml.DataManagement;
 
-// ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
     // The use of the attribute requirement is as follows:
@@ -87,9 +86,7 @@ namespace Xbim.MvdXml
                     return ret == ConceptTestResult.Pass 
                         ? ConceptTestResult.Warning 
                         : ret;
-                // ReSharper disable once RedundantCaseLabel
                 case RequirementsRequirementRequirement.mandatory:
-                // ReSharper disable once RedundantCaseLabel
                 case RequirementsRequirementRequirement.notrelevant:
                 default:
                     return ret;

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Xml.XPath;
-using Xbim.IO;
-using Xbim.XbimExtensions.Interfaces;
+using Xbim.Common;
+using Xbim.Common.Metadata;
 
 namespace Validation.mvdXML
 {
@@ -96,11 +96,12 @@ namespace Validation.mvdXML
 
         public MvdConceptRoot ConceptRoot { get; set; }
 
-        internal bool AppliesTo(IPersistIfcEntity SelectedEntity)
+        internal bool AppliesTo(IPersistEntity SelectedEntity)
         {
-            IfcType ifcType = IfcMetaData.IfcType(ConceptRoot.applicableRootEntity.ToUpperInvariant());
-            IfcType seltype = IfcMetaData.IfcType(SelectedEntity);
-            return (ifcType == seltype || ifcType.IfcSubTypes.Contains(seltype));
+            var meta = SelectedEntity.Model.Metadata;
+			ExpressType ifcType = meta.ExpressType(ConceptRoot.applicableRootEntity.ToUpperInvariant());
+            ExpressType seltype = SelectedEntity.ExpressType;
+            return (ifcType == seltype || ifcType.SubTypes.Contains(seltype));
         }
     }
 }

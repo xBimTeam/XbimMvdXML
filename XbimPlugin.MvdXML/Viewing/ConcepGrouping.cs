@@ -30,7 +30,6 @@ namespace XbimPlugin.MvdXML.Viewing
         {
             if (_children == null)
                 PrepareChildren();
-            // ReSharper disable once PossibleNullReferenceException
             foreach (var child in _children)
             {
                 if (child is ConceptGrouping)

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
   <metadata>
     <id>XbimPlugin.MvdXML</id>
-    <version>5.1.108-develop</version>
+    <version>6.0.001-develop</version>
     <title>XbimPlugin.MvdXML</title>
     <authors>xBIM team</authors>
     <owners>xBIM team</owners>
@@ -17,14 +17,14 @@
     <tags>MvdXML, XplorerPlugin</tags>
     <!-- dependencies are used to determine the compatibiliy with the xplorer version... choose carefully -->
     <dependencies>
-		<group targetFramework="net45">
-			<dependency id="Xbim.WindowsUI" version="[5.1.177-develop, 6)" />
-		</group>
+      <group targetFramework="net8.0">
+        <dependency id="Xbim.WindowsUI" version="[6.0.0,6.1.0)" />
+      </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="XbimPlugin.MvdXML\bin\Release\net472\Xbim.MvdXml.dll" target="lib\net45\Xbim.MvdXml.dll" />
-    <file src="XbimPlugin.MvdXML\bin\Release\net472\XbimPlugin.MvdXML.exe" target="lib\net45\XbimPlugin.MvdXML.exe" />
+    <file src="XbimPlugin.MvdXML\bin\Release\net8.0-windows\Xbim.MvdXml.dll" target="lib\net8.0\" />
+    <file src="XbimPlugin.MvdXML\bin\Release\net8.0-windows\XbimPlugin.MvdXML.exe" target="lib\net8.0\" />
     <file src="Icon.png" target="Icon.png" />
   </files>
 </package>

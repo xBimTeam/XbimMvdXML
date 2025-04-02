@@ -5,7 +5,6 @@ namespace XbimPlugin.MvdXML.Viewing
 {
     internal class ExchangeRequirementExpander : ITreeElement
     {
-        // ReSharper disable once NotAccessedField.Local
         private ModelViewExchangeRequirement _exchangeRequirement;
 
         private ExchangeRequirementExpander(ModelViewExchangeRequirement exchangeRequirement)

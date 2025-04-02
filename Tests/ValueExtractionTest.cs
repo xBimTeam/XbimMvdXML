@@ -1,20 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xbim.Ifc2x3.SharedBldgElements;
 using Xbim.MvdXml;
 using Xbim.MvdXml.DataManagement;
 using Xbim.Ifc;
+using Xunit;
+using Shouldly;
 
 namespace Tests
 {
-    [TestClass]
-    [DeploymentItem(@"FromNN\", @"FromNN\")]
-    [DeploymentItem(@"FromMW\", @"FromMW\")]
     public class ValueExtractionTest
     {
-        [TestMethod]
+        [Fact]
         public void ToleratesMissingFields()
         {
             // ConceptTemplate uuid="10000000-0000-0000-0001-000000000008" has problems with the 
@@ -36,12 +34,11 @@ namespace Tests
             var template = mvd.GetConceptTemplate("10000000-0000-0000-0001-000000000008");
             var data = engine.GetAttributes(template, m.Instances[10693], ind, "");
             var str = data.ToString();
-
-            CollectionAssert.AreEqual(data.FieldNames, new List<string>() {"Set", "Property", "Value" });
-            Assert.AreEqual(data.Values.Count, 3);
+            data.FieldNames.ShouldBeEquivalentTo(new List<string>() {"Set", "Property", "Value" });
+            data.Values.Count.ShouldBe(3);
         }
 
-        [TestMethod]
+        [Fact]
         public void DataExtraction1()
         {
             const string fileName = @"FromMW\mvdXMLUnitTestsforIFC4_2.mvdxml";
@@ -60,13 +57,13 @@ namespace Tests
             var templateSingleProp = mvd.GetConceptTemplate("88b4aaa9-0925-447c-b009-fe357b7c754e");
             var dataSingleProp = engine.GetAttributes(templateSingleProp, m.Instances[606], ind, "");
 
-            CollectionAssert.AreEqual(dataSingleProp.FieldNames, new List<string>() {"Property", "Value"});
-            Assert.AreEqual(dataSingleProp.Values.Count, 1);
-            Assert.AreEqual(dataSingleProp.Values[0][0].ToString(), "LoadBearing");
-            Assert.AreEqual(dataSingleProp.Values[0][1].ToString(), "true");
+            dataSingleProp.FieldNames.ShouldBeEquivalentTo(new List<string>() {"Property", "Value"});
+            dataSingleProp.Values.Count.ShouldBe(1);
+            dataSingleProp.Values[0][0].ToString().ShouldBe("LoadBearing");
+            dataSingleProp.Values[0][1].ToString().ShouldBe("true");
         }
 
-        [TestMethod]
+        [Fact]
         public void TestConceptPass()
         {
             const string fileName = @"FromNN\Measurement requirements-1-1RCa.mvdxml";
@@ -76,12 +73,12 @@ namespace Tests
 
             // can instantiate engine on model
             var engine = new MvdEngine(mvd, m);
-            Assert.IsNotNull(engine);
+            engine.ShouldNotBeNull();
 
-            // m.Open(@"C:\Users\Bonghi\Desktop\str\FILE2015.xBIM");
-            // var walls = m.Instances.OfType<IfcWallStandardCase>();
-            // var wall = m.Instances[1973];
-            var wall = m.Instances.OfType<IfcWallStandardCase>().FirstOrDefault();
+			// m.Open(@"C:\Users\Bonghi\Desktop\str\FILE2015.xBIM");
+			// var walls = m.Instances.OfType<IfcWallStandardCase>();
+			// var wall = m.Instances[1973];
+			var wall = m.Instances.OfType<IfcWallStandardCase>().FirstOrDefault();
             foreach (var view in mvd.Views)
             {
                 foreach (var conceptRoot in view.Roots)

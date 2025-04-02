@@ -1,54 +1,36 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
+﻿using Shouldly;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
-using System.Xml.Serialization;
-using Xbim.Ifc4.Kernel;
-using Xbim.Ifc4.MeasureResource;
-using Xbim.Ifc4.PropertyResource;
-using Xbim.Ifc4.SharedBldgElements;
-using Xbim.MvdXml;
+using Xunit;
 
 namespace Tests
 {
-    [TestClass]
-    [DeploymentItem("Schema")]
     public class MvdCreation
     {
-        //[TestMethod]
-        //public void OperatorEnumTest()
-        //{
-        //    var rules = new TemplateRules { }
-        //    var serialiser = new XmlSerializer(typeof(TemplateRules));
-        //}
-
-        [TestMethod]
+        [Fact]
         public void CreateValidationMvdFile()
         {
-            const string file = "WallRequirements.mvdXML";
             var mvd = MvdCreationHelper.GetRequirementsMvd();
+            const string file = "WallRequirements.mvdXML";
             mvd.Save(file);
 
             // file created
-            Assert.IsTrue(File.Exists(file));
+            var t = File.ReadAllText(file);
+            File.Exists(file).ShouldBeTrue();
 
-            // passes schema validation
-            var err = ValidateXsd(file);
+			// passes schema validation
+			var err = ValidateXsd(file);
             if (err != null)
                 Debug.WriteLine(err);
-            Assert.IsNull(err);
-        }
+            err.ShouldBeNull(); 
+		}
 
         private string ValidateXsd(string path)
         {
             var schemas = new XmlSchemaSet();
-            schemas.Add("http://buildingsmart-tech.org/mvd/XML/1.1", "mvdXML_V1.1.xsd");
+            schemas.Add("http://buildingsmart-tech.org/mvd/XML/1.1", "Schema\\mvdXML_V1.1.xsd");
             using (var reader = XmlReader.Create(path, new XmlReaderSettings
             {
                 Schemas = schemas,

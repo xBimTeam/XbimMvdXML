@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using Xbim.Common.Configuration;
 using Xbim.MvdXml.DataManagement;
 
-// ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
     public partial class TemplateRulesTemplateRule : ITemplateRule
@@ -28,7 +28,7 @@ namespace Xbim.MvdXml
             }
             catch (Exception ex)
             {
-                var log = Common.XbimLogging.CreateLogger<TemplateRulesTemplateRule>();
+                var log = XbimServices.Current.CreateLogger<TemplateRulesTemplateRule>();
                 log.LogError($"Problem in parameters field \"{Parameters}\" for templaterule (Description: \"{Description}\").", ex);
                 return false;
             }

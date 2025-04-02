@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using Xbim.MvdXml.DataManagement;
 
-// ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml 
 {
     partial class TemplateRules : ITemplateRule

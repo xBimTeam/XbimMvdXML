@@ -1,6 +1,5 @@
 ﻿using System;
 
-// ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
     internal class ReferenceConstraint

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.705
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xbim.MvdXml", "Xbim.MvdXml\Xbim.MvdXml.csproj", "{D4D3AFB7-2622-4D2B-A1BB-26363E49FBD8}"
 EndProject
@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XbimPlugin.MvdXML", "XbimPlugin.MvdXML\XbimPlugin.MvdXML.csproj", "{413D7E97-CC53-42EC-8C7E-D13ED3389166}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiTests", "UnitTestProject1\UiTests.csproj", "{3C7D4E99-F929-42DB-BFEC-4C0B378FA791}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiTests", "UiTests\UiTests.csproj", "{3C7D4E99-F929-42DB-BFEC-4C0B378FA791}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

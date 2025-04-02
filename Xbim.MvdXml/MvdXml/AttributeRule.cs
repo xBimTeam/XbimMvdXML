@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using Xbim.Common.Configuration;
 
-// ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
     public partial class AttributeRule: IReference, IRule
     {
-        private static readonly ILogger Log = Xbim.Common.XbimLogging.CreateLogger<AttributeRule>();
+        private static readonly ILogger Log = XbimServices.Current.CreateLogger<AttributeRule>();
 
         /// <summary>
         /// Logs debug information about the tree.

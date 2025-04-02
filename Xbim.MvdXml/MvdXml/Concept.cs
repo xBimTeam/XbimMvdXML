@@ -156,7 +156,6 @@ namespace Xbim.MvdXml
                     }
                     _dicCacheRaw.Add(entityLabel, ret);
                     break;
-                // ReSharper disable once RedundantCaseLabel // for readability of code.
                 case ConceptTestMode.ThroughRequirementRequirements:
                 default:
                     if (_dicCacheWithReq.TryGetValue(entityLabel, out hasIt))

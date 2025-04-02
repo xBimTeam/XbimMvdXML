@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xbim.Common;
+using Xbim.Common.Configuration;
 
-// ReSharper disable once CheckNamespace
 namespace Xbim.MvdXml
 {
     public  partial class ConceptRoot : IUnique, IReference
     {
-        private static readonly ILogger Log = Xbim.Common.XbimLogging.CreateLogger<ConceptRoot>();
+        private static readonly ILogger Log = XbimServices.Current.CreateLogger<ConceptRoot>();
 
         /// <summary>
         /// Returns a string that represents the current object.
@@ -54,7 +54,7 @@ namespace Xbim.MvdXml
                 var filterType = ParentModelView.ParentMvdXml.Engine.GetExpressType(
                     ParentModelView.applicableSchema,
                     applicableRootEntity);
-                var contains = filterType.NonAbstractSubTypes.Contains(entity.ExpressType);
+                var contains = filterType.NonAbstractSubTypes.Select(x=>x.ExpressName).Contains(entity.ExpressType.ExpressName);
                 if (!contains)
                     return false;
             }

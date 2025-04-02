@@ -1,21 +1,19 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Shouldly;
 using Xbim.MvdXml;
+using Xunit;
 
 namespace Tests
 {
-    [TestClass]
-    [DeploymentItem(@"TestFiles\")]
     public class IoTests
     {
-        [TestMethod]
+        [Fact]
         public void CanLoadSampleXmlFile()
         {
-            const string fileName = "mvdXML_V1-1d_test.xml";
+            const string fileName = "TestFiles\\mvdXML_V1-1d_test.xml";
             var x = mvdXML.LoadFromFile(fileName);
 
-            Assert.AreEqual(2, x.Templates.Length, "Error reading templates");
-            Assert.AreEqual(1, x.Views.Length, "Error reading views");
-
+			x.Templates.Length.ShouldBe(2, "Error reading templates");
+            x.Views.Length.ShouldBe(1, "Error reading views");
         }
     }
 }
