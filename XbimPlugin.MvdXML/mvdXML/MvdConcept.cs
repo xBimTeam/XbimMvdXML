@@ -85,12 +85,12 @@ namespace Validation.mvdXML
                     }
                 }
             }
-            if (false)
-            {
-                if (t != null)
-                    sb.Append(t.StringReport());
-                sb.AppendLine("template missing");
-            }
+            //if (false)
+            //{
+            //    if (t != null)
+            //        sb.Append(t.StringReport());
+            //    sb.AppendLine("template missing");
+            //}
             return sb.ToString();
         }
 

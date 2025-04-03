@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Xml.Serialization;
@@ -57,9 +58,10 @@ namespace Xbim.MvdXml
             }
 
             // try to set the concept template reference.
-            if (string.IsNullOrEmpty(Template?.@ref))
+            var refR = Template?.@ref;
+			if (string.IsNullOrEmpty(refR))
                 return;
-            ConceptTemplate = ParentConceptRoot.ParentModelView.ParentMvdXml.GetConceptTemplate(Template.@ref);
+            ConceptTemplate = ParentConceptRoot.ParentModelView.ParentMvdXml.GetConceptTemplate(refR);
         }
 
         private void Engine_RequestClearCache()
@@ -102,7 +104,7 @@ namespace Xbim.MvdXml
         /// <param name="dataTable">the data to be tested</param>
         public bool PassesOn(DataTable dataTable)
         {
-            // todo: should return waring/error?
+            // todo: should return warning/error?
             if (TemplateRules == null)
                 return false;
             return TemplateRules.PassesOn(dataTable);
@@ -149,11 +151,14 @@ namespace Xbim.MvdXml
                     else
                     {
                         var data = _mvdEngine.GetData(ent, this);
-                        var res = PassesOn(data);
-                        ret = res
-                            ? ConceptTestResult.Pass
-                            : ConceptTestResult.Fail;
-                    }
+                        if (data is not null)
+                        {
+                            var res = PassesOn(data);
+                            ret = res ? ConceptTestResult.Pass : ConceptTestResult.Fail;
+                        }
+                        else
+                            ret = ConceptTestResult.Fail;
+					}
                     _dicCacheRaw.Add(entityLabel, ret);
                     break;
                 case ConceptTestMode.ThroughRequirementRequirements:

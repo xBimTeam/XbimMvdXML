@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -15,7 +16,9 @@ namespace Xbim.MvdXml.DataManagement
         /// </summary>
         public DataFragment()
         {
-        }
+			FieldNames = [];
+			Values = [];
+		}
 
         /// <summary>
         /// Basic constructor
@@ -29,10 +32,10 @@ namespace Xbim.MvdXml.DataManagement
         /// <summary>
         /// Basic constructor
         /// </summary>
-        public DataFragment(string storageName, object value)
+        public DataFragment(string storageName, object? value)
         {
-            FieldNames = new List<string>() { storageName };
-            Values = new List<List<object>>() { new List<object>() { value } };
+            FieldNames = [storageName];
+            Values = [[value]];
         }
 
         /// <summary>
@@ -40,11 +43,11 @@ namespace Xbim.MvdXml.DataManagement
         /// </summary>
         public DataFragment(string storageName, IEnumerable<object> asEnum)
         {
-            FieldNames = new List<string>() {storageName};
-            Values = new List<List<object>>();
+            FieldNames = [storageName];
+            Values = [];
             foreach (var o in asEnum)
             {
-                Values.Add(new List<object>() { o });
+                Values.Add([o]);
             }
         }
 
@@ -56,9 +59,11 @@ namespace Xbim.MvdXml.DataManagement
             return $"DataFragment: '{string.Join(",", FieldNames)}' Count: {Values.Count}";
         }
 
-        public static DataFragment Combine(List<DataFragment> fragments)
+        public static DataFragment? Combine(List<DataFragment>? fragments)
         {
-            var okFragments = fragments.Where(f => f != null && !f.IsEmpty).ToArray();
+            if (fragments == null || !fragments.Any())
+				return null;
+			var okFragments = fragments.Where(f => f != null && !f.IsEmpty).ToArray();
             if (okFragments.Length == 0)
                 return null;
             if (okFragments.Length == 1)
@@ -93,7 +98,7 @@ namespace Xbim.MvdXml.DataManagement
             return new DataFragment(titles, LRet);
         }
 
-        public void Merge(DataFragment p0)
+        public void Merge(DataFragment? p0)
         {
             if (p0 == null || p0.IsEmpty)
                 return;

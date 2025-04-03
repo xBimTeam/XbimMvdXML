@@ -14,7 +14,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="xunit.v3" Version="1.0.0" />
     <PackageReference Include="Xunit.StaFact" Version="2.0.44" />
   </ItemGroup>
 </Project>

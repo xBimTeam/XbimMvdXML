@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿#nullable enable
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using Xbim.Common.Configuration;
 
@@ -15,15 +16,11 @@ namespace Xbim.MvdXml
         /// <param name="prefix">prefix for variable names</param>
         public void DebugTree(int indentation = 0, string prefix = "")
         {
-#if DEBUG
             var ind = new string('\t', indentation);
             if (!string.IsNullOrEmpty(RuleID))
                 Log.LogDebug($"{ind}{AttributeName} => {RuleID}");
-#endif
-
             foreach (var entityRule in EntityRules.NotNullEnumerable())
             {
-#if DEBUG
                 Log.LogDebug("{0}{1}{2}{3}", ind, AttributeName,
                     string.IsNullOrEmpty(entityRule.EntityName) // conditional parameters are passed to #2 and #3
                         ? ""
@@ -32,7 +29,6 @@ namespace Xbim.MvdXml
                         ? ""
                         : $" => {RuleID}"
                     );
-#endif
                  entityRule.DebugTree(indentation + 1, prefix);
             }
         }
@@ -46,7 +42,7 @@ namespace Xbim.MvdXml
         /// Allows the navigation of the xml tree to the Parent
         /// </summary>
         [System.Xml.Serialization.XmlIgnore()]
-        public ConceptTemplate ParentConceptTemplate { get; private set; }
+        public ConceptTemplate? ParentConceptTemplate { get; private set; }
 
         public string Name => AttributeName;
 

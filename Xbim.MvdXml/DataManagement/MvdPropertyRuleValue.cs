@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -110,11 +111,13 @@ namespace Xbim.MvdXml.DataManagement
             // (unless invalid which is thrown at the end)
 
             // if not string no need to convert
-            if (tableOfReference.Columns[DataIndicator.ColumnName].DataType != typeof(string))
+            var col = tableOfReference.Columns[DataIndicator.ColumnName] 
+                ?? throw new InvalidDataException($"Invalid column name {DataIndicator.ColumnName}.");
+			if (col.DataType != typeof(string))
                 return sb.ToString();
 
+            // start the string builder again
             sb = new StringBuilder();
-
             if (DataComparison == "<" ||
                 DataComparison == "<=" ||
                 DataComparison == ">=" ||
@@ -123,10 +126,8 @@ namespace Xbim.MvdXml.DataManagement
                 sb.AppendFormat("convert({0}, 'System.Double') {1} {2}", DataIndicator.ColumnName, DataComparison, DataValue);
                 return sb.ToString();
             }
-
             // otherwise invalid
-            throw  new InvalidDataException();
-
+            throw  new InvalidDataException($"Invalid comparison format '{DataComparison}'.");
         }
     }
 }

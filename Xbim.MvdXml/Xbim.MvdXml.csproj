@@ -2,7 +2,6 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
     <PackageId>Xbim.MvdXML</PackageId>
-    <Version>6.0.0</Version>
     <Authors>Claudio Benghi</Authors>
     <Company>xBIM Team</Company>
     <Product>Xbim.MvdXML</Product>
@@ -10,7 +9,6 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>Refactored to the latest xBIM libraries with independent logging implementation using Microsoft abstractions.</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/xBimTeam/XbimMvdXML</PackageProjectUrl>
-    <PackageIconUrl></PackageIconUrl>
     <RepositoryUrl>https://github.com/xBimTeam/XbimMvdXML</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>BIM, IFC, MVD, mvdxml, model checking, model validation, buildingSMART</PackageTags>

@@ -1,7 +1,4 @@
-# .NET Desktop
-# Build and run tests for .NET Desktop or Windows classic desktop solutions.
-# Add steps that publish symbols, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
+# Yaml Pipeline Tasks for reference: https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/index?view=vsts
 
 trigger:
   branches:
@@ -13,17 +10,20 @@ trigger:
     - README.md
     - CHANGELOG.md
     - CONTRIBUTING.md
+  pr:
+    - master
+    - develop
 
 pool:
-  vmImage: 'windows-2019'
+  vmImage: 'windows-2022'
 
 variables:
   buildConfiguration: 'Release'
-  major: 5
-  minor: 1
+  major: 6
+  minor: 0
+  
   # creates a counter called versioncounter and seeds it at 100 and then assigns the value to a variable named buildNo.
   buildNo: $[counter('versioncounter', 100)]
-  
 
 name: $(BuildDefinitionName)_$(SourceBranchName)_$(major).$(minor).$(buildNo)
 
@@ -32,12 +32,14 @@ steps:
 # Master branch
 - script: |
     echo ##vso[task.setvariable variable=packageversion]$(major).$(minor).$(buildNo)
-  displayName: 'Setting Master Nuget PackageVersion'
+  displayName: 'Setting Nuget PackageVersion'
   condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+# Any other branch
 - script: | 
     echo ##vso[task.setvariable variable=packageversion]$(major).$(minor).$(buildNo)-$(Build.SourceBranchName)
   displayName: 'Setting Prerelease Nuget PackageVersion'
   condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+
 
 
 # Windows script setting up $(fileversion) used to stamp AssemblyFileVersions. 
@@ -54,9 +56,10 @@ steps:
   condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
 
 - task: NuGetToolInstaller@0
-  displayName: 'Install Nuget'
+  displayName: 'Use Nuget'
   inputs:
-    versionSpec: '5.4.0'  # the License element was not found in 2.164.0
+    versionSpec: '>6.8.0'
+
 
 # Version .NET Core project files
 # Description - Applies a version to a .NET Core assembly via the .csproj files based on the build number. 
@@ -141,7 +144,7 @@ steps:
     platform: 'Any CPU'
     configuration: '$(BuildConfiguration)'
 
-# Pack XplorerPlugin.Bcf with nuget and nuspec. 
+# Pack XplorerPlugin with nuget and nuspec. 
 - task: NuGetCommand@2
   displayName: 'Plugin - NuGet pack'
   inputs:

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Text.RegularExpressions;
 
 namespace Xbim.MvdXml.DataManagement
@@ -57,7 +58,7 @@ namespace Xbim.MvdXml.DataManagement
 
         // implemented with guidance from https://msdn.microsoft.com/en-us/library/vstudio/bb348436(v=vs.100).aspx
 
-        public bool Equals(DataIndicator other)
+        public bool Equals(DataIndicator? other)
         {
             //Check whether the compared object is null.
             if (ReferenceEquals(other, null)) return false;

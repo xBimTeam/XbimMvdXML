@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#nullable enable
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Xbim.MvdXml.Integrity
@@ -8,8 +9,6 @@ namespace Xbim.MvdXml.Integrity
     /// </summary>
     public static class MvdXmlIntegrityReporter
     {
-        #region ReportVariableNameIssues
-
         /// <summary>
         /// Tests the existence of required variable names in the templates.
         /// </summary>
@@ -39,10 +38,6 @@ namespace Xbim.MvdXml.Integrity
                     yield return $"'{di.VariableName}' is not defined among the RuleIds of concept '{concept.uuid}'";
             }
         }
-
-        #endregion
-
-        #region ReportUuidIssues
 
         /// <summary>
         /// Tests for duplicate or missing uuids.
@@ -108,8 +103,7 @@ namespace Xbim.MvdXml.Integrity
         }
 
         private static void AddDic(Dictionary<MvdItemReference, int> destDictionary, IUnique item)
-        {
-            
+        {           
             var uuid = item.GetUuid();
             // only add meaningful strings
             //
@@ -125,8 +119,6 @@ namespace Xbim.MvdXml.Integrity
             }
             // otherwise create
             destDictionary.Add(tempRef, 1);
-        }
-        
-        #endregion
+        }      
     }
 }

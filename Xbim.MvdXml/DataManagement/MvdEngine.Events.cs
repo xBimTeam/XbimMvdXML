@@ -1,4 +1,5 @@
-﻿using Xbim.Common;
+﻿#nullable enable
+using Xbim.Common;
 
 // todo: we need to decide if the namespace Xbim.MvdXml.DataManagement makes sense
 // todo: and how it does relate to Xbim.MvdXml.Validation
@@ -42,8 +43,8 @@ namespace Xbim.MvdXml.DataManagement
         /// <summary>
         /// Elements in the the mvd tree will subscribe to this in order to be notified when a ClearCache event is requested.
         /// </summary>
-        internal event ClearCacheHandler RequestClearCache;
+        internal event ClearCacheHandler? RequestClearCache;
 
-        public event EntityProcessingHandler OnProcessing;
+        public event EntityProcessingHandler? OnProcessing;
     }
 }

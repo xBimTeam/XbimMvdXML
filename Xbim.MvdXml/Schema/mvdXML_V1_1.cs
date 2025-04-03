@@ -1132,9 +1132,10 @@ namespace Xbim.MvdXml {
         /// <remarks/>
         excluded,
     }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+
+#pragma warning disable CS8981
+	/// <remarks/>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://buildingsmart-tech.org/mvd/XML/1.1")]
     public enum applicability {
@@ -1148,9 +1149,10 @@ namespace Xbim.MvdXml {
         /// <remarks/>
         both,
     }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+#pragma warning restore CS8981
+
+	/// <remarks/>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
     [System.SerializableAttribute()]
     
     [System.ComponentModel.DesignerCategoryAttribute("code")]

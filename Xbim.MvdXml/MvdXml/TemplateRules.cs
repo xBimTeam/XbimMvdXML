@@ -16,7 +16,7 @@ namespace Xbim.MvdXml
         internal IEnumerable<ITemplateRule> GetRules()
         {
             if (Items == null)
-                return Enumerable.Empty<ITemplateRule>();
+                return [];
             return Items.OfType<ITemplateRule>();
         }
 

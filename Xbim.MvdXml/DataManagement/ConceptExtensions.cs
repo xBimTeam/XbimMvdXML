@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿#nullable enable
+using System.Data;
 using Xbim.Common;
 
 namespace Xbim.MvdXml.DataManagement
@@ -21,7 +22,7 @@ namespace Xbim.MvdXml.DataManagement
         /// <summary>
         /// Populates a datatable with the identifiers defined from a concept
         /// </summary>
-        public static DataTable GetData(this Concept concept, IPersistEntity entity)
+        public static DataTable? GetData(this Concept concept, IPersistEntity entity)
         {
             return concept.ParentConceptRoot.ParentModelView.ParentMvdXml.Engine.GetData(entity, concept);
         }
