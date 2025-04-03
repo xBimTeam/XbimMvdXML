@@ -24,7 +24,7 @@
   </metadata>
   <files>
     <file src="XbimPlugin.MvdXML\bin\Release\net8.0-windows\Xbim.MvdXml.dll" target="lib\net8.0\" />
-    <file src="XbimPlugin.MvdXML\bin\Release\net8.0-windows\XbimPlugin.MvdXML.exe" target="lib\net8.0\" />
+    <file src="XbimPlugin.MvdXML\bin\Release\net8.0-windows\XbimPlugin.MvdXML.dll" target="lib\net8.0\" />
     <file src="Icon.png" target="Icon.png" />
   </files>
 </package>
