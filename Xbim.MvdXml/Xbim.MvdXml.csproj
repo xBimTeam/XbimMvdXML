@@ -18,6 +18,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Xbim.Ifc" Version="6.0.508" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.3" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Icon.png">
